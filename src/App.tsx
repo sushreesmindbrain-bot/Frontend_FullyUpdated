@@ -5,8 +5,9 @@ import Dashboard from "./pages/Dashboard/Dashboard";
 import Catalog from "./pages/Dashboard/Catalog";
 import Login from "./pages/Login";
 // import UserAgents from "./pages/Dashboard/UserAgents"; // ← make sure the name matches the component
-import MainApp from "./pages/Dashboard/User/MainApp";
-
+// import MainApp from "./pages/Dashboard/User/MainApp";
+import MainApp from "./pages/Dashboard/NewUser/MainApp";
+ 
 function App() {
   return (
     <BrowserRouter>
@@ -18,7 +19,8 @@ function App() {
         <Route element={<Layout />}>
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/catalog" element={<Catalog />} />
-          <Route path="/users" element={<MainApp />} /> {/* ← corrected */}
+          <Route path="/users" element={<MainApp/>} /> {/* ← corrected */}
+         
           {/* <Route path="/profile" element={<Profile />} />
           <Route path="/settings" element={<Settings />} /> */}
         </Route>
