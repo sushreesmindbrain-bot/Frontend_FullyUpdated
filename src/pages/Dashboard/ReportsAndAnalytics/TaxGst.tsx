@@ -19,10 +19,11 @@ import {
   Pagination
 } from "@mui/material";
 import DownloadIcon from "@mui/icons-material/Download";
-import type { Page } from "./PageType"; // ✅ IMPORTANT
+import type { Page } from "./PageType";
 
+/* ---------- PROPS ---------- */
 interface Props {
-  onTabChange: (page: Page) => void; // ✅ FIX
+  onTabChange: (page: Page) => void;
 }
 
 /* ---------- TAB STYLES ---------- */
@@ -46,6 +47,17 @@ const activeTabStyle = {
   color: "#fff",
   fontWeight: 600
 };
+
+/* ---------- SAME ARROW STYLE AS TEAM GROWTH ---------- */
+const SimpleArrows = ({ label }: { label: string }) => (
+  <Box sx={{ display: "flex", alignItems: "center", gap: 0.6 }}>
+    <Typography sx={{ fontWeight: 600 }}>{label}</Typography>
+    <Box sx={{ display: "flex", gap: 0.3 }}>
+      <Typography sx={{ color: "#fff", fontSize: "12px" }}>↑</Typography>
+      <Typography sx={{ color: "#fff", fontSize: "12px" }}>↓</Typography>
+    </Box>
+  </Box>
+);
 
 /* ---------- TABLE DATA ---------- */
 const rows = [
@@ -84,16 +96,8 @@ const TaxGst: React.FC<Props> = ({ onTabChange }) => {
           TabIndicatorProps={{ style: { display: "none" } }}
           sx={{ "& .MuiTabs-flexContainer": { gap: 1 } }}
         >
-          <Tab
-            label="Sales & BV"
-            onClick={() => onTabChange("salesBv")}
-            sx={inactiveTabStyle}
-          />
-          <Tab
-            label="Team Growth"
-            onClick={() => onTabChange("teamGrowth")}
-            sx={inactiveTabStyle}
-          />
+          <Tab label="Sales & BV" onClick={() => onTabChange("salesBv")} sx={inactiveTabStyle} />
+          <Tab label="Team Growth" onClick={() => onTabChange("teamGrowth")} sx={inactiveTabStyle} />
           <Tab
             label="Package Distribution"
             onClick={() => onTabChange("packageDistribution")}
@@ -114,39 +118,39 @@ const TaxGst: React.FC<Props> = ({ onTabChange }) => {
           Tax/GST Report
         </Typography>
 
-        {/* FILTER + EXPORT */}
         <Box sx={{ display: "flex", justifyContent: "space-between", mb: 2 }}>
           <Select size="small" defaultValue="6">
             <MenuItem value="6">Last 6 Months</MenuItem>
             <MenuItem value="12">Last 12 Months</MenuItem>
           </Select>
 
-          <Button
-            variant="contained"
-            startIcon={<DownloadIcon />}
-            sx={{ textTransform: "none", borderRadius: 1 }}
-          >
+          <Button variant="contained" startIcon={<DownloadIcon />} sx={{ textTransform: "none" }}>
             Export
           </Button>
         </Box>
 
-        {/* ================= TABLE ================= */}
         <TableContainer>
           <Table>
             <TableHead>
-              <TableRow sx={{ backgroundColor: "#2b67a0" }}>
-                {[
-                  "Month",
-                  "Total Sales",
-                  "Taxable Amount",
-                  "GST (5%)",
-                  "TDS (5%)",
-                  "Actions"
-                ].map((h) => (
-                  <TableCell key={h} sx={{ color: "#fff", fontWeight: 600 }}>
-                    {h}
-                  </TableCell>
-                ))}
+              <TableRow sx={{ backgroundColor: "#245c91" }}>
+                <TableCell sx={{ color: "#fff" }}>
+                  <SimpleArrows label="Month" />
+                </TableCell>
+                <TableCell sx={{ color: "#fff" }}>
+                  <SimpleArrows label="Total Sales" />
+                </TableCell>
+                <TableCell sx={{ color: "#fff" }}>
+                  <SimpleArrows label="Taxable Amount" />
+                </TableCell>
+                <TableCell sx={{ color: "#fff" }}>
+                  <SimpleArrows label="GST (5%)" />
+                </TableCell>
+                <TableCell sx={{ color: "#fff" }}>
+                  <SimpleArrows label="TDS (5%)" />
+                </TableCell>
+                <TableCell sx={{ color: "#fff", fontWeight: 600 }}>
+                  Actions
+                </TableCell>
               </TableRow>
             </TableHead>
 
@@ -159,16 +163,7 @@ const TaxGst: React.FC<Props> = ({ onTabChange }) => {
                   <TableCell>{r.gst}</TableCell>
                   <TableCell>{r.tds}</TableCell>
                   <TableCell>
-                    <Button
-                      size="small"
-                      variant="contained"
-                      startIcon={<DownloadIcon />}
-                      sx={{
-                        textTransform: "none",
-                        backgroundColor: "#4caf50",
-                        "&:hover": { backgroundColor: "#43a047" }
-                      }}
-                    >
+                    <Button size="small" variant="contained">
                       Export
                     </Button>
                   </TableCell>
@@ -178,9 +173,8 @@ const TaxGst: React.FC<Props> = ({ onTabChange }) => {
           </Table>
         </TableContainer>
 
-        {/* ================= PAGINATION ================= */}
         <Box sx={{ display: "flex", justifyContent: "center", mt: 3 }}>
-          <Pagination count={14} shape="rounded" />
+          <Pagination count={10} shape="rounded" />
         </Box>
       </Paper>
     </Box>
