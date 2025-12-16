@@ -10,10 +10,12 @@
 //   Button,
 //   Checkbox,
 //   FormControlLabel,
-//   MenuItem
+//   MenuItem,
+//   Divider,
+//   Typography
 // } from "@mui/material";
 
-// /* 🔹 TYPES */
+// /* TYPES */
 // export interface BankAccountForm {
 //   bankName: string;
 //   accountNumber: string;
@@ -24,18 +26,13 @@
 //   isDefault: boolean;
 // }
 
-// /* 🔹 PROPS */
 // interface Props {
 //   open: boolean;
 //   onClose: () => void;
 //   onSave: (data: BankAccountForm) => void;
 // }
 
-// const AddBankAccount: React.FC<Props> = ({
-//   open,
-//   onClose,
-//   onSave
-// }) => {
+// const AddBankAccount: React.FC<Props> = ({ open, onClose, onSave }) => {
 //   const [form, setForm] = useState<BankAccountForm>({
 //     bankName: "",
 //     accountNumber: "",
@@ -62,89 +59,111 @@
 //   };
 
 //   return (
-//     <Dialog
-//       open={open}
-//       onClose={onClose}
-//       maxWidth="sm"
-//       fullWidth
-//     >
-//       <DialogTitle>Add Bank Account</DialogTitle>
+//     <Dialog open={open} onClose={onClose} maxWidth="sm" fullWidth>
+//       <DialogTitle fontWeight={600}>
+//         Add Bank Account
+//       </DialogTitle>
 
-//       <DialogContent>
-//         <Box mt={1}>
-//           <Grid container spacing={2}>
-//             <Grid item xs={12} md={6}>
-//               <TextField
-//                 fullWidth
-//                 label="Bank Name"
-//                 name="bankName"
-//                 value={form.bankName}
-//                 onChange={handleChange}
-//               />
-//             </Grid>
+//       <Divider />
 
-//             <Grid item xs={12} md={6}>
-//               <TextField
-//                 fullWidth
-//                 label="Account Number"
-//                 name="accountNumber"
-//                 value={form.accountNumber}
-//                 onChange={handleChange}
-//               />
-//             </Grid>
+//       <DialogContent sx={{ pt: 3 }}>
+//         <Grid container spacing={2.5}>
+//           {/* Bank Name */}
+//           <Grid item xs={12} md={6}>
+//                 <Typography fontSize={13} mb={0.5}>
+//     Bank Name
+//   </Typography>
+//             <TextField
+//               fullWidth
+             
+//               name="bankName"
+//               value={form.bankName}
+//               onChange={handleChange}
+//             />
+//           </Grid>
 
-//             <Grid item xs={12} md={6}>
-//               <TextField
-//                 fullWidth
-//                 label="IFSC Code"
-//                 name="ifscCode"
-//                 value={form.ifscCode}
-//                 onChange={handleChange}
-//               />
-//             </Grid>
+//           {/* Account Number */}
+//           <Grid item xs={12} md={6}>
+//                <Typography fontSize={13} mb={0.5}>
+//     Account Number
+//   </Typography>
+//             <TextField
+//               fullWidth
+             
+//               name="accountNumber"
+//               value={form.accountNumber}
+//               onChange={handleChange}
+//             />
+//           </Grid>
 
-//             <Grid item xs={12} md={6}>
-//               <TextField
-//                 fullWidth
-//                 label="Account Holder Name"
-//                 name="accountHolder"
-//                 value={form.accountHolder}
-//                 onChange={handleChange}
-//               />
-//             </Grid>
+//           {/* IFSC Code */}
+//           <Grid item xs={12} md={6}>
+//                <Typography fontSize={13} mb={0.5}>
+//     IFSC Code
+//   </Typography>
+//             <TextField
+//               fullWidth
+             
+//               name="ifscCode"
+//               value={form.ifscCode}
+//               onChange={handleChange}
+//             />
+//           </Grid>
 
-//             <Grid item xs={12} md={6}>
-//               <TextField
-//                 fullWidth
-//                 label="Bank Branch"
-//                 name="bankBranch"
-//                 value={form.bankBranch}
-//                 onChange={handleChange}
-//               />
-//             </Grid>
+//           {/* Account Holder */}
+//           <Grid item xs={12} md={6}>
+//              <Typography fontSize={13} mb={0.5}>
+//     Account Holder Name
+//   </Typography>
+//             <TextField
+//               fullWidth
+              
+//               name="accountHolder"
+//               value={form.accountHolder}
+//               onChange={handleChange}
+//             />
+//           </Grid>
 
-//             <Grid item xs={12} md={6}>
-//               <TextField
-//                 select
-//                 fullWidth
-//                 label="Account Type"
-//                 name="accountType"
-//                 value={form.accountType}
-//                 onChange={handleChange}
-//               >
-//                 <MenuItem value="">
-//                   Select Type
-//                 </MenuItem>
-//                 <MenuItem value="savings">
-//                   Savings
-//                 </MenuItem>
-//                 <MenuItem value="current">
-//                   Current
-//                 </MenuItem>
-//               </TextField>
-//             </Grid>
+//           {/* Bank Branch */}
+//           <Grid item xs={12} md={6}>
+//             <Typography fontSize={13} mb={0.5}>
+//     Bank Branch
+//   </Typography>
+//             <TextField
+//               fullWidth
+              
+//               name="bankBranch"
+//               value={form.bankBranch}
+//               onChange={handleChange}
+//             />
+//           </Grid>
+ 
+// <Grid item xs={12} md={6}>
+//   <Typography fontSize={13} mb={0.5}>
+//     Account Type
+//   </Typography>
 
-//             <Grid item xs={12}>
+//   <TextField
+//     select
+//     fullWidth
+//     name="accountType"
+//     value={form.accountType}
+//     onChange={handleChange}
+//     displayEmpty
+//   >
+//     <MenuItem value="Select Type" >
+//       Select Type
+//     </MenuItem>
+//     <MenuItem value="savings">Savings</MenuItem>
+//     <MenuItem value="current">Current</MenuItem>
+//   </TextField>
+// </Grid>
+
+// <br />
+// <br/>
+          
+//           <Grid item xs={12}>
+//             <Box mt={1}>
 //               <FormControlLabel
 //                 control={
 //                   <Checkbox
@@ -155,25 +174,22 @@
 //                 }
 //                 label="Set as Default Account"
 //               />
-//             </Grid>
+//             </Box>
 //           </Grid>
-//         </Box>
+//         </Grid>
 //       </DialogContent>
 
-//       <DialogActions sx={{ p: 2 }}>
-//         <Button
-//           onClick={onClose}
-//           sx={{ textTransform: "none" }}
-//         >
+//       <Divider sx={{ borderColor: "#000" }} />
+
+//       <DialogActions sx={{ p: 2.5 }}>
+//         <Button onClick={onClose} sx={{ textTransform: "none" }}>
 //           Cancel
 //         </Button>
+
 //         <Button
 //           variant="contained"
 //           onClick={handleSave}
-//           sx={{
-//             bgcolor: "#245e95",
-//             textTransform: "none"
-//           }}
+//           sx={{ bgcolor: "#245e95", textTransform: "none" }}
 //         >
 //           Save Bank Account
 //         </Button>
@@ -218,7 +234,20 @@ interface Props {
   onSave: (data: BankAccountForm) => void;
 }
 
-const AddBankAccount: React.FC<Props> = ({ open, onClose, onSave }) => {
+const inputStyle = {
+  "& .MuiOutlinedInput-root": {
+    borderRadius: "8px",
+    "& fieldset": { borderColor: "#26619A" },
+    "&:hover fieldset": { borderColor: "#26619A" },
+    "&.Mui-focused fieldset": { borderColor: "#1f4f7a" }
+  }
+};
+
+const AddBankAccount: React.FC<Props> = ({
+  open,
+  onClose,
+  onSave
+}) => {
   const [form, setForm] = useState<BankAccountForm>({
     bankName: "",
     accountNumber: "",
@@ -254,101 +283,99 @@ const AddBankAccount: React.FC<Props> = ({ open, onClose, onSave }) => {
 
       <DialogContent sx={{ pt: 3 }}>
         <Grid container spacing={2.5}>
-          {/* Bank Name */}
+          {/* Row 1 */}
           <Grid item xs={12} md={6}>
-                <Typography fontSize={13} mb={0.5}>
-    Bank Name
-  </Typography>
+            <Typography fontSize={13} mb={0.5}>
+              Bank Name
+            </Typography>
             <TextField
               fullWidth
-             
               name="bankName"
               value={form.bankName}
               onChange={handleChange}
+              sx={inputStyle}
             />
           </Grid>
 
-          {/* Account Number */}
           <Grid item xs={12} md={6}>
-               <Typography fontSize={13} mb={0.5}>
-    Account Number
-  </Typography>
+            <Typography fontSize={13} mb={0.5}>
+              Account Number
+            </Typography>
             <TextField
               fullWidth
-             
               name="accountNumber"
               value={form.accountNumber}
               onChange={handleChange}
+              sx={inputStyle}
             />
           </Grid>
 
-          {/* IFSC Code */}
+          {/* Row 2 */}
           <Grid item xs={12} md={6}>
-               <Typography fontSize={13} mb={0.5}>
-    IFSC Code
-  </Typography>
+            <Typography fontSize={13} mb={0.5}>
+              IFSC Code
+            </Typography>
             <TextField
               fullWidth
-             
               name="ifscCode"
               value={form.ifscCode}
               onChange={handleChange}
+              sx={inputStyle}
             />
           </Grid>
 
-          {/* Account Holder */}
           <Grid item xs={12} md={6}>
-             <Typography fontSize={13} mb={0.5}>
-    Account Holder Name
-  </Typography>
+            <Typography fontSize={13} mb={0.5}>
+              Account Holder Name
+            </Typography>
             <TextField
               fullWidth
-              
               name="accountHolder"
               value={form.accountHolder}
               onChange={handleChange}
+              sx={inputStyle}
             />
           </Grid>
 
-          {/* Bank Branch */}
+          {/* Row 3 */}
           <Grid item xs={12} md={6}>
             <Typography fontSize={13} mb={0.5}>
-    Bank Branch
-  </Typography>
+              Bank Branch
+            </Typography>
             <TextField
               fullWidth
-              
               name="bankBranch"
               value={form.bankBranch}
               onChange={handleChange}
+              sx={inputStyle}
             />
           </Grid>
 
-          {/* Account Type – LABEL OUTSIDE */}
-<Grid item xs={12} md={6}>
-  <Typography fontSize={13} mb={0.5}>
-    Account Type
-  </Typography>
+          <Grid item xs={12} md={6} /> {/* EMPTY LEFT SPACE */}
 
-  <TextField
-    select
-    fullWidth
-    name="accountType"
-    value={form.accountType}
-    onChange={handleChange}
-    displayEmpty
-  >
-    <MenuItem value="Select Type" >
-      Select Type
-    </MenuItem>
-    <MenuItem value="savings">Savings</MenuItem>
-    <MenuItem value="current">Current</MenuItem>
-  </TextField>
-</Grid>
+          {/* Row 4 – Account Type on RIGHT */}
+          <Grid item xs={12} md={6} /> {/* EMPTY LEFT COLUMN */}
 
-<br />
-<br/>
-          {/* Set as Default – SEPARATE LINE */}
+          <Grid item xs={12} md={6}>
+            <Typography fontSize={13} mb={0.5}>
+              Account Type
+            </Typography>
+            <TextField
+              select
+              fullWidth
+              name="accountType"
+              value={form.accountType}
+              onChange={handleChange}
+              sx={inputStyle}
+            >
+ 
+              <MenuItem value="Select Type" >Select Type</MenuItem>
+              <MenuItem value="savings">Savings</MenuItem>
+              <MenuItem value="current">Current</MenuItem>
+            </TextField>
+          </Grid>
+
+          {/* Row 5 */}
           <Grid item xs={12}>
             <Box mt={1}>
               <FormControlLabel
@@ -366,7 +393,7 @@ const AddBankAccount: React.FC<Props> = ({ open, onClose, onSave }) => {
         </Grid>
       </DialogContent>
 
-      <Divider sx={{ borderColor: "#000" }} />
+      <Divider />
 
       <DialogActions sx={{ p: 2.5 }}>
         <Button onClick={onClose} sx={{ textTransform: "none" }}>
@@ -386,5 +413,4 @@ const AddBankAccount: React.FC<Props> = ({ open, onClose, onSave }) => {
 };
 
 export default AddBankAccount;
-
 

@@ -1,4 +1,157 @@
-import React, { useState } from "react";
+ 
+
+
+
+// import React, { useState } from "react";
+// import {
+//   Dialog,
+//   DialogTitle,
+//   DialogContent,
+//   DialogActions,
+//   TextField,
+//   Button,
+//   Stack,
+//   Divider
+// } from "@mui/material";
+
+// /* TYPES */
+// export interface ShippingZoneForm {
+//   zone: string;
+//   states: string;
+//   baseRate: number;
+//   additionalRate: number;
+//   deliveryDays: string;
+//   codAvailable: string;
+// }
+
+// interface Props {
+//   open: boolean;
+//   onClose: () => void;
+//   onSave: (data: ShippingZoneForm) => void;
+// }
+
+// const AddShippingZone: React.FC<Props> = ({
+//   open,
+//   onClose,
+//   onSave
+// }) => {
+//   const [form, setForm] = useState({
+//     zone: "",
+//     states: "",
+//     baseRate: "",
+//     additionalRate: "",
+//     deliveryDays: "",
+//     codAvailable: ""
+//   });
+
+//   const handleChange =
+//     (key: string) =>
+//     (e: React.ChangeEvent<HTMLInputElement>) => {
+//       setForm({ ...form, [key]: e.target.value });
+//     };
+
+//   const handleSave = () => {
+//     onSave({
+//       zone: form.zone,
+//       states: form.states,
+//       baseRate: Number(form.baseRate),
+//       additionalRate: Number(form.additionalRate),
+//       deliveryDays: form.deliveryDays,
+//       codAvailable: form.codAvailable
+//     });
+//     onClose();
+//   };
+
+//   return (
+//     <Dialog open={open} onClose={onClose} maxWidth="sm" fullWidth>
+//       <DialogTitle fontWeight={600}>
+//         Add Shipping Zone
+//       </DialogTitle>
+
+//       <Divider />
+
+//       <DialogContent sx={{ pt: 3 }}>
+//         {/* ✅ GUARANTEED ONE FIELD PER LINE */}
+//         <Stack spacing={2.5}>
+//           <TextField
+//             label="Zone Name"
+//             fullWidth
+//             value={form.zone}
+//             onChange={handleChange("zone")}
+//           />
+
+//           <TextField
+//             label="States"
+//             placeholder="Enter states separated by commas"
+//             fullWidth
+//             value={form.states}
+//             onChange={handleChange("states")}
+//           />
+
+//           {/* 2 columns */}
+//           <Stack direction="row" spacing={2}>
+//             <TextField
+//               label="Base Rate (₹)"
+//               type="number"
+//               fullWidth
+//               value={form.baseRate}
+//               onChange={handleChange("baseRate")}
+//             />
+
+//             <TextField
+//               label="Additional Rate (₹)"
+//               type="number"
+//               fullWidth
+//               value={form.additionalRate}
+//               onChange={handleChange("additionalRate")}
+//             />
+//           </Stack>
+
+//           <Stack direction="row" spacing={2}>
+//             <TextField
+//               label="Delivery Days"
+//               placeholder="e.g. 3-5"
+//               fullWidth
+//               value={form.deliveryDays}
+//               onChange={handleChange("deliveryDays")}
+//             />
+
+//             <TextField
+//               label="COD Available"
+//               placeholder="Yes / No"
+//               fullWidth
+//               value={form.codAvailable}
+//               onChange={handleChange("codAvailable")}
+//             />
+//           </Stack>
+//         </Stack>
+//       </DialogContent>
+
+//       <DialogActions sx={{ p: 2.5 }}>
+//         <Button
+//           onClick={onClose}
+//           variant="contained"
+//           sx={{ bgcolor: "#9fa8da", textTransform: "none", px: 3 }}
+//         >
+//           Cancel
+//         </Button>
+
+//         <Button
+//           onClick={handleSave}
+//           variant="contained"
+//           sx={{ bgcolor: "#245e95", textTransform: "none", px: 3 }}
+//         >
+//           Save shipping zone
+//         </Button>
+//       </DialogActions>
+//     </Dialog>
+//   );
+// };
+
+// export default AddShippingZone;
+
+
+ import React, { useState } from "react";
 import {
   Dialog,
   DialogTitle,
@@ -6,8 +159,7 @@ import {
   DialogActions,
   TextField,
   Button,
-  Grid,
-  Typography,
+  Stack,
   Divider
 } from "@mui/material";
 
@@ -27,7 +179,26 @@ interface Props {
   onSave: (data: ShippingZoneForm) => void;
 }
 
-const AddShippingZone: React.FC<Props> = ({ open, onClose, onSave }) => {
+const inputStyle = {
+  "& .MuiOutlinedInput-root": {
+    borderRadius: "8px", // ✅ curved
+    "& fieldset": {
+      borderColor: "#26619A" // default blue
+    },
+    "&:hover fieldset": {
+      borderColor: "#26619A"
+    },
+    "&.Mui-focused fieldset": {
+      borderColor: "#1f4f7a" // darker blue on focus
+    }
+  }
+};
+
+const AddShippingZone: React.FC<Props> = ({
+  open,
+  onClose,
+  onSave
+}) => {
   const [form, setForm] = useState({
     zone: "",
     states: "",
@@ -64,89 +235,77 @@ const AddShippingZone: React.FC<Props> = ({ open, onClose, onSave }) => {
       <Divider />
 
       <DialogContent sx={{ pt: 3 }}>
-        <Grid container spacing={2.5}>
-          {/* Zone Name */}
-          <Grid item xs={12}>
-            <Typography fontSize={13} mb={0.5}>
-              Zone Name
-            </Typography>
-            <TextField
-              fullWidth
-              value={form.zone}
-              onChange={handleChange("zone")}
-            />
-          </Grid>
+        {/* ✅ ONE FIELD PER LINE */}
+        <Stack spacing={2.5}>
+          <TextField
+            label="Zone Name"
+            fullWidth
+            value={form.zone}
+            onChange={handleChange("zone")}
+            sx={inputStyle}
+          />
 
-          {/* States */}
-          <Grid item xs={12}>
-            <Typography fontSize={13} mb={0.5}>
-              States
-            </Typography>
-            <TextField
-              fullWidth
-              placeholder="Enter states separated by commas"
-              value={form.states}
-              onChange={handleChange("states")}
-            />
-          </Grid>
+          <TextField
+            label="States"
+            placeholder="Enter states separated by commas"
+            fullWidth
+            value={form.states}
+            onChange={handleChange("states")}
+            sx={inputStyle}
+          />
 
-          {/* Base + Additional Rate */}
-          <Grid item xs={6}>
-            <Typography fontSize={13} mb={0.5}>
-              Base Rate (₹)
-            </Typography>
+          {/* Two fields in one row */}
+          <Stack direction="row" spacing={2}>
             <TextField
-              fullWidth
+              label="Base Rate (₹)"
               type="number"
+              fullWidth
               value={form.baseRate}
               onChange={handleChange("baseRate")}
+              sx={inputStyle}
             />
-          </Grid>
 
-          <Grid item xs={6}>
-            <Typography fontSize={13} mb={0.5}>
-              Additional Rate (₹)
-            </Typography>
             <TextField
-              fullWidth
+              label="Additional Rate (₹)"
               type="number"
+              fullWidth
               value={form.additionalRate}
               onChange={handleChange("additionalRate")}
+              sx={inputStyle}
             />
-          </Grid>
+          </Stack>
 
-          {/* Delivery + COD */}
-          <Grid item xs={6}>
-            <Typography fontSize={13} mb={0.5}>
-              Delivery Days
-            </Typography>
+          <Stack direction="row" spacing={2}>
             <TextField
-              fullWidth
+              label="Delivery Days"
               placeholder="e.g. 3-5"
+              fullWidth
               value={form.deliveryDays}
               onChange={handleChange("deliveryDays")}
+              sx={inputStyle}
             />
-          </Grid>
 
-          <Grid item xs={6}>
-            <Typography fontSize={13} mb={0.5}>
-              COD Available
-            </Typography>
             <TextField
+              label="COD Available"
+              placeholder="Yes / No"
               fullWidth
-              placeholder="e.g. Yes"
               value={form.codAvailable}
               onChange={handleChange("codAvailable")}
+              sx={inputStyle}
             />
-          </Grid>
-        </Grid>
+          </Stack>
+        </Stack>
       </DialogContent>
 
       <DialogActions sx={{ p: 2.5 }}>
         <Button
           onClick={onClose}
           variant="contained"
-          sx={{ bgcolor: "#9fa8da", textTransform: "none", px: 3 }}
+          sx={{
+            bgcolor: "#9fa8da",
+            textTransform: "none",
+            px: 3
+          }}
         >
           Cancel
         </Button>
@@ -154,7 +313,11 @@ const AddShippingZone: React.FC<Props> = ({ open, onClose, onSave }) => {
         <Button
           onClick={handleSave}
           variant="contained"
-          sx={{ bgcolor: "#245e95", textTransform: "none", px: 3 }}
+          sx={{
+            bgcolor: "#26619A",
+            textTransform: "none",
+            px: 3
+          }}
         >
           Save shipping zone
         </Button>
@@ -165,173 +328,4 @@ const AddShippingZone: React.FC<Props> = ({ open, onClose, onSave }) => {
 
 export default AddShippingZone;
 
-
-
-
  
-// import React, { useState } from "react";
-// import {
-//   Dialog,
-//   DialogTitle,
-//   DialogContent,
-//   DialogActions,
-//   TextField,
-//   Button,
-//   Grid,
-//   Box
-// } from "@mui/material";
-
-// /* ✅ EXPORTED TYPE (IMPORTANT) */
-// export interface ShippingZoneForm {
-//   zone: string;
-//   states: string;
-//   baseRate: number;
-//   additionalRate: number;
-//   deliveryDays: string;
-//   codAvailable: string;
-// }
-
-// interface Props {
-//   open: boolean;
-//   onClose: () => void;
-//   onSave: (data: ShippingZoneForm) => void;
-// }
-
-// const AddShippingZone: React.FC<Props> = ({ open, onClose, onSave }) => {
-//   const [form, setForm] = useState<ShippingZoneForm>({
-//     zone: "",
-//     states: "",
-//     baseRate: 0,
-//     additionalRate: 0,
-//     deliveryDays: "",
-//     codAvailable: ""
-//   });
-
-//   const handleChange =
-//     (key: keyof ShippingZoneForm) =>
-//     (e: React.ChangeEvent<HTMLInputElement>) => {
-//       setForm({ ...form, [key]: e.target.value as any });
-//     };
-
-//   const handleSave = () => {
-//     onSave({
-//       ...form,
-//       baseRate: Number(form.baseRate),
-//       additionalRate: Number(form.additionalRate)
-//     });
-//     onClose();
-//   };
-
-//   return (
-//     <Dialog
-//       open={open}
-//       onClose={onClose}
-//       maxWidth="sm"
-//       fullWidth
-//       PaperProps={{ sx: { borderRadius: 3 } }}
-//     >
-//       {/* 🔹 TITLE */}
-//       <DialogTitle sx={{ fontWeight: 600 }}>
-//         Add Shipping Zone
-//       </DialogTitle>
-
-//       {/* 🔹 CONTENT */}
-//       <DialogContent>
-//         <Box mt={1}>
-//           <Grid container spacing={2}>
-//             <Grid item xs={12}>
-//               <TextField
-//                 fullWidth
-//                 label="Zone Name"
-//                 value={form.zone}
-//                 onChange={handleChange("zone")}
-//               />
-//             </Grid>
-
-//             <Grid item xs={12}>
-//               <TextField
-//                 fullWidth
-//                 label="States"
-//                 placeholder="Enter states separated by commas"
-//                 value={form.states}
-//                 onChange={handleChange("states")}
-//               />
-//             </Grid>
-
-//             <Grid item xs={6}>
-//               <TextField
-//                 fullWidth
-//                 label="Base Rate (₹)"
-//                 type="number"
-//                 value={form.baseRate}
-//                 onChange={handleChange("baseRate")}
-//               />
-//             </Grid>
-
-//             <Grid item xs={6}>
-//               <TextField
-//                 fullWidth
-//                 label="Additional Rate (₹)"
-//                 type="number"
-//                 value={form.additionalRate}
-//                 onChange={handleChange("additionalRate")}
-//               />
-//             </Grid>
-
-//             <Grid item xs={6}>
-//               <TextField
-//                 fullWidth
-//                 label="Delivery Days"
-//                 placeholder="e.g. 3-5"
-//                 value={form.deliveryDays}
-//                 onChange={handleChange("deliveryDays")}
-//               />
-//             </Grid>
-
-//             <Grid item xs={6}>
-//               <TextField
-//                 fullWidth
-//                 label="COD Available"
-//                 placeholder="e.g. Yes"
-//                 value={form.codAvailable}
-//                 onChange={handleChange("codAvailable")}
-//               />
-//             </Grid>
-//           </Grid>
-//         </Box>
-//       </DialogContent>
-
-//       {/* 🔹 ACTION BUTTONS */}
-//       <DialogActions sx={{ p: 2, justifyContent: "flex-end", gap: 1 }}>
-//         <Button
-//           onClick={onClose}
-//           variant="contained"
-//           sx={{
-//             bgcolor: "#9fa8da",
-//             color: "#fff",
-//             textTransform: "none",
-//             px: 3,
-//             "&:hover": { bgcolor: "#8c96c9" }
-//           }}
-//         >
-//           Cancel
-//         </Button>
-
-//         <Button
-//           onClick={handleSave}
-//           variant="contained"
-//           sx={{
-//             bgcolor: "#245e95",
-//             textTransform: "none",
-//             px: 3,
-//             "&:hover": { bgcolor: "#1d4f7d" }
-//           }}
-//         >
-//           Save shipping zone
-//         </Button>
-//       </DialogActions>
-//     </Dialog>
-//   );
-// };
-
-// export default AddShippingZone;

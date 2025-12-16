@@ -50,25 +50,19 @@ You are specifically restricted from all of the following:`
   );
 
   return (
-    <Box sx={{ p: 3, bgcolor: "FFFFFF", minHeight: "100vh" }}>
+    <Box sx={{ p: 3, bgcolor: "#FFFFFF", minHeight: "100vh" }}>
       {/* 🔹 TOP TABS */}
       <Paper sx={{ p: 1.5, mb: 3 }}>
         <Stack direction="row" spacing={1}>
-          <Button onClick={() => onTabChange("gst")}>
-            GST & Taxes
-          </Button>
+          <Button onClick={() => onTabChange("gst")}>GST & Taxes</Button>
           <Button onClick={() => onTabChange("shipping")}>
             Shipping & COD
           </Button>
           <Button onClick={() => onTabChange("payment")}>
             Payment Gateways
           </Button>
-          <Button onClick={() => onTabChange("payout")}>
-            Payout Bank
-          </Button>
-          <Button variant="contained">
-            Legal Content
-          </Button>
+          <Button onClick={() => onTabChange("payout")}>Payout Bank</Button>
+          <Button variant="contained">Legal Content</Button>
           <Button onClick={() => onTabChange("localization")}>
             Localization
           </Button>
@@ -76,26 +70,25 @@ You are specifically restricted from all of the following:`
       </Paper>
 
       {/* 🔹 LEGAL CONTENT */}
-      <Paper sx={{ p: 3 }}>
-        <Typography
-  fontWeight={600}
-  mb={2}
-  sx={{ color: "#26619A" }}   // blue color
->
-  Legal Content Management
-</Typography>
-<Divider sx={{ mb: 3, height: 2, bgcolor: "#26619A" }} />
+      <Paper
+        sx={{
+          p: 3,
+          color: "#26619A", // ✅ All text blue
+          "& .MuiInputBase-input": {
+            color: "#26619A"
+          }
+        }}
+      >
+        <Typography fontWeight={600} mb={2}>
+          Legal Content Management
+        </Typography>
 
+        <Divider sx={{ mb: 3, height: 2, bgcolor: "#26619A" }} />
 
-
-        <Typography fontWeight={500} mb={1}
-         sx={{ color: "000000" }}
-         >
+        <Typography fontWeight={500} mb={1}  sx={{ color: "#000000" }}>
           Terms & Conditions
         </Typography>
-        <Typography fontWeight={500} mb={1}
-         sx={{ color: "000000" }}
-         >
+        <Typography fontWeight={500} mb={1}  sx={{ color: "#000000" }}>
           Terms & Conditions Content
         </Typography>
         <TextField
@@ -106,15 +99,11 @@ You are specifically restricted from all of the following:`
           onChange={(e) => setTerms(e.target.value)}
           sx={{ mb: 3 }}
         />
-
-        <Typography fontWeight={500} mb={1}
-         sx={{ color: "000000" }}
-         >
-          Privacy Policy
+ 
+          <Typography fontWeight={500} mb={1} sx={{ color: "#000000" }}>
+            Privacy Policy
         </Typography>
-        <Typography fontWeight={500} mb={1}
-         sx={{ color: "000000" }}
-         >
+        <Typography fontWeight={500} mb={1} sx={{ color: "#000000" }}>
           Privacy Policy Content
         </Typography>
         <TextField
@@ -126,12 +115,13 @@ You are specifically restricted from all of the following:`
           sx={{ mb: 3 }}
         />
 
-        <Typography fontWeight={500} mb={1}>
+        <Typography fontWeight={500} mb={1}  sx={{ color: "#000000" }}>
           Refund & Cancellation Policy
         </Typography>
-        <Typography fontWeight={500} mb={1}>
-          Refund  Policy Content
+        <Typography fontWeight={500} mb={1}  sx={{ color: "#000000" }}>
+          Refund Policy Content
         </Typography>
+
         <TextField
           fullWidth
           multiline
@@ -144,8 +134,11 @@ You are specifically restricted from all of the following:`
           <Button
             variant="contained"
             sx={{
-              bgcolor: "000000",
-              textTransform: "none"
+              bgcolor: "#26619A",
+              textTransform: "none",
+              "&:hover": {
+                bgcolor: "#1f4f7a"
+              }
             }}
           >
             Save Changes
@@ -157,3 +150,4 @@ You are specifically restricted from all of the following:`
 };
 
 export default LegalContent;
+
