@@ -1,6 +1,3 @@
- 
-
-
 import React, { useState } from "react";
 import { Box } from "@mui/material";
 
@@ -9,7 +6,7 @@ import Shipping from "./Shipping";
 import Payment from "./Payment";
 import Payout from "./Payout";
 import LegalContent from "./LegalContent";
-import Localization from "./Localization"; // ✅ ADD THIS
+import Localization from "./Localization";  
 
 export type Page =
   | "gst"

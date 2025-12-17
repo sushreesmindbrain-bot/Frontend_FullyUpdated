@@ -35,7 +35,7 @@ interface Props {
 const initialZones: ShippingZoneForm[] = [
   {
     zone: "North Zone",
-    states: "Delhi, Haryana, Punjab",
+    states: "Delhi, Haryana, Punjab.....",
     baseRate: 60,
     additionalRate: 10,
     deliveryDays: "3-5",
@@ -43,7 +43,7 @@ const initialZones: ShippingZoneForm[] = [
   },
   {
     zone: "South Zone",
-    states: "Tamil Nadu, Karnataka",
+    states: "Tamil Nadu, Karnataka.....",
     baseRate: 80,
     additionalRate: 15,
     deliveryDays: "4-6",
@@ -51,7 +51,7 @@ const initialZones: ShippingZoneForm[] = [
   },
   {
     zone: "East Zone",
-    states: "Maharashtra, Karnataka",
+    states: "Maharashtra, Karnataka.....",
     baseRate: 90,
     additionalRate: 15,
     deliveryDays: "5-7",

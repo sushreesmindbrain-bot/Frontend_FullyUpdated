@@ -73,7 +73,7 @@ You are specifically restricted from all of the following:`
       <Paper
         sx={{
           p: 3,
-          color: "#26619A", // ✅ All text blue
+          color: "#26619A",  
           "& .MuiInputBase-input": {
             color: "#26619A"
           }

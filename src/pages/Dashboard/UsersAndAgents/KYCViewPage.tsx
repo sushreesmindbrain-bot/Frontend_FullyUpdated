@@ -28,11 +28,9 @@ const KYCViewPage: React.FC<Props> = ({
   onVerificationView
 }) => {
 
-  // ⭐ FIXED: Default tab set to "overview" so all tabs will work properly
-  const [tab, setTab] = useState("overview");
+   const [tab, setTab] = useState("overview");
 
-  // ⭐ Change tab + trigger respective popup
-  const handleChange = (_: any, newValue: string) => {
+   const handleChange = (_: any, newValue: string) => {
     setTab(newValue);
 
     if (newValue === "overview") onBack();
@@ -64,8 +62,7 @@ const KYCViewPage: React.FC<Props> = ({
           </Box>
         </Box>
 
-        {/* ⭐ Tabs Now Fully Working */}
-        <Tabs
+         <Tabs
           value={tab}
           onChange={handleChange}
           TabIndicatorProps={{ style: { display: "none" } }}

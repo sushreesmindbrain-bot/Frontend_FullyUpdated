@@ -13,8 +13,8 @@ const PopupContainer = ({ agent, onClose }) => {
           agent={agent}
           onCancel={onClose}
           onConfirm={(pkg) => {
-            setSelectedPackage(pkg);   // SAVE PACKAGE
-            setPopupPage("upgradeSummary"); // GO TO SUMMARY
+            setSelectedPackage(pkg);   
+            setPopupPage("upgradeSummary");  
           }}
         />
       )}
@@ -24,7 +24,7 @@ const PopupContainer = ({ agent, onClose }) => {
           selectedPkg={selectedPackage}
           onFinish={() => {
             console.log("Final package:", selectedPackage);
-            onClose();        // CLOSE POPUP
+            onClose();         
           }}
         />
       )}

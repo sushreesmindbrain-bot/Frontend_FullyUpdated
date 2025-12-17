@@ -39,6 +39,7 @@ import Login from "./pages/Login";
 import MainApp from "./pages/Dashboard/UsersAndAgents/MainApp";
 import MainContainer from "./pages/Dashboard/ReportsAndAnalytics/MainContainer";
 import MainParent from "./pages/Dashboard/Settings/MainParent";
+ import ProfilePage from "./pages/Profile/ProfilePage";
  
 function App() {
   return (
@@ -54,6 +55,7 @@ function App() {
           <Route path="/users" element={<MainApp />} />
           <Route path="/reports" element={<MainContainer />} />
           <Route path="/settings"element={<MainParent/>} />
+          <Route path="/profile"element={<ProfilePage/>} />
 
 
             

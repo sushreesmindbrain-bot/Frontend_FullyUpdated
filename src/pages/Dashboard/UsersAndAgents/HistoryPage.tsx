@@ -75,7 +75,7 @@ const HistoryPage: React.FC<HistoryPageProps> = ({
         width: "100%",
         p: 2,
         overflow: "hidden",
-        height: "750px", // ← Increased height
+        height: "750px", 
         display: "flex",
         flexDirection: "column",
         gap: 2,
@@ -124,7 +124,7 @@ const HistoryPage: React.FC<HistoryPageProps> = ({
         <Tab label="History" value="history" />
       </Tabs>
 
-      {/* CONTENT WRAPPER (fills remaining height) */}
+      {/* CONTENT WRAPPER */}
       <Box
         sx={{
           flexGrow: 1,
@@ -156,7 +156,7 @@ const HistoryPage: React.FC<HistoryPageProps> = ({
             Activity History
           </Typography>
 
-          {/* FULL SINGLE COLUMN — NO SCROLLBAR */}
+           
           <Box sx={{ display: "flex", flexDirection: "column", gap: 3 }}>
             {historyData.map((item, index) => (
               <Box key={index} sx={{ display: "flex", gap: 2 }}>

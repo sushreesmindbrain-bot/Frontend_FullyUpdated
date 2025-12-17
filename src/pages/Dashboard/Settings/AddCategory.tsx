@@ -11,7 +11,8 @@ import {
   MenuItem,
   Select,
   FormControl,
-  InputLabel
+  InputLabel,
+  Divider
 } from "@mui/material";
 
 interface AddCategoryProps {
@@ -28,7 +29,30 @@ const categories = [
   "Groceries"
 ];
 
-const AddCategory: React.FC<AddCategoryProps> = ({ open, onClose, onSave }) => {
+/* SHARED INPUT STYLE */
+const inputStyle = {
+  "& .MuiOutlinedInput-root": {
+    borderRadius: "10px",
+    "& fieldset": {
+      borderColor: "#26619A"
+    },
+    "&:hover fieldset": {
+      borderColor: "#26619A"
+    },
+    "&.Mui-focused fieldset": {
+      borderColor: "#1f4f7a"
+    }
+  },
+  "& .MuiInputBase-input": {
+    color: "#667085"
+  }
+};
+
+const AddCategory: React.FC<AddCategoryProps> = ({
+  open,
+  onClose,
+  onSave
+}) => {
   const [category, setCategory] = useState("");
   const [rate, setRate] = useState<number | "">("");
 
@@ -41,22 +65,37 @@ const AddCategory: React.FC<AddCategoryProps> = ({ open, onClose, onSave }) => {
   };
 
   return (
-    <Dialog open={open} onClose={onClose} maxWidth="sm" fullWidth>
-      <DialogTitle sx={{ fontWeight: 600 }}>
+    <Dialog
+      open={open}
+      onClose={onClose}
+      maxWidth="sm"
+      fullWidth
+      sx={{
+        "& .MuiPaper-root": {
+          borderRadius: "12px"
+        }
+      }}
+    >
+      <DialogTitle fontWeight={600}>
         Add Category GST
       </DialogTitle>
 
-      <DialogContent sx={{ pt: 2 }}>
-        <Box mb={2}>
-          <Typography variant="body2" mb={0.5}>
+      <Divider />
+
+      <DialogContent sx={{ pt: 3 }}>
+        {/* CATEGORY */}
+        <Box mb={2.5}>
+          <Typography fontSize={13} mb={0.5} color="#26619A">
             Category
           </Typography>
+
           <FormControl fullWidth>
             <InputLabel>Select Category</InputLabel>
             <Select
               value={category}
               label="Select Category"
               onChange={(e) => setCategory(e.target.value)}
+              sx={inputStyle}
             >
               {categories.map((c) => (
                 <MenuItem key={c} value={c}>
@@ -67,32 +106,50 @@ const AddCategory: React.FC<AddCategoryProps> = ({ open, onClose, onSave }) => {
           </FormControl>
         </Box>
 
+        {/* TAX RATE */}
         <Box>
-          <Typography variant="body2" mb={0.5}>
+          <Typography fontSize={13} mb={0.5} color="#26619A">
             Tax Rate (%)
           </Typography>
           <TextField
             fullWidth
+            size="small"
             type="number"
             placeholder="0"
             value={rate}
-            onChange={(e) => setRate(e.target.value === "" ? "" : Number(e.target.value))}
+            onChange={(e) =>
+              setRate(e.target.value === "" ? "" : Number(e.target.value))
+            }
+            sx={inputStyle}
           />
         </Box>
       </DialogContent>
 
-      <DialogActions sx={{ p: 2 }}>
+      <Divider />
+
+      <DialogActions sx={{ px: 3, pb: 2 }}>
         <Button
           onClick={onClose}
           variant="contained"
-          sx={{ bgcolor: "#9fa8da", color: "white" }}
+          color="inherit"
+          sx={{
+            borderRadius: "10px",
+            textTransform: "none",
+            px: 3
+          }}
         >
           Cancel
         </Button>
+
         <Button
           onClick={handleSave}
           variant="contained"
-          sx={{ bgcolor: "#245e95" }}
+          sx={{
+            bgcolor: "#245e95",
+            borderRadius: "10px",
+            textTransform: "none",
+            px: 3
+          }}
         >
           Save
         </Button>
@@ -102,3 +159,4 @@ const AddCategory: React.FC<AddCategoryProps> = ({ open, onClose, onSave }) => {
 };
 
 export default AddCategory;
+

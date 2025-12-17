@@ -19,6 +19,25 @@ interface Props {
   onSave: (data: any) => void;
 }
 
+/* SHARED INPUT STYLE (SAME AS OTHER DIALOGS) */
+const inputStyle = {
+  "& .MuiOutlinedInput-root": {
+    borderRadius: "10px",
+    "& fieldset": {
+      borderColor: "#26619A"
+    },
+    "&:hover fieldset": {
+      borderColor: "#26619A"
+    },
+    "&.Mui-focused fieldset": {
+      borderColor: "#1f4f7a"
+    }
+  },
+  "& .MuiInputBase-input": {
+    color: "#667085"
+  }
+};
+
 const AddPaymentGateway: React.FC<Props> = ({
   open,
   onClose,
@@ -30,76 +49,90 @@ const AddPaymentGateway: React.FC<Props> = ({
   };
 
   return (
-    <Dialog open={open} onClose={onClose} maxWidth="sm" fullWidth>
+    <Dialog
+      open={open}
+      onClose={onClose}
+      maxWidth="sm"
+      fullWidth
+      sx={{
+        "& .MuiPaper-root": {
+          borderRadius: "12px"
+        }
+      }}
+    >
       {/* TITLE */}
-      <DialogTitle sx={{ fontWeight: 600 }}>
+      <DialogTitle fontWeight={600}>
         Add Payment Gateway
       </DialogTitle>
 
-      {/* BLACK LINE */}
-      <Divider sx={{ borderColor: "#000" }} />
+      <Divider />
 
       {/* CONTENT */}
       <DialogContent sx={{ pt: 3 }}>
         <Grid container spacing={2.5}>
           {/* Row 1 */}
-          <Grid size={{ xs: 12 }}>
-             <Typography fontSize={13} mb={0.5}>
-            Gateway Name
-              </Typography>
+          <Grid item xs={12}>
+            <Typography fontSize={13} mb={0.5} color="#000000">
+              Gateway Name
+            </Typography>
             <TextField
               fullWidth
-               size="small"
+              size="small"
+              sx={inputStyle}
             />
           </Grid>
 
           {/* Row 2 */}
-          <Grid size={{ xs: 12 }}>
-             <Typography fontSize={13} mb={0.5}>
-            Gateway Type
-              </Typography>
+          <Grid item xs={12}>
+            <Typography fontSize={13} mb={0.5} color="#000000">
+              Gateway Type
+            </Typography>
             <TextField
               fullWidth
               size="small"
+              sx={inputStyle}
             />
           </Grid>
 
           {/* Row 3 */}
-          <Grid size={{ xs: 12, md: 6 }}>
-             <Typography fontSize={13} mb={0.5}>
-            Merchant ID
-              </Typography>
+          <Grid item xs={12} md={6}>
+            <Typography fontSize={13} mb={0.5} color="#000000">
+              Merchant ID
+            </Typography>
             <TextField
               fullWidth
               size="small"
+              sx={inputStyle}
             />
           </Grid>
 
-          <Grid size={{ xs: 12, md: 6 }}>
-              <Typography fontSize={13} mb={0.5}>
-             API Key
-              </Typography>
+          <Grid item xs={12} md={6}>
+            <Typography fontSize={13} mb={0.5} color="#000000">
+              API Key
+            </Typography>
             <TextField
               fullWidth
-               size="small"
+              size="small"
+              sx={inputStyle}
             />
           </Grid>
 
           {/* Row 4 */}
-          <Grid size={{ xs: 12, md: 6 }}>
-               <Typography fontSize={13} mb={0.5}>
+          <Grid item xs={12} md={6}>
+            <Typography fontSize={13} mb={0.5} color="#000000">
               Secret Key
-              </Typography>
+            </Typography>
             <TextField
               fullWidth
               size="small"
+              sx={inputStyle}
             />
           </Grid>
 
-          <Grid size={{ xs: 12, md: 6 }} />
+          <Grid item xs={12} md={6} />
 
           {/* Checkbox */}
-          <Grid size={{ xs: 12 }}>
+          <Grid item xs={12}>
             <FormControlLabel
               control={<Checkbox defaultChecked />}
               label="Active"
@@ -108,18 +141,18 @@ const AddPaymentGateway: React.FC<Props> = ({
         </Grid>
       </DialogContent>
 
-      {/* BLACK LINE */}
-      <Divider sx={{ borderColor: "#000" }} />
+      <Divider />
 
       {/* ACTIONS */}
-      <DialogActions sx={{ px: 3, py: 2 }}>
+      <DialogActions sx={{ px: 3, pb: 2 }}>
         <Button
           onClick={onClose}
           variant="contained"
+          color="inherit"
           sx={{
-            bgcolor: "#d1d5db",
-            color: "#000",
-            textTransform: "none"
+            borderRadius: "10px",
+            textTransform: "none",
+            px: 3
           }}
         >
           Cancel
@@ -130,9 +163,11 @@ const AddPaymentGateway: React.FC<Props> = ({
           variant="contained"
           sx={{
             bgcolor: "#245e95",
-            textTransform: "none"
+            borderRadius: "10px",
+            textTransform: "none",
+            px: 3
           }}
-        >
+          >
           Save Gateway
         </Button>
       </DialogActions>
@@ -141,5 +176,4 @@ const AddPaymentGateway: React.FC<Props> = ({
 };
 
 export default AddPaymentGateway;
-
 
