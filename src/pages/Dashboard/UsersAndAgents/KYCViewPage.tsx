@@ -30,7 +30,7 @@ const KYCViewPage: React.FC<Props> = ({
 
    const [tab, setTab] = useState("overview");
 
-   const handleChange = (_: any, newValue: string) => {
+   const handleChange = (_: unknown, newValue: string) => {
     setTab(newValue);
 
     if (newValue === "overview") onBack();

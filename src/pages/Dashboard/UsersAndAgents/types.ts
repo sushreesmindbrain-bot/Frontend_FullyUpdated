@@ -1,4 +1,6 @@
 export interface Agent {
+  avatar: string | undefined;
+  joinDate: ReactNode;
   id: string;
   name: string;
   code: string;

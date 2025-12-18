@@ -1,6 +1,6 @@
 import axios from "axios";
 
-export function httpErrorHandler(error: any) {
+export function httpErrorHandler(error: unknown) {
   if (error === null) throw new Error("Unrecoverable error!! Error is null!");
   if (axios.isAxiosError(error)) {
     const response = error?.response;
@@ -20,6 +20,7 @@ export function httpErrorHandler(error: any) {
         console.error("Please login to access this resource");
       } else if (statusCode === 400) {
       } else {
+        
       }
     } else if (request) {
       console.error("No response from server");

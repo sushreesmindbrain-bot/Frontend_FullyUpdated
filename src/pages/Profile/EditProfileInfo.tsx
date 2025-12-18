@@ -110,7 +110,7 @@ const EditProfileInfo: React.FC<EditProfileInfoProps> = ({
               <TextField
                 fullWidth
                 size="small"
-                defaultValue="+09 363 398 46"
+                defaultValue="+0936339846"
                 sx={{
                   "& .MuiOutlinedInput-root": {
                     borderRadius: "10px"

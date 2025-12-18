@@ -10,8 +10,8 @@ import TaxGst from "./TaxGst";
 import type { Page } from "./PageType";
 
 const MainContainer = () => {
-  // ✅ Default page (change if you want another tab to load first)
-  const [page, setPage] = useState<Page>("salesBv");
+  
+   const [page, setPage] = useState<Page>("salesBv");
 
   return (
     <Box sx={{ width: "100%" }}>

@@ -107,50 +107,39 @@ const CoinsAndCoupons: React.FC<Props> = ({ onTabChange }) => {
           <Tab label="Tax/GST" sx={tabInactive} onClick={() => onTabChange("taxGst")} />
         </Tabs>
       </Box>
+{/* SUMMARY */}
+{/* SUMMARY */}
+<Box sx={{ px: 3, mb: 4, display: "flex", gap: 2 }}>
+  <Paper sx={{ ...summaryCard, flex: 1 }}>
+    <Typography fontSize={14} color="#3b6ef6">
+      Total Coins Issued
+    </Typography>
+    <Typography fontSize={30} fontWeight={700}>
+      54,800
+    </Typography>
+  </Paper>
 
-      {/* SUMMARY */}
-    {/* SUMMARY */}
-<Box sx={{ px: 3, mb: 4 }}>
-  <Grid container spacing={3}>
-    <Grid item xs={12} md={4}>
-      <Paper sx={{ ...summaryCard, width: "100%" }}>
-        <Typography fontSize={14} color="#3b6ef6">
-          Total Coins Issued
-        </Typography>
-        <Typography fontSize={30} fontWeight={700}>
-          54,800
-        </Typography>
-      </Paper>
-    </Grid>
+  <Paper sx={{ ...summaryCard, flex: 1 }}>
+    <Typography fontSize={14} color="#3b6ef6">
+      Total Coupons Issued
+    </Typography>
+    <Typography fontSize={30} fontWeight={700}>
+      18,420
+    </Typography>
+  </Paper>
 
-    <Grid item xs={12} md={4}>
-      <Paper sx={{ ...summaryCard, width: "100%" }}>
-        <Typography fontSize={14} color="#3b6ef6">
-          Total Coupons Issued
-        </Typography>
-        <Typography fontSize={30} fontWeight={700}>
-          18,420
-        </Typography>
-      </Paper>
-    </Grid>
-
-    <Grid item xs={12} md={4}>
-      <Paper sx={{ ...summaryCard, width: "100%" }}>
-        <Typography fontSize={14} color="#3b6ef6">
-          Breakage Rate
-        </Typography>
-        <Typography fontSize={30} fontWeight={700}>
-          25%
-        </Typography>
-        <Typography fontSize={13} color="text.secondary">
-          13,700 unredeemed
-        </Typography>
-      </Paper>
-    </Grid>
-  </Grid>
+  <Paper sx={{ ...summaryCard, flex: 1 }}>
+    <Typography fontSize={14} color="#3b6ef6">
+      Breakage Rate
+    </Typography>
+    <Typography fontSize={30} fontWeight={700}>
+      25%
+    </Typography>
+    <Typography fontSize={13} color="text.secondary">
+      13,700 unredeemed
+    </Typography>
+  </Paper>
 </Box>
-
-
       {/* CHARTS */}
       <Box sx={{ px: 3, mb: 4 }}>
         <Paper sx={chartContainer}>
@@ -182,7 +171,7 @@ const ChartHeader = ({ title }: { title: string }) => (
   </Box>
 );
 
-const BarGraph = ({ data }: { data: any[] }) => (
+const BarGraph = ({ data }: { data: unknown[] }) => (
   <Box sx={{ height: 260 }}>
     <ResponsiveContainer>
       <BarChart data={data} barGap={6}>
@@ -197,3 +186,4 @@ const BarGraph = ({ data }: { data: any[] }) => (
 );
 
 
+ 
