@@ -3,9 +3,7 @@ import {
   Box,
   Paper,
   Typography,
-  Grid,
-  Tabs,
-  Tab,
+  Button,
   Select,
   MenuItem
 } from "@mui/material";
@@ -14,18 +12,27 @@ import {
   Bar,
   XAxis,
   YAxis,
-  Tooltip,
-  ResponsiveContainer
+  Tooltip
 } from "recharts";
 import type { Page } from "./PageType";
+
+/* ================= PROPS ================= */
 
 interface Props {
   onTabChange: (page: Page) => void;
 }
 
+/* ================= DATA TYPES ================= */
+
+interface ChartData {
+  month: string;
+  issued: number;
+  redeemed: number;
+}
+
 /* ================= DATA ================= */
 
-const coinsData = [
+const coinsData: ChartData[] = [
   { month: "Jan", issued: 12000, redeemed: 9000 },
   { month: "Feb", issued: 15000, redeemed: 11000 },
   { month: "Mar", issued: 17000, redeemed: 14000 },
@@ -37,7 +44,7 @@ const coinsData = [
   { month: "Sep", issued: 16000, redeemed: 9000 }
 ];
 
-const couponsData = [
+const couponsData: ChartData[] = [
   { month: "Jan", issued: 10000, redeemed: 8000 },
   { month: "Feb", issued: 13000, redeemed: 10000 },
   { month: "Mar", issued: 16000, redeemed: 13000 },
@@ -50,25 +57,6 @@ const couponsData = [
 ];
 
 /* ================= STYLES ================= */
-
-const tabInactive = {
-  textTransform: "none",
-  borderRadius: "8px",
-  px: 2.5,
-  minHeight: 32,
-  fontSize: 14,
-  backgroundColor: "#ffffff",
-  color: "#4f4f4f",
-  border: "1px solid #e0e0e0"
-};
-
-const tabActive = {
-  ...tabInactive,
-  backgroundColor: "#2f80ed",
-  color: "#ffffff",
-  fontWeight: 600,
-  border: "none"
-};
 
 const summaryCard = {
   height: 110,
@@ -92,55 +80,70 @@ const chartContainer = {
 
 const CoinsAndCoupons: React.FC<Props> = ({ onTabChange }) => {
   return (
-    <Box sx={{ width: "100%", backgroundColor: "#f6f8fc", minHeight: "100vh" }}>
-      {/* TABS */}
-      <Box sx={{ px: 3, pt: 3 }}>
-        <Tabs
-          value={3}
-          TabIndicatorProps={{ style: { display: "none" } }}
-          sx={{ mb: 3, "& .MuiTabs-flexContainer": { gap: 1 } }}
-        >
-          <Tab label="Sales & BV" sx={tabInactive} onClick={() => onTabChange("salesBv")} />
-          <Tab label="Team Growth" sx={tabInactive} onClick={() => onTabChange("teamGrowth")} />
-          <Tab label="Package Distribution" sx={tabInactive} onClick={() => onTabChange("packageDistribution")} />
-          <Tab label="Coins & Coupons" sx={tabActive} />
-          <Tab label="Tax/GST" sx={tabInactive} onClick={() => onTabChange("taxGst")} />
-        </Tabs>
+    <Box sx={{ width: "100%", minHeight: "100vh", backgroundColor: "#f6f8fc" }}>
+
+      {/* ================= TOP TABS ================= */}
+      <Paper sx={{ px: 2, py: 1.5, mx: 3, mt: 3, mb: 3 }}>
+        <Box display="flex" gap={1}>
+          <Button variant="text" onClick={() => onTabChange("salesBv")}>
+            Sales & BV
+          </Button>
+
+          <Button variant="text" onClick={() => onTabChange("teamGrowth")}>
+            Team Growth
+          </Button>
+
+          <Button variant="text" onClick={() => onTabChange("packageDistribution")}>
+            Package Distribution
+          </Button>
+
+          <Button
+            variant="contained"
+            sx={{ bgcolor: "#26619A", fontWeight: 600 }}
+          >
+            Coins & Coupons
+          </Button>
+
+          <Button variant="text" onClick={() => onTabChange("taxGst")}>
+            Tax / GST
+          </Button>
+        </Box>
+      </Paper>
+
+      {/* ================= SUMMARY ================= */}
+      <Box sx={{ px: 3, mb: 4, display: "flex", gap: 2 }}>
+        <Paper sx={{ ...summaryCard, flex: 1 }}>
+          <Typography fontSize={14} color="#3b6ef6">
+            Total Coins Issued
+          </Typography>
+          <Typography fontSize={30} fontWeight={700}>
+            54,800
+          </Typography>
+        </Paper>
+
+        <Paper sx={{ ...summaryCard, flex: 1 }}>
+          <Typography fontSize={14} color="#3b6ef6">
+            Total Coupons Issued
+          </Typography>
+          <Typography fontSize={30} fontWeight={700}>
+            18,420
+          </Typography>
+        </Paper>
+
+        <Paper sx={{ ...summaryCard, flex: 1 }}>
+          <Typography fontSize={14} color="#3b6ef6">
+            Breakage Rate
+          </Typography>
+          <Typography fontSize={30} fontWeight={700}>
+            25%
+          </Typography>
+          <Typography fontSize={13} color="text.secondary">
+            13,700 unredeemed
+          </Typography>
+        </Paper>
       </Box>
-{/* SUMMARY */}
-{/* SUMMARY */}
-<Box sx={{ px: 3, mb: 4, display: "flex", gap: 2 }}>
-  <Paper sx={{ ...summaryCard, flex: 1 }}>
-    <Typography fontSize={14} color="#3b6ef6">
-      Total Coins Issued
-    </Typography>
-    <Typography fontSize={30} fontWeight={700}>
-      54,800
-    </Typography>
-  </Paper>
 
-  <Paper sx={{ ...summaryCard, flex: 1 }}>
-    <Typography fontSize={14} color="#3b6ef6">
-      Total Coupons Issued
-    </Typography>
-    <Typography fontSize={30} fontWeight={700}>
-      18,420
-    </Typography>
-  </Paper>
-
-  <Paper sx={{ ...summaryCard, flex: 1 }}>
-    <Typography fontSize={14} color="#3b6ef6">
-      Breakage Rate
-    </Typography>
-    <Typography fontSize={30} fontWeight={700}>
-      25%
-    </Typography>
-    <Typography fontSize={13} color="text.secondary">
-      13,700 unredeemed
-    </Typography>
-  </Paper>
-</Box>
-      {/* CHARTS */}
+      {/* ================= CHARTS ================= */}
       <Box sx={{ px: 3, mb: 4 }}>
         <Paper sx={chartContainer}>
           <ChartHeader title="Coins Issued vs Redeemed" />
@@ -171,19 +174,19 @@ const ChartHeader = ({ title }: { title: string }) => (
   </Box>
 );
 
-const BarGraph = ({ data }: { data: unknown[] }) => (
-  <Box sx={{ height: 260 }}>
-    <ResponsiveContainer>
-      <BarChart data={data} barGap={6}>
-        <XAxis dataKey="month" tick={{ fontSize: 12 }} />
-        <YAxis tick={{ fontSize: 12 }} />
-        <Tooltip />
-        <Bar dataKey="issued" fill="#1f4fd8" radius={[4, 4, 0, 0]} />
-        <Bar dataKey="redeemed" fill="#6cc04a" radius={[4, 4, 0, 0]} />
-      </BarChart>
-    </ResponsiveContainer>
+const BarGraph = ({ data }: { data: ChartData[] }) => (
+  <Box sx={{ width: "100%", overflowX: "auto" }}>
+    <BarChart
+      width={900}
+      height={260}
+      data={data}
+      barGap={6}
+    >
+      <XAxis dataKey="month" tick={{ fontSize: 12 }} />
+      <YAxis tick={{ fontSize: 12 }} />
+      <Tooltip />
+      <Bar dataKey="issued" fill="#1f4fd8" radius={[4, 4, 0, 0]} />
+      <Bar dataKey="redeemed" fill="#6cc04a" radius={[4, 4, 0, 0]} />
+    </BarChart>
   </Box>
 );
-
-
- 

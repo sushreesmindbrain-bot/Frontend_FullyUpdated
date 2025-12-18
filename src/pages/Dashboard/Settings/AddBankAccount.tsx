@@ -5,7 +5,6 @@ import {
   DialogContent,
   DialogActions,
   Box,
-  Grid,
   TextField,
   Button,
   Checkbox,
@@ -15,7 +14,8 @@ import {
   Typography
 } from "@mui/material";
 
-/* TYPES */
+/* ================= TYPES ================= */
+
 export interface BankAccountForm {
   bankName: string;
   accountNumber: string;
@@ -32,6 +32,8 @@ interface Props {
   onSave: (data: BankAccountForm) => void;
 }
 
+/* ================= STYLES ================= */
+
 const inputStyle = {
   "& .MuiOutlinedInput-root": {
     borderRadius: "8px",
@@ -41,11 +43,9 @@ const inputStyle = {
   }
 };
 
-const AddBankAccount: React.FC<Props> = ({
-  open,
-  onClose,
-  onSave
-}) => {
+/* ================= COMPONENT ================= */
+
+const AddBankAccount: React.FC<Props> = ({ open, onClose, onSave }) => {
   const [form, setForm] = useState<BankAccountForm>({
     bankName: "",
     accountNumber: "",
@@ -56,10 +56,9 @@ const AddBankAccount: React.FC<Props> = ({
     isDefault: true
   });
 
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement>
-  ) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value, checked, type } = e.target;
+
     setForm((prev) => ({
       ...prev,
       [name]: type === "checkbox" ? checked : value
@@ -72,7 +71,14 @@ const AddBankAccount: React.FC<Props> = ({
   };
 
   return (
-    <Dialog open={open} onClose={onClose} maxWidth="sm" fullWidth>
+    <Dialog
+      open={open}
+      onClose={onClose}
+      maxWidth="sm"
+      fullWidth
+      keepMounted
+      disableRestoreFocus
+    >
       <DialogTitle fontWeight={600}>
         Add Bank Account
       </DialogTitle>
@@ -80,9 +86,9 @@ const AddBankAccount: React.FC<Props> = ({
       <Divider />
 
       <DialogContent sx={{ pt: 3 }}>
-        <Grid container spacing={2.5}>
-          {/* Row 1 */}
-          <Grid item xs={12} md={6}>
+        {/* ================= ROW 1 ================= */}
+        <Box display="flex" flexWrap="wrap" gap={2.5} mb={2.5}>
+          <Box flex="1 1 250px">
             <Typography fontSize={13} mb={0.5}>
               Bank Name
             </Typography>
@@ -93,9 +99,9 @@ const AddBankAccount: React.FC<Props> = ({
               onChange={handleChange}
               sx={inputStyle}
             />
-          </Grid>
+          </Box>
 
-          <Grid item xs={12} md={6}>
+          <Box flex="1 1 250px">
             <Typography fontSize={13} mb={0.5}>
               Account Number
             </Typography>
@@ -106,10 +112,12 @@ const AddBankAccount: React.FC<Props> = ({
               onChange={handleChange}
               sx={inputStyle}
             />
-          </Grid>
+          </Box>
+        </Box>
 
-          {/* Row 2 */}
-          <Grid item xs={12} md={6}>
+        {/* ================= ROW 2 ================= */}
+        <Box display="flex" flexWrap="wrap" gap={2.5} mb={2.5}>
+          <Box flex="1 1 250px">
             <Typography fontSize={13} mb={0.5}>
               IFSC Code
             </Typography>
@@ -120,9 +128,9 @@ const AddBankAccount: React.FC<Props> = ({
               onChange={handleChange}
               sx={inputStyle}
             />
-          </Grid>
+          </Box>
 
-          <Grid item xs={12} md={6}>
+          <Box flex="1 1 250px">
             <Typography fontSize={13} mb={0.5}>
               Account Holder Name
             </Typography>
@@ -133,10 +141,12 @@ const AddBankAccount: React.FC<Props> = ({
               onChange={handleChange}
               sx={inputStyle}
             />
-          </Grid>
+          </Box>
+        </Box>
 
-          {/* Row 3 */}
-          <Grid item xs={12} md={6}>
+        {/* ================= ROW 3 ================= */}
+        <Box display="flex" flexWrap="wrap" gap={2.5} mb={2.5}>
+          <Box flex="1 1 250px">
             <Typography fontSize={13} mb={0.5}>
               Bank Branch
             </Typography>
@@ -147,14 +157,14 @@ const AddBankAccount: React.FC<Props> = ({
               onChange={handleChange}
               sx={inputStyle}
             />
-          </Grid>
+          </Box>
 
-          <Grid item xs={12} md={6} /> 
+          <Box flex="1 1 250px" />
+        </Box>
 
-          {/* Row 4 – Account Type on RIGHT */}
-          <Grid item xs={12} md={6} />  
-
-          <Grid item xs={12} md={6}>
+        {/* ================= ROW 4 ================= */}
+        <Box display="flex" justifyContent="flex-end" mb={2}>
+          <Box width={250}>
             <Typography fontSize={13} mb={0.5}>
               Account Type
             </Typography>
@@ -166,29 +176,24 @@ const AddBankAccount: React.FC<Props> = ({
               onChange={handleChange}
               sx={inputStyle}
             >
- 
-              <MenuItem value="Select Type" >Select Type</MenuItem>
+              <MenuItem value="">Select Type</MenuItem>
               <MenuItem value="savings">Savings</MenuItem>
               <MenuItem value="current">Current</MenuItem>
             </TextField>
-          </Grid>
+          </Box>
+        </Box>
 
-          {/* Row 5 */}
-          <Grid item xs={12}>
-            <Box mt={1}>
-              <FormControlLabel
-                control={
-                  <Checkbox
-                    checked={form.isDefault}
-                    onChange={handleChange}
-                    name="isDefault"
-                  />
-                }
-                label="Set as Default Account"
-              />
-            </Box>
-          </Grid>
-        </Grid>
+        {/* ================= ROW 5 ================= */}
+        <FormControlLabel
+          control={
+            <Checkbox
+              checked={form.isDefault}
+              onChange={handleChange}
+              name="isDefault"
+            />
+          }
+          label="Set as Default Account"
+        />
       </DialogContent>
 
       <Divider />
@@ -211,4 +216,3 @@ const AddBankAccount: React.FC<Props> = ({
 };
 
 export default AddBankAccount;
-

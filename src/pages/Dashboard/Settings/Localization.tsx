@@ -5,9 +5,8 @@ import {
   Typography,
   Button,
   Stack,
-  Grid,
   TextField,
-  MenuItem
+  MenuItem,
 } from "@mui/material";
 
 import type { Page } from "./MainParent";
@@ -22,22 +21,22 @@ const inputStyle = {
   "& .MuiOutlinedInput-root": {
     borderRadius: "10px",
     "& fieldset": {
-      borderColor: "#26619A"
+      borderColor: "#26619A",
     },
     "&:hover fieldset": {
-      borderColor: "#26619A"
+      borderColor: "#26619A",
     },
     "&.Mui-focused fieldset": {
-      borderColor: "#1f4f7a"
-    }
+      borderColor: "#1f4f7a",
+    },
   },
   "& .MuiInputBase-input": {
-    color: "#667085"
-  }
+    color: "#667085",
+  },
 };
 
 const Localization: React.FC<Props> = ({ onTabChange }) => {
-  const [language, setLanguage] = useState("English");
+  const [language, setLanguage] = useState<string>("English");
 
   return (
     <Box sx={{ p: 3, bgcolor: "#f6f8fb", minHeight: "100vh" }}>
@@ -45,8 +44,12 @@ const Localization: React.FC<Props> = ({ onTabChange }) => {
       <Paper sx={{ p: 1.5, mb: 3, borderRadius: "12px" }}>
         <Stack direction="row" spacing={1}>
           <Button onClick={() => onTabChange("gst")}>GST & Taxes</Button>
-          <Button onClick={() => onTabChange("shipping")}>Shipping & COD</Button>
-          <Button onClick={() => onTabChange("payment")}>Payment Gateways</Button>
+          <Button onClick={() => onTabChange("shipping")}>
+            Shipping & COD
+          </Button>
+          <Button onClick={() => onTabChange("payment")}>
+            Payment Gateways
+          </Button>
           <Button onClick={() => onTabChange("payout")}>Payout Bank</Button>
           <Button onClick={() => onTabChange("legal")}>Legal Content</Button>
           <Button variant="contained">Localization</Button>
@@ -55,14 +58,21 @@ const Localization: React.FC<Props> = ({ onTabChange }) => {
 
       {/* 🔹 LOCALIZATION SETTINGS */}
       <Paper sx={{ p: 3, borderRadius: "12px" }}>
-        <Typography fontWeight={600} mb={3} color="#000000">
+        <Typography fontWeight={600} mb={3} color="#000">
           Localization Settings
         </Typography>
 
         {/* 🔹 ROW 1 */}
-        <Grid container spacing={3} mb={2}>
-          <Grid item xs={12} md={4}>
-            <Typography fontSize={13} mb={0.5} color="#000000">
+        <Box
+          sx={{
+            display: "flex",
+            flexWrap: "wrap",
+            gap: 3,
+            mb: 3,
+          }}
+        >
+          <Box sx={{ flex: "1 1 300px" }}>
+            <Typography fontSize={13} mb={0.5}>
               Default Language
             </Typography>
             <TextField
@@ -78,10 +88,10 @@ const Localization: React.FC<Props> = ({ onTabChange }) => {
               <MenuItem value="Tamil">Tamil</MenuItem>
               <MenuItem value="Telugu">Telugu</MenuItem>
             </TextField>
-          </Grid>
+          </Box>
 
-          <Grid item xs={12} md={4}>
-            <Typography fontSize={13} mb={0.5} color="#000000">
+          <Box sx={{ flex: "1 1 300px" }}>
+            <Typography fontSize={13} mb={0.5}>
               Default Currency
             </Typography>
             <TextField
@@ -91,10 +101,10 @@ const Localization: React.FC<Props> = ({ onTabChange }) => {
               disabled
               sx={inputStyle}
             />
-          </Grid>
+          </Box>
 
-          <Grid item xs={12} md={4}>
-            <Typography fontSize={13} mb={0.5} color="#000000">
+          <Box sx={{ flex: "1 1 300px" }}>
+            <Typography fontSize={13} mb={0.5}>
               Repurchase Wallet (%)
             </Typography>
             <TextField
@@ -103,13 +113,20 @@ const Localization: React.FC<Props> = ({ onTabChange }) => {
               defaultValue={10}
               sx={inputStyle}
             />
-          </Grid>
-        </Grid>
+          </Box>
+        </Box>
 
         {/* 🔹 ROW 2 */}
-        <Grid container spacing={3} mb={3}>
-          <Grid item xs={12} md={6}>
-            <Typography fontSize={13} mb={0.5} color="#000000">
+        <Box
+          sx={{
+            display: "flex",
+            flexWrap: "wrap",
+            gap: 3,
+            mb: 3,
+          }}
+        >
+          <Box sx={{ flex: "1 1 400px" }}>
+            <Typography fontSize={13} mb={0.5}>
               Date Format
             </Typography>
             <TextField
@@ -119,10 +136,10 @@ const Localization: React.FC<Props> = ({ onTabChange }) => {
               disabled
               sx={inputStyle}
             />
-          </Grid>
+          </Box>
 
-          <Grid item xs={12} md={6}>
-            <Typography fontSize={13} mb={0.5} color="#000000">
+          <Box sx={{ flex: "1 1 400px" }}>
+            <Typography fontSize={13} mb={0.5}>
               Time Zone
             </Typography>
             <TextField
@@ -132,27 +149,26 @@ const Localization: React.FC<Props> = ({ onTabChange }) => {
               disabled
               sx={inputStyle}
             />
-          </Grid>
-        </Grid>
+          </Box>
+        </Box>
 
         {/* 🔹 SAVE BUTTON */}
-        <Grid container justifyContent="flex-end">
+        <Box display="flex" justifyContent="flex-end">
           <Button
             variant="contained"
             sx={{
               bgcolor: "#245e95",
               borderRadius: "10px",
               textTransform: "none",
-              px: 3
+              px: 3,
             }}
           >
             Save Changes
           </Button>
-        </Grid>
+        </Box>
       </Paper>
     </Box>
   );
 };
 
 export default Localization;
-

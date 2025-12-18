@@ -4,7 +4,6 @@ import {
   DialogTitle,
   DialogContent,
   DialogActions,
-  Grid,
   TextField,
   Button,
   Box,
@@ -23,6 +22,11 @@ const EditProfileInfo: React.FC<EditProfileInfoProps> = ({
   onClose,
   onSave
 }) => {
+  const fieldStyle = {
+    "& .MuiOutlinedInput-root": { borderRadius: "10px" },
+    "& .MuiInputBase-input": { color: "#667085" }
+  };
+
   return (
     <Dialog
       open={open}
@@ -30,9 +34,7 @@ const EditProfileInfo: React.FC<EditProfileInfoProps> = ({
       maxWidth="sm"
       fullWidth
       PaperProps={{
-        sx: {
-          borderRadius: "10px" 
-        }
+        sx: { borderRadius: "10px" }
       }}
     >
       <DialogTitle>Edit Personal Information</DialogTitle>
@@ -40,140 +42,74 @@ const EditProfileInfo: React.FC<EditProfileInfoProps> = ({
       <Divider />
 
       <DialogContent>
-        <Box mt={2}>
-          <Grid container spacing={2}>
-            {/* First Name */}
-            <Grid item xs={12} md={6}>
-              <Typography fontSize={12} color="text.secondary" mb={0.5}>
-                First Name
-              </Typography>
-              <TextField
-                fullWidth
-                size="small"
-                defaultValue="Moni"
-                sx={{
-                  "& .MuiOutlinedInput-root": {
-                    borderRadius: "10px"
-                  },
-                  "& .MuiInputBase-input": {
-                    color: "#667085"
-                  }
-                }}
-              />
-            </Grid>
+        <Box mt={2} display="flex" flexWrap="wrap" gap={2}>
+          {/* First Name */}
+          <Box flex={{ xs: "1 1 100%", md: "1 1 calc(50% - 8px)" }}>
+            <Typography fontSize={12} color="text.secondary" mb={0.5}>
+              First Name
+            </Typography>
+            <TextField fullWidth size="small" defaultValue="Moni" sx={fieldStyle} />
+          </Box>
 
-            {/* Last Name */}
-            <Grid item xs={12} md={6}>
-              <Typography fontSize={12} color="text.secondary" mb={0.5}>
-                Last Name
-              </Typography>
-              <TextField
-                fullWidth
-                size="small"
-                defaultValue="Roy"
-                sx={{
-                  "& .MuiOutlinedInput-root": {
-                    borderRadius: "10px"
-                  },
-                  "& .MuiInputBase-input": {
-                    color: "#667085"
-                  }
-                }}
-              />
-            </Grid>
+          {/* Last Name */}
+          <Box flex={{ xs: "1 1 100%", md: "1 1 calc(50% - 8px)" }}>
+            <Typography fontSize={12} color="text.secondary" mb={0.5}>
+              Last Name
+            </Typography>
+            <TextField fullWidth size="small" defaultValue="Roy" sx={fieldStyle} />
+          </Box>
 
-            {/* Email */}
-            <Grid item xs={12} md={6}>
-              <Typography fontSize={12} color="text.secondary" mb={0.5}>
-                Email Address
-              </Typography>
-              <TextField
-                fullWidth
-                size="small"
-                defaultValue="moniroy123@gmail.com"
-                sx={{
-                  "& .MuiOutlinedInput-root": {
-                    borderRadius: "10px"
-                  },
-                  "& .MuiInputBase-input": {
-                    color: "#667085"
-                  }
-                }}
-              />
-            </Grid>
+          {/* Email */}
+          <Box flex={{ xs: "1 1 100%", md: "1 1 calc(50% - 8px)" }}>
+            <Typography fontSize={12} color="text.secondary" mb={0.5}>
+              Email Address
+            </Typography>
+            <TextField
+              fullWidth
+              size="small"
+              defaultValue="moniroy123@gmail.com"
+              sx={fieldStyle}
+            />
+          </Box>
 
-            {/* Phone */}
-            <Grid item xs={12} md={6}>
-              <Typography fontSize={12} color="text.secondary" mb={0.5}>
-                Phone
-              </Typography>
-              <TextField
-                fullWidth
-                size="small"
-                defaultValue="+0936339846"
-                sx={{
-                  "& .MuiOutlinedInput-root": {
-                    borderRadius: "10px"
-                  },
-                  "& .MuiInputBase-input": {
-                    color: "#667085"
-                  }
-                }}
-              />
-            </Grid>
+          {/* Phone */}
+          <Box flex={{ xs: "1 1 100%", md: "1 1 calc(50% - 8px)" }}>
+            <Typography fontSize={12} color="text.secondary" mb={0.5}>
+              Phone
+            </Typography>
+            <TextField fullWidth size="small" defaultValue="+0936339846" sx={fieldStyle} />
+          </Box>
 
-            {/* BIO — FULL WIDTH BELOW */}
-            <Grid item xs={12}>
-              <Typography fontSize={12} color="text.secondary" mb={0.5}>
-                Bio
-              </Typography>
-              <TextField
-                fullWidth
-                size="small"
-                defaultValue="Admin"
-                sx={{
-                  "& .MuiOutlinedInput-root": {
-                    borderRadius: "10px"
-                  },
-                  "& .MuiInputBase-input": {
-                    color: "#667085"
-                  }
-                }}
-              />
-            </Grid>
-          </Grid>
+          {/* Bio — full width */}
+          <Box flex="1 1 100%">
+            <Typography fontSize={12} color="text.secondary" mb={0.5}>
+              Bio
+            </Typography>
+            <TextField fullWidth size="small" defaultValue="Admin" sx={fieldStyle} />
+          </Box>
         </Box>
       </DialogContent>
 
       <Divider />
 
-     <DialogActions sx={{ px: 3, pb: 2 }}>
-  <Button
-    onClick={onClose}
-    variant="contained"
-    color="inherit"
-    sx={{
-      borderRadius: "10px",    
-      textTransform: "none",  
-      px: 3
-    }}
-  >
-    Close
-  </Button>
+      <DialogActions sx={{ px: 3, pb: 2 }}>
+        <Button
+          onClick={onClose}
+          variant="contained"
+          color="inherit"
+          sx={{ borderRadius: "10px", textTransform: "none", px: 3 }}
+        >
+          Close
+        </Button>
 
-  <Button
-    onClick={onSave}
-    variant="contained"
-    sx={{
-      borderRadius: "10px",    
-      textTransform: "none",
-      px: 3
-    }}
-  >
-    Save Changes
-  </Button>
-</DialogActions>
-
+        <Button
+          onClick={onSave}
+          variant="contained"
+          sx={{ borderRadius: "10px", textTransform: "none", px: 3 }}
+        >
+          Save Changes
+        </Button>
+      </DialogActions>
     </Dialog>
   );
 };

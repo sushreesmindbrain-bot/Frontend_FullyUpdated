@@ -1,10 +1,9 @@
- import React from "react";
+import React from "react";
 import {
   Dialog,
   DialogTitle,
   DialogContent,
   DialogActions,
-  Grid,
   TextField,
   Button,
   Box,
@@ -23,6 +22,11 @@ const EditAddressInfo: React.FC<EditAddressInfoProps> = ({
   onClose,
   onSave
 }) => {
+  const fieldStyle = {
+    "& .MuiOutlinedInput-root": { borderRadius: "10px" },
+    "& .MuiInputBase-input": { color: "#667085" }
+  };
+
   return (
     <Dialog
       open={open}
@@ -30,9 +34,7 @@ const EditAddressInfo: React.FC<EditAddressInfoProps> = ({
       maxWidth="sm"
       fullWidth
       sx={{
-        "& .MuiPaper-root": {
-          borderRadius: "12px" 
-        }
+        "& .MuiPaper-root": { borderRadius: "12px" }
       }}
     >
       <DialogTitle>Edit Address</DialogTitle>
@@ -40,104 +42,49 @@ const EditAddressInfo: React.FC<EditAddressInfoProps> = ({
       <Divider />
 
       <DialogContent>
-        <Box mt={2}>
-          <Grid container spacing={2}>
-            {/* Country */}
-            <Grid item xs={12} md={6}>
-              <Typography fontSize={12} color="text.secondary" mb={0.5}>
-                Country
-              </Typography>
-              <TextField
-                fullWidth
-                size="small"
-                defaultValue="United States"
-                sx={{
-                  "& .MuiOutlinedInput-root": {
-                    borderRadius: "10px"
-                  },
-                  "& .MuiInputBase-input": {
-                    color: "#667085"
-                  }
-                }}
-              />
-            </Grid>
+        <Box mt={2} display="flex" flexWrap="wrap" gap={2}>
+          {/* Country */}
+          <Box flex={{ xs: "1 1 100%", md: "1 1 calc(50% - 8px)" }}>
+            <Typography fontSize={12} color="text.secondary" mb={0.5}>
+              Country
+            </Typography>
+            <TextField fullWidth size="small" defaultValue="United States" sx={fieldStyle} />
+          </Box>
 
-            {/* City */}
-            <Grid item xs={12} md={6}>
-              <Typography fontSize={12} color="text.secondary" mb={0.5}>
-                City
-              </Typography>
-              <TextField
-                fullWidth
-                size="small"
-                defaultValue="Phoenix"
-                sx={{
-                  "& .MuiOutlinedInput-root": {
-                    borderRadius: "10px"
-                  },
-                  "& .MuiInputBase-input": {
-                    color: "#667085"
-                  }
-                }}
-              />
-            </Grid>
+          {/* City */}
+          <Box flex={{ xs: "1 1 100%", md: "1 1 calc(50% - 8px)" }}>
+            <Typography fontSize={12} color="text.secondary" mb={0.5}>
+              City
+            </Typography>
+            <TextField fullWidth size="small" defaultValue="Phoenix" sx={fieldStyle} />
+          </Box>
 
-            {/* State */}
-            <Grid item xs={12} md={6}>
-              <Typography fontSize={12} color="text.secondary" mb={0.5}>
-                State
-              </Typography>
-              <TextField
-                fullWidth
-                size="small"
-                defaultValue="Arizona"
-                sx={{
-                  "& .MuiOutlinedInput-root": {
-                    borderRadius: "10px"
-                  },
-                  "& .MuiInputBase-input": {
-                    color: "#667085"
-                  }
-                }}
-              />
-            </Grid>
+          {/* State */}
+          <Box flex={{ xs: "1 1 100%", md: "1 1 calc(50% - 8px)" }}>
+            <Typography fontSize={12} color="text.secondary" mb={0.5}>
+              State
+            </Typography>
+            <TextField fullWidth size="small" defaultValue="Arizona" sx={fieldStyle} />
+          </Box>
 
-            {/* Postal Code */}
-            <Grid item xs={12} md={6}>
-              <Typography fontSize={12} color="text.secondary" mb={0.5}>
-                Postal Code
-              </Typography>
-              <TextField
-                fullWidth
-                size="small"
-                defaultValue="ERT 2489"
-                sx={{
-                  "& .MuiOutlinedInput-root": {
-                    borderRadius: "10px"
-                  },
-                  "& .MuiInputBase-input": {
-                    color: "#667085"
-                  }
-                }}
-              />
-            </Grid>
-          </Grid>
+          {/* Postal Code */}
+          <Box flex={{ xs: "1 1 100%", md: "1 1 calc(50% - 8px)" }}>
+            <Typography fontSize={12} color="text.secondary" mb={0.5}>
+              Postal Code
+            </Typography>
+            <TextField fullWidth size="small" defaultValue="ERT 2489" sx={fieldStyle} />
+          </Box>
         </Box>
       </DialogContent>
 
       <Divider />
 
-      {/* ACTION BUTTONS */}
       <DialogActions sx={{ px: 3, pb: 2 }}>
         <Button
           variant="contained"
           color="inherit"
           onClick={onClose}
-          sx={{
-            borderRadius: "10px",
-            textTransform: "none",
-            px: 3
-          }}
+          sx={{ borderRadius: "10px", textTransform: "none", px: 3 }}
         >
           Close
         </Button>
@@ -145,11 +92,7 @@ const EditAddressInfo: React.FC<EditAddressInfoProps> = ({
         <Button
           variant="contained"
           onClick={onSave}
-          sx={{
-            borderRadius: "10px",
-            textTransform: "none",
-            px: 3
-          }}
+          sx={{ borderRadius: "10px", textTransform: "none", px: 3 }}
         >
           Save Changes
         </Button>
@@ -159,4 +102,3 @@ const EditAddressInfo: React.FC<EditAddressInfoProps> = ({
 };
 
 export default EditAddressInfo;
-

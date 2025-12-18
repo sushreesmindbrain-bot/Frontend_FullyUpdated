@@ -5,8 +5,6 @@ import {
   Box,
   Typography,
   Paper,
-  Tabs,
-  Tab,
   Button,
   Select,
   MenuItem,
@@ -25,28 +23,6 @@ import type { Page } from "./PageType";
 interface Props {
   onTabChange: (page: Page) => void;
 }
-
-/* ---------- TAB STYLES ---------- */
-const inactiveTabStyle = {
-  textTransform: "none",
-  borderRadius: "8px",
-  minHeight: 32,
-  px: 2.5,
-  backgroundColor: "#ffffff",
-  color: "#555",
-  border: "1px solid #e0e0e0",
-  "&:hover": { backgroundColor: "#f5f7fa" }
-};
-
-const activeTabStyle = {
-  textTransform: "none",
-  borderRadius: "8px",
-  minHeight: 32,
-  px: 2.5,
-  backgroundColor: "#2f80ed",
-  color: "#fff",
-  fontWeight: 600
-};
 
 /* ---------- SAME ARROW STYLE AS TEAM GROWTH ---------- */
 const SimpleArrows = ({ label }: { label: string }) => (
@@ -87,29 +63,52 @@ const rows = [
 const TaxGst: React.FC<Props> = ({ onTabChange }) => {
   return (
     <Box sx={{ p: 3, backgroundColor: "#f7f9fc", minHeight: "100vh" }}>
-      {/* ================= TABS ================= */}
-      <Paper sx={{ mb: 3, p: 1, backgroundColor: "transparent", boxShadow: "none" }}>
-        <Tabs
-          value={4}
-          variant="scrollable"
-          scrollButtons="auto"
-          TabIndicatorProps={{ style: { display: "none" } }}
-          sx={{ "& .MuiTabs-flexContainer": { gap: 1 } }}
-        >
-          <Tab label="Sales & BV" onClick={() => onTabChange("salesBv")} sx={inactiveTabStyle} />
-          <Tab label="Team Growth" onClick={() => onTabChange("teamGrowth")} sx={inactiveTabStyle} />
-          <Tab
-            label="Package Distribution"
+      {/* ================= TOP TABS (GST STYLE) ================= */}
+      <Paper sx={{ p: 1.5, mb: 3 }}>
+        <Box display="flex" gap={1}>
+          <Button
+            variant="text"
+            sx={{ textTransform: "none", fontWeight: 500 }}
+            onClick={() => onTabChange("salesBv")}
+          >
+            Sales & BV
+          </Button>
+
+          <Button
+            variant="text"
+            sx={{ textTransform: "none", fontWeight: 500 }}
+            onClick={() => onTabChange("teamGrowth")}
+          >
+            Team Growth
+          </Button>
+
+          <Button
+            variant="text"
+            sx={{ textTransform: "none", fontWeight: 500 }}
             onClick={() => onTabChange("packageDistribution")}
-            sx={inactiveTabStyle}
-          />
-          <Tab
-            label="Coins & Coupons"
+          >
+            Package Distribution
+          </Button>
+
+          <Button
+            variant="text"
+            sx={{ textTransform: "none", fontWeight: 500 }}
             onClick={() => onTabChange("coinsCoupons")}
-            sx={inactiveTabStyle}
-          />
-          <Tab label="Tax/GST" sx={activeTabStyle} />
-        </Tabs>
+          >
+            Coins & Coupons
+          </Button>
+
+          <Button
+            variant="contained"
+            sx={{
+              bgcolor: "#26619A",
+              textTransform: "none",
+              fontWeight: 600
+            }}
+          >
+            Tax / GST
+          </Button>
+        </Box>
       </Paper>
 
       {/* ================= MAIN CARD ================= */}
@@ -124,7 +123,11 @@ const TaxGst: React.FC<Props> = ({ onTabChange }) => {
             <MenuItem value="12">Last 12 Months</MenuItem>
           </Select>
 
-          <Button variant="contained" startIcon={<DownloadIcon />} sx={{ textTransform: "none" }}>
+          <Button
+            variant="contained"
+            startIcon={<DownloadIcon />}
+            sx={{ textTransform: "none" }}
+          >
             Export
           </Button>
         </Box>

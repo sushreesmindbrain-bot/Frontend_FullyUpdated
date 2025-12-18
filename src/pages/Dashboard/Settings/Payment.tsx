@@ -12,10 +12,9 @@ import {
   IconButton,
   Pagination,
   Stack,
-  Grid,
   TextField,
   MenuItem,
-  Chip
+  Chip,
 } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import EditIcon from "@mui/icons-material/Edit";
@@ -24,7 +23,8 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import AddPaymentGateway from "./AppPaymentGateway";
 import type { Page } from "./MainParent";
 
-/* 🔹 TYPES */
+/* ================= TYPES ================= */
+
 interface Gateway {
   name: string;
   type: string;
@@ -32,80 +32,84 @@ interface Gateway {
   status: "Active" | "Inactive";
 }
 
-/* 🔹 PROPS */
 interface Props {
   onTabChange: (tab: Page) => void;
 }
 
-/* 🔹 MOCK DATA */
+interface AddGatewayData {
+  gatewayName?: string;
+  gatewayType?: string;
+  merchantId?: string;
+  active?: boolean;
+}
+
+type RefundPolicy = "immediate" | "7days";
+
+/* ================= DATA ================= */
+
 const initialGateways: Gateway[] = [
   {
     name: "Razorpay",
     type: "UPI, Cards, Net Banking",
     merchantId: "rzp_test_123456",
-    status: "Active"
+    status: "Active",
   },
   {
     name: "PayPal",
     type: "International Cards",
     merchantId: "paypal_biz_789",
-    status: "Active"
+    status: "Active",
   },
   {
     name: "Paytm",
     type: "Wallet, UPI",
     merchantId: "paytm_merchant_456",
-    status: "Active"
-  }
+    status: "Active",
+  },
 ];
+
+/* ================= COMPONENT ================= */
 
 const Payment: React.FC<Props> = ({ onTabChange }) => {
   const [gateways, setGateways] = useState<Gateway[]>(initialGateways);
-  const [refundPolicy, setRefundPolicy] = useState("immediate");
-  const [openAdd, setOpenAdd] = useState(false);
+  const [refundPolicy, setRefundPolicy] =
+    useState<RefundPolicy>("immediate");
+  const [openAdd, setOpenAdd] = useState<boolean>(false);
 
-  /* 🔹 ADD HANDLER */
-  const handleAddGateway = (data: any) => {
+  const handleAddGateway = (data: AddGatewayData) => {
     setGateways((prev) => [
       ...prev,
       {
-        name: data.gatewayName || "New Gateway",
-        type: data.gatewayType || "-",
-        merchantId: data.merchantId || "-",
-        status: data.active ? "Active" : "Inactive"
-      }
+        name: data.gatewayName ?? "New Gateway",
+        type: data.gatewayType ?? "-",
+        merchantId: data.merchantId ?? "-",
+        status: data.active ? "Active" : "Inactive",
+      },
     ]);
   };
 
   return (
     <Box sx={{ p: 3, bgcolor: "#f6f8fb", minHeight: "100vh" }}>
-      {/* 🔹 TOP TABS */}
+      {/* TOP TABS */}
       <Paper sx={{ p: 1.5, mb: 3 }}>
         <Stack direction="row" spacing={1}>
-          <Button onClick={() => onTabChange("gst")}>
-            GST & Taxes
-          </Button>
+          <Button onClick={() => onTabChange("gst")}>GST & Taxes</Button>
           <Button onClick={() => onTabChange("shipping")}>
             Shipping & COD
           </Button>
-          <Button variant="contained">
-            Payment Gateways
-          </Button>
-          <Button onClick={() => onTabChange("payout")}>
-            Payout Bank
-          </Button>
+          <Button variant="contained">Payment Gateways</Button>
+          <Button onClick={() => onTabChange("payout")}>Payout Bank</Button>
           <Button disabled>Legal Content</Button>
           <Button disabled>Localization</Button>
         </Stack>
       </Paper>
 
-      {/* 🔹 PAYMENT GATEWAY CONFIGURATION */}
+      {/* PAYMENT GATEWAY CONFIGURATION */}
       <Paper sx={{ p: 3, mb: 3 }}>
         <Box display="flex" justifyContent="space-between" mb={2}>
           <Typography fontWeight={600}>
             Payment Gateway Configuration
           </Typography>
-
           <Button
             variant="contained"
             startIcon={<AddIcon />}
@@ -118,17 +122,16 @@ const Payment: React.FC<Props> = ({ onTabChange }) => {
         <Table>
           <TableHead sx={{ bgcolor: "#245e95" }}>
             <TableRow>
-              {[
-                "Gateway",
-                "Type",
-                "Merchant ID",
-                "Status",
-                "Actions"
-              ].map((h) => (
-                <TableCell key={h} sx={{ color: "white", fontWeight: 500 }}>
-                  {h}
-                </TableCell>
-              ))}
+              {["Gateway", "Type", "Merchant ID", "Status", "Actions"].map(
+                (h) => (
+                  <TableCell
+                    key={h}
+                    sx={{ color: "white", fontWeight: 500 }}
+                  >
+                    {h}
+                  </TableCell>
+                )
+              )}
             </TableRow>
           </TableHead>
 
@@ -163,34 +166,36 @@ const Payment: React.FC<Props> = ({ onTabChange }) => {
         </Box>
       </Paper>
 
-      {/* 🔹 PAYMENT SETTINGS */}
+      {/* PAYMENT SETTINGS */}
       <Paper sx={{ p: 3 }}>
         <Typography fontWeight={600} mb={2}>
           Payment Settings
         </Typography>
 
-        <Grid container spacing={3}>
-          <Grid item xs={12} md={6}>
+        <Box sx={{ display: "flex", flexWrap: "wrap", gap: 3 }}>
+          <Box sx={{ flex: "1 1 300px" }}>
             <TextField
               fullWidth
               label="Payment Timeout (minutes)"
               defaultValue={15}
             />
-          </Grid>
+          </Box>
 
-          <Grid item xs={12} md={6}>
+          <Box sx={{ flex: "1 1 300px" }}>
             <TextField
               fullWidth
               select
               label="Auto-refund Failed Payments"
               value={refundPolicy}
-              onChange={(e) => setRefundPolicy(e.target.value)}
+              onChange={(e) =>
+                setRefundPolicy(e.target.value as RefundPolicy)
+              }
             >
               <MenuItem value="immediate">Yes, immediately</MenuItem>
               <MenuItem value="7days">After 7 Days</MenuItem>
             </TextField>
-          </Grid>
-        </Grid>
+          </Box>
+        </Box>
 
         <Box display="flex" justifyContent="flex-end" mt={3}>
           <Button variant="contained" sx={{ bgcolor: "#245e95" }}>
@@ -199,7 +204,7 @@ const Payment: React.FC<Props> = ({ onTabChange }) => {
         </Box>
       </Paper>
 
-      {/* 🔹 ADD PAYMENT GATEWAY MODAL */}
+      {/* ADD PAYMENT GATEWAY MODAL */}
       <AddPaymentGateway
         open={openAdd}
         onClose={() => setOpenAdd(false)}
@@ -211,4 +216,3 @@ const Payment: React.FC<Props> = ({ onTabChange }) => {
 
 export default Payment;
 
- 

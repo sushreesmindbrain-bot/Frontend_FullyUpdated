@@ -1,218 +1,267 @@
-
 import React, { useState } from "react";
 import {
   Box,
   Paper,
-  Typography,
-  TextField,
-  Switch,
-  Button,
   Table,
   TableHead,
   TableRow,
   TableCell,
   TableBody,
+  Avatar,
   IconButton,
-  Pagination,
-  Stack
+  Typography,
+  TextField,
+  Button,
+  MenuItem
 } from "@mui/material";
+import VisibilityIcon from "@mui/icons-material/Visibility";
 
-import EditIcon from "@mui/icons-material/Edit";
-import DeleteIcon from "@mui/icons-material/Delete";
-import AddIcon from "@mui/icons-material/Add";
-import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
-import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
+import type { Agent } from "./types";
 
-import AddCategory from "./AddCategory";
-import type { Page } from "./MainParent";
-
-/* TYPES */
-interface CategoryGST {
-  category: string;
-  rate: number;
-}
-
-/* PROPS */
+/* ---------- PROPS ---------- */
 interface Props {
-  onTabChange: (tab: Page) => void;
+  onViewDetails: (agent: Agent) => void;
 }
 
-const GstAndTaxes: React.FC<Props> = ({ onTabChange }) => {
-  const [inclusive, setInclusive] = useState(false);
-  const [openAdd, setOpenAdd] = useState(false);
+/* ---------- SORT ARROWS ---------- */
+const SimpleArrows = ({ label }: { label: string }) => (
+  <Box sx={{ display: "flex", alignItems: "center", gap: 0.6 }}>
+    {label}
+    <Box sx={{ display: "flex", flexDirection: "column", lineHeight: 1 }}>
+      <Typography sx={{ fontSize: 10, color: "white" }}>▲</Typography>
+      <Typography sx={{ fontSize: 10, color: "white" }}>▼</Typography>
+    </Box>
+  </Box>
+);
 
-  const [categories, setCategories] = useState<CategoryGST[]>([
-    { category: "Health Supplements", rate: 18 },
-    { category: "Personal Care", rate: 18 },
-    { category: "Health Devices", rate: 12 }
-  ]);
+const AgentListPage: React.FC<Props> = ({ onViewDetails }) => {
+  /* ---------- TAB STATE ---------- */
+  const [activeTab, setActiveTab] = useState<"users" | "kyc">("users");
 
-  const handleAddCategory = (data: CategoryGST) => {
-    setCategories((prev) => [...prev, data]);
-  };
+  /* ---------- MOCK DATA ---------- */
+  const MOCK_DATA: Agent[] = [
+    {
+      id: "AG1001",
+      name: "Rajesh Kumar",
+      email: "rajesh@example.com",
+      type: "Agent",
+      kyc: "Approved",
+      package: "Gold",
+      joinDate: "15 Jun 2023",
+      status: "Active",
+      avatar: "https://i.pravatar.cc/150?img=3"
+    },
+    {
+      id: "CU2045",
+      name: "Anita Singh",
+      email: "anita@example.com",
+      type: "Customer",
+      kyc: "-",
+      package: "-",
+      joinDate: "22 Jun 2023",
+      status: "Active",
+      avatar: "https://i.pravatar.cc/150?img=4"
+    },
+    {
+      id: "AG1002",
+      name: "Rohit Sharma",
+      email: "rohit@example.com",
+      type: "Agent",
+      kyc: "Pending",
+      package: "Silver",
+      joinDate: "28 Jun 2023",
+      status: "Pending KYC",
+      avatar: "https://i.pravatar.cc/150?img=5"
+    }
+  ];
+
+  /* ---------- TAB FILTER ---------- */
+  const filteredData =
+    activeTab === "kyc"
+      ? MOCK_DATA.filter((row) => row.kyc === "Pending")
+      : MOCK_DATA;
 
   return (
-    <Box sx={{ p: 3, bgcolor: "#f6f8fb", minHeight: "100vh" }}>
-      {/* ================= TOP TABS ================= */}
+    <Box>
+      {/* ================= TOP BUTTON TABS ================= */}
       <Paper sx={{ p: 1.5, mb: 3 }}>
-        <Stack direction="row" spacing={1}>
-          <Button variant="contained" sx={{ bgcolor: "#26619A" }}>
-            GST & Taxes
+        <Box sx={{ display: "flex", gap: 1 }}>
+          <Button
+            variant={activeTab === "users" ? "contained" : "outlined"}
+            sx={{
+              bgcolor: activeTab === "users" ? "#0d47a1" : "transparent",
+              color: activeTab === "users" ? "#fff" : "#475467",
+              textTransform: "none",
+              fontWeight: 600
+            }}
+            onClick={() => setActiveTab("users")}
+          >
+            Users & Agents
           </Button>
-          <Button onClick={() => onTabChange("shipping")}>
-            Shipping & COD
-          </Button>
-          <Button onClick={() => onTabChange("payment")}>
-            Payment Gateways
-          </Button>
-          <Button onClick={() => onTabChange("payout")}>
-            Payout Bank
-          </Button>
-          <Button onClick={() => onTabChange("legal")}>
-            Legal Content
-          </Button>
-          <Button onClick={() => onTabChange("localization")}>
-            Localization
-          </Button>
-        </Stack>
-      </Paper>
-
-      {/* ================= TAX CONFIG ================= */}
-      <Paper sx={{ p: 3, mb: 3 }}>
-        <Typography fontWeight={600} mb={2} sx={{ color: "#26619A" }}>
-          Tax & GST Configuration
-        </Typography>
-
-        
-        <Box
-          sx={{
-            display: "grid",
-            gridTemplateColumns: "repeat(2, 1fr)",
-            gap: 4
-          }}
-        >
-          <Box>
-            <Typography fontWeight={500} mb={0.5}>
-              CGST Rate (%)
-            </Typography>
-            <TextField fullWidth value={9} />
-          </Box>
-
-          <Box>
-            <Typography fontWeight={500} mb={0.5}>
-              SGST Rate (%)
-            </Typography>
-            <TextField fullWidth value={0} />
-          </Box>
-
-          <Box>
-            <Typography fontWeight={500} mb={0.5}>
-              IGST Rate (%)
-            </Typography>
-            <TextField fullWidth value={5} />
-          </Box>
-
-          <Box>
-            <Typography fontWeight={500} mb={0.5}>
-              CESS Rate (%)
-            </Typography>
-            <TextField fullWidth value={10} />
-          </Box>
-        </Box>
-
-        <Box mt={2} display="flex" alignItems="center">
-          <Switch
-            checked={inclusive}
-            onChange={(e) => setInclusive(e.target.checked)}
-          />
-          <Typography fontSize={14}>
-            Show prices inclusive of tax
-          </Typography>
-        </Box>
-
-        <Box display="flex" justifyContent="flex-end" gap={1} mt={3}>
-          <Button variant="outlined">Clear</Button>
-          <Button variant="contained" sx={{ bgcolor: "#26619A" }}>
-            Save Tax Settings
-          </Button>
-        </Box>
-      </Paper>
-
-      {/* ================= CATEGORY TABLE ================= */}
-      <Paper sx={{ p: 3 }}>
-        <Box display="flex" justifyContent="space-between" mb={2}>
-          <Typography fontWeight={600}>
-            GST Rates by Category
-          </Typography>
 
           <Button
-            variant="contained"
-            startIcon={<AddIcon />}
-            sx={{ bgcolor: "#26619A" }}
-            onClick={() => setOpenAdd(true)}
+            variant={activeTab === "kyc" ? "contained" : "outlined"}
+            sx={{
+              bgcolor: activeTab === "kyc" ? "#0d47a1" : "transparent",
+              color: activeTab === "kyc" ? "#fff" : "#475467",
+              textTransform: "none",
+              fontWeight: 600
+            }}
+            onClick={() => setActiveTab("kyc")}
           >
-            Add Category GST
+            KYC Approvals
           </Button>
         </Box>
+      </Paper>
 
+      {/* ================= SEARCH FILTERS ================= */}
+      <Paper sx={{ p: 3, mb: 3 }}>
+        <Box sx={{ display: "flex", gap: 2, flexWrap: "wrap" }}>
+          <TextField
+            placeholder="Search agents & users..."
+            fullWidth
+            sx={{ flex: 1 }}
+          />
+
+          <TextField select label="User Type" sx={{ width: 200 }}>
+            <MenuItem value="all">All Users</MenuItem>
+            <MenuItem value="agent">Agents</MenuItem>
+            <MenuItem value="customer">Customers</MenuItem>
+          </TextField>
+
+          <Button variant="contained" sx={{ px: 4 }}>
+            Search
+          </Button>
+        </Box>
+      </Paper>
+
+      {/* ================= TABLE ================= */}
+      <Paper sx={{ borderRadius: 3 }}>
         <Table>
           <TableHead>
-            <TableRow sx={{ bgcolor: "#26619A" }}>
-              <TableCell sx={{ color: "#fff" }}>
-                <Box display="flex" alignItems="center" gap={0.5}>
-                  Category
-                  <ArrowUpwardIcon sx={{ fontSize: 16 }} />
-                  <ArrowDownwardIcon sx={{ fontSize: 16 }} />
-                </Box>
+            <TableRow sx={{ background: "#0d47a1" }}>
+              <TableCell sx={{ color: "white" }}>
+                <SimpleArrows label="ID" />
               </TableCell>
-
-              <TableCell sx={{ color: "#fff" }}>
-                <Box display="flex" alignItems="center" gap={0.5}>
-                  Tax Rate (%)
-                  <ArrowUpwardIcon sx={{ fontSize: 16 }} />
-                  <ArrowDownwardIcon sx={{ fontSize: 16 }} />
-                </Box>
+              <TableCell sx={{ color: "white" }}>
+                <SimpleArrows label="User" />
               </TableCell>
-
-              <TableCell sx={{ color: "#fff" }}>
-                Actions
+              <TableCell sx={{ color: "white" }}>
+                <SimpleArrows label="Type" />
               </TableCell>
+              <TableCell sx={{ color: "white" }}>
+                <SimpleArrows label="KYC Status" />
+              </TableCell>
+              <TableCell sx={{ color: "white" }}>
+                <SimpleArrows label="Package" />
+              </TableCell>
+              <TableCell sx={{ color: "white" }}>
+                <SimpleArrows label="Join Date" />
+              </TableCell>
+              <TableCell sx={{ color: "white" }}>
+                <SimpleArrows label="Status" />
+              </TableCell>
+              <TableCell sx={{ color: "white" }}>Actions</TableCell>
             </TableRow>
           </TableHead>
 
           <TableBody>
-            {categories.map((row, i) => (
-              <TableRow key={i}>
-                <TableCell>{row.category}</TableCell>
-                <TableCell>{row.rate}</TableCell>
+            {filteredData.map((row, i) => (
+              <TableRow key={i} hover>
+                <TableCell>{row.id}</TableCell>
+
                 <TableCell>
-                  <IconButton sx={{ color: "#2e7d32" }}>
-                    <EditIcon />
-                  </IconButton>
-                  <IconButton sx={{ color: "#d32f2f" }}>
-                    <DeleteIcon />
+                  <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
+                    <Avatar src={row.avatar} />
+                    <Box>
+                      <Typography fontWeight={600}>{row.name}</Typography>
+                      <Typography variant="caption" color="text.secondary">
+                        {row.email}
+                      </Typography>
+                    </Box>
+                  </Box>
+                </TableCell>
+
+                <TableCell>{row.type}</TableCell>
+
+                <TableCell>
+                  {row.kyc === "Approved" && (
+                    <Badge text="Approved" bg="#e3fcef" color="#037847" />
+                  )}
+                  {row.kyc === "Pending" && (
+                    <Badge text="Pending" bg="#fff4e5" color="#b76a00" />
+                  )}
+                  {row.kyc === "-" && "-"}
+                </TableCell>
+
+                <TableCell>{row.package}</TableCell>
+                <TableCell>{row.joinDate}</TableCell>
+
+                <TableCell>
+                  {row.status === "Active" && (
+                    <Badge text="Active" bg="#e3fcef" color="#037847" />
+                  )}
+                  {row.status === "Pending KYC" && (
+                    <Badge
+                      text="Pending KYC"
+                      bg="#fff4e5"
+                      color="#b76a00"
+                    />
+                  )}
+                </TableCell>
+
+                <TableCell>
+                  <IconButton onClick={() => onViewDetails(row)}>
+                    <VisibilityIcon sx={{ color: "#0d47a1" }} />
                   </IconButton>
                 </TableCell>
               </TableRow>
             ))}
           </TableBody>
         </Table>
-
-        <Box display="flex" justifyContent="center" mt={2}>
-          <Pagination count={5} />
-        </Box>
       </Paper>
 
-      {/* ================= ADD CATEGORY MODAL ================= */}
-      <AddCategory
-        open={openAdd}
-        onClose={() => setOpenAdd(false)}
-        onSave={handleAddCategory}
-      />
+      {/* ================= PAGINATION ================= */}
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "center",
+          gap: 1.5,
+          py: 3
+        }}
+      >
+        <Button variant="outlined">Previous</Button>
+        <Button variant="contained">1</Button>
+        <Button variant="outlined">2</Button>
+        <Button variant="outlined">Next</Button>
+      </Box>
     </Box>
   );
 };
 
-export default GstAndTaxes;
+/* ---------- STATUS BADGE ---------- */
+const Badge = ({
+  text,
+  bg,
+  color
+}: {
+  text: string;
+  bg: string;
+  color: string;
+}) => (
+  <Box
+    sx={{
+      background: bg,
+      color,
+      px: 1.5,
+      py: 0.5,
+      borderRadius: 2,
+      display: "inline-block",
+      fontSize: 12
+    }}
+  >
+    {text}
+  </Box>
+);
 
- 
+export default AgentListPage;
