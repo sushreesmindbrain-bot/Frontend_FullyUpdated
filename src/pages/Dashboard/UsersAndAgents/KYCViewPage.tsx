@@ -3,10 +3,12 @@ import {
   Box,
   Avatar,
   Typography,
-  Tabs,
-  Tab,
-  Button
+  Button,
+  Paper,
 } from "@mui/material";
+// import CheckCircleIcon from '@mui/icons-material/CheckCircle';
+import VerifiedOutlinedIcon from "@mui/icons-material/VerifiedOutlined";
+
 
 import type { Agent } from "./types";
 
@@ -19,38 +21,42 @@ interface Props {
   onVerificationView: () => void;
 }
 
+const BLUE = "#26619A";
+
 const KYCViewPage: React.FC<Props> = ({
   agent,
   onBack,
   onTeamView,
   onEarningsView,
   onHistoryView,
-  onVerificationView
+  onVerificationView,
 }) => {
+  const [activeTab, setActiveTab] = useState<string>("kyc");
 
-   const [tab, setTab] = useState("overview");
-
-   const handleChange = (_: unknown, newValue: string) => {
-    setTab(newValue);
-
-    if (newValue === "overview") onBack();
-    if (newValue === "team") onTeamView();
-    if (newValue === "earnings") onEarningsView();
-    if (newValue === "history") onHistoryView();
+  const handleTabClick = (tab: string) => {
+    setActiveTab(tab);
+    if (tab === "overview") onBack();
+    if (tab === "team") onTeamView();
+    if (tab === "earnings") onEarningsView();
+    if (tab === "history") onHistoryView();
   };
 
+  const tabs = ["overview", "kyc", "team", "earnings", "history"];
+
   return (
-    <Box
+    <Paper
+      elevation={4}
       sx={{
         p: 2,
         height: "95vh",
         display: "flex",
         flexDirection: "column",
-        justifyContent: "space-between"
+        justifyContent: "space-between",
+        background: "#F9FAFC",
+        borderRadius: "12px",
       }}
     >
-      <Box sx={{ flexGrow: 1 }}>
-        
+      <Box sx={{ flexGrow: 1, overflowX: "auto" }}>
         {/* Header */}
         <Box sx={{ display: "flex", alignItems: "center", gap: 2, mb: 2 }}>
           <Avatar src={agent.avatar} sx={{ width: 56, height: 56 }} />
@@ -62,164 +68,188 @@ const KYCViewPage: React.FC<Props> = ({
           </Box>
         </Box>
 
-         <Tabs
-          value={tab}
-          onChange={handleChange}
-          TabIndicatorProps={{ style: { display: "none" } }}
-          centered
-          sx={{
-            mb: 2,
-            "& .MuiTab-root": {
-              textTransform: "none",
-              borderRadius: "8px",
-              minHeight: 32,
-              px: 2,
-              mx: 0.5,
-              fontWeight: 600,
-              background: "#f4f6f8",
-              color: "#475467",
-              border: "1px solid #e5e7eb",
-              fontSize: "14px",
-            },
-            "& .Mui-selected": {
-              background: "#1976d2",
-              color: "white",
-              borderColor: "#1976d2",
-            },
-          }}
-        >
-          <Tab label="Overview" value="overview" />
-          <Tab label="KYC & Bank" value="kyc" />
-          <Tab label="Team" value="team" />
-          <Tab label="Earnings" value="earnings" />
-          <Tab label="History" value="history" />
-        </Tabs>
-
-        {/* ===================== KYC SECTION ===================== */}
-        <Box
-          sx={{
-            border: "2px solid #1A73E8",
-            borderRadius: "12px",
-            p: 2,
-            mt: 1,
-            background: "#ffffff",
-          }}
-        >
-          <Box display="flex" justifyContent="space-between" alignItems="center" mb={1}>
-            <Typography sx={{ fontWeight: 700, fontSize: "16px", color: "#1A73E8" }}>
-              KYC Verification
-            </Typography>
-
-            <Button
-              variant="outlined"
-              sx={{
-                borderColor: "#2ECC71",
-                color: "#2ECC71",
-                fontWeight: 600,
-                borderRadius: "8px",
-                px: 2,
-                py: "2px",
-                fontSize: "13px",
-              }}
-              onClick={onVerificationView}
-            >
-              Verified
-            </Button>
+        {/* Tabs */}
+        <Paper sx={{ p: 1.5, mb: 3, overflowX: "auto", borderRadius: "12px", background: "#F9FAFC" }}>
+          <Box sx={{ display: "flex", width: "100%" }}>
+            {tabs.map((tab) => (
+              <Button
+                key={tab}
+                onClick={() => handleTabClick(tab)}
+                sx={{
+                  flex: 1,
+                  minWidth: 0,
+                  textTransform: "none",
+                  fontWeight: 500,
+                  color: activeTab === tab ? "#fff" : "#000",
+                  bgcolor: activeTab === tab ? BLUE : "transparent",
+                  "&:hover": {
+                    bgcolor: activeTab === tab ? BLUE : "transparent",
+                  },
+                  borderRadius: activeTab === tab ? "3px" : "2px",
+                  py: 0.6,
+                  minHeight: "38px",
+                  fontSize: "14px",
+                  textAlign: "center",
+                }}
+              >
+                {tab === "overview"
+                  ? "Overview"
+                  : tab === "kyc"
+                  ? "KYC & Bank"
+                  : tab === "team"
+                  ? "Team"
+                  : tab === "earnings"
+                  ? "Earnings"
+                  : "History"}
+              </Button>
+            ))}
           </Box>
+        </Paper>
 
-          <Box display="grid" gridTemplateColumns="repeat(2, 1fr)" gap={1.5}>
-            <Box p={2} borderRadius={2} bgcolor="#f5f5f5" boxShadow={1}>
-              <Typography variant="body2">Aadhaar Number</Typography>
-              <Typography variant="h6" fontWeight="bold" fontSize="16px">
-                XXXX XXXX 4521
+        {/* KYC Section */}
+        {activeTab === "kyc" && (
+          <Box
+            sx={{
+              border: `2px solid ${BLUE}`,
+              borderRadius: "12px",
+              p: 2,
+              mt: 1,
+              background: "#ffffff",
+            }}
+          >
+            <Box display="flex" justifyContent="space-between" mb={1}>
+              <Typography fontWeight={700} color={BLUE}>
+                KYC Verification
               </Typography>
+
+              <Button
+                variant="outlined"
+                startIcon={<VerifiedOutlinedIcon  sx={{ color: "#2ECC71" }} />}
+                sx={{
+                  borderColor: "#2ECC71",
+                  color: "#2ECC71",
+                  fontWeight: 600,
+                  borderRadius: "8px",
+                  px: 2,
+                  py: "2px",
+                  fontSize: "13px",
+                }}
+                onClick={onVerificationView}
+              >
+                Verified
+              </Button>
             </Box>
 
-            <Box p={2} borderRadius={2} bgcolor="#f5f5f5" boxShadow={1}>
-              <Typography variant="body2">PAN Number</Typography>
-              <Typography variant="h6" fontWeight="bold" fontSize="16px">
-                ABCDE1234F
-              </Typography>
-            </Box>
-          </Box>
-        </Box>
+            <Box display="grid" gridTemplateColumns="repeat(2, 1fr)" gap={1.5}>
+              <Box p={2} borderRadius={2} bgcolor="#f5f5f5">
+                <Typography variant="body2">Aadhaar Number</Typography>
+                <Typography fontWeight="bold">XXXX XXXX 4521</Typography>
+              </Box>
 
-        {/* ===================== BANK SECTION ===================== */}
-        <Box
-          sx={{
-            border: "2px solid #1A73E8",
-            borderRadius: "12px",
-            p: 2,
-            mt: 1.5,
-            background: "#ffffff",
-          }}
-        >
-          <Box display="flex" justifyContent="space-between" alignItems="center" mb={1}>
-            <Typography sx={{ fontWeight: 700, fontSize: "16px", color: "#1A73E8" }}>
-              Bank Account Verification
-            </Typography>
-
-            <Button
-              variant="outlined"
-              sx={{
-                borderColor: "#2ECC71",
-                color: "#2ECC71",
-                fontWeight: 600,
-                borderRadius: "8px",
-                px: 2,
-                py: "2px",
-                fontSize: "13px",
-              }}
-              onClick={onVerificationView}
-            >
-              Verified
-            </Button>
-          </Box>
-
-          <Box display="grid" gridTemplateColumns="repeat(2, 1fr)" gap={1.5}>
-            <Box p={2} borderRadius={2} bgcolor="#f5f5f5" boxShadow={1}>
-              <Typography variant="body2">Account Holder</Typography>
-              <Typography variant="h6" fontWeight="bold" fontSize="16px">
-                Rajesh Kumar
-              </Typography>
-            </Box>
-
-            <Box p={2} borderRadius={2} bgcolor="#f5f5f5" boxShadow={1}>
-              <Typography variant="body2">Bank Name</Typography>
-              <Typography variant="h6" fontWeight="bold" fontSize="16px">
-                State Bank of India
-              </Typography>
-            </Box>
-
-            <Box p={2} borderRadius={2} bgcolor="#f5f5f5" boxShadow={1}>
-              <Typography variant="body2">Account Number</Typography>
-              <Typography variant="h6" fontWeight="bold" fontSize="16px">
-                XXXXXXXX4521
-              </Typography>
-            </Box>
-
-            <Box p={2} borderRadius={2} bgcolor="#f5f5f5" boxShadow={1}>
-              <Typography variant="body2">IFSC Code</Typography>
-              <Typography variant="h6" fontWeight="bold" fontSize="16px">
-                SBIN0001234
-              </Typography>
+              <Box p={2} borderRadius={2} bgcolor="#f5f5f5">
+                <Typography variant="body2">PAN Number</Typography>
+                <Typography fontWeight="bold">ABCDE1234F</Typography>
+              </Box>
             </Box>
           </Box>
+        )}
 
-          <Typography variant="caption" sx={{ mt: 1, display: "block" }}>
-            Verified on 15/8/2024
-          </Typography>
-        </Box>
+        {/* Bank Section */}
+        {activeTab === "kyc" && (
+          <Box
+            sx={{
+              border: `2px solid ${BLUE}`,
+              borderRadius: "12px",
+              p: 2,
+              mt: 1.5,
+              background: "#ffffff",
+            }}
+          >
+            <Box display="flex" justifyContent="space-between" mb={1}>
+              <Typography fontWeight={700} color={BLUE}>
+                Bank Account Verification
+              </Typography>
+
+              <Button
+                variant="outlined"
+                startIcon={<VerifiedOutlinedIcon sx={{ color: "#2ECC71" }} />}
+                sx={{
+                  borderColor: "#2ECC71",
+                  color: "#2ECC71",
+                  fontWeight: 600,
+                  borderRadius: "8px",
+                  px: 2,
+                  py: "2px",
+                  fontSize: "13px",
+                }}
+                onClick={onVerificationView}
+              >
+                Verified
+              </Button>
+            </Box>
+
+            <Box display="grid" gridTemplateColumns="repeat(2, 1fr)" gap={1.5}>
+              <Box p={2} borderRadius={2} bgcolor="#f5f5f5">
+                <Typography variant="body2">Account Holder</Typography>
+                <Typography fontWeight="bold">Rajesh Kumar</Typography>
+              </Box>
+
+              <Box p={2} borderRadius={2} bgcolor="#f5f5f5">
+                <Typography variant="body2">Bank Name</Typography>
+                <Typography fontWeight="bold">State Bank of India</Typography>
+              </Box>
+
+              <Box p={2} borderRadius={2} bgcolor="#f5f5f5">
+                <Typography variant="body2">Account Number</Typography>
+                <Typography fontWeight="bold">XXXXXXXX4521</Typography>
+              </Box>
+
+              <Box p={2} borderRadius={2} bgcolor="#f5f5f5">
+                <Typography variant="body2">IFSC Code</Typography>
+                <Typography fontWeight="bold">SBIN0001234</Typography>
+              </Box>
+            </Box>
+          </Box>
+        )}
       </Box>
 
       {/* Footer */}
-      <Box sx={{ display: "flex", justifyContent: "center", gap: 2, mt: 1 }}>
-        <Button variant="outlined" onClick={onBack}>Close</Button>
-        <Button variant="contained" color="error">Suspend</Button>
-        <Button variant="contained">Edit</Button>
+      <Box sx={{ borderTop: "1px solid #A3AED0", pt: 2, display: "flex", justifyContent: "center", gap: 2, mt: 1 }}>
+        <Button
+          variant="contained"
+          onClick={onBack}
+          sx={{
+            textTransform: "none",
+            bgcolor: "#A3AED0",
+            color: "#ffffff",
+            "&:hover": { bgcolor: "#A3AED0" },
+          }}
+        >
+          Close
+        </Button>
+
+        <Button variant="contained" color="error"
+         sx={{
+            textTransform: "none",
+          }}
+        >
+          Suspend
+        </Button>
+
+        <Button
+          variant="contained"
+          sx={{
+            textTransform: "none",
+            backgroundColor: BLUE,
+            "&:hover": { backgroundColor: "#1f4f78" },
+          }}
+        >
+          Edit
+        </Button>
       </Box>
-    </Box>
+    </Paper>
   );
 };
 
 export default KYCViewPage;
+

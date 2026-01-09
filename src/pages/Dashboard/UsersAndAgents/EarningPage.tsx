@@ -1,574 +1,111 @@
-// // import React, { useState } from "react";
-// // import {
-// //   Box,
-// //   Avatar,
-// //   Typography,
-// //   Tabs,
-// //   Tab,
-// //   Button,
-// // } from "@mui/material";
-
-// // interface EarningPageProps {
-// //   agent?: any;
-// //   onTabChange: (tab: number) => void;
-// //   onClose?: () => void;
-// //   onSuspend?: () => void;
-// //   onEdit?: () => void;
-// // }
-
-// // const EarningPage: React.FC<EarningPageProps> = ({
-// //   agent = {},
-// //   onTabChange,
-// //   onClose = () => {},
-// //   onSuspend = () => {},
-// //   onEdit = () => {},
-// // }) => {
-// //   const [tab, setTab] = useState(3);  
-
-// //   const handleTabChange = (_: any, newValue: number) => {
-// //     setTab(newValue);
-// //     onTabChange(newValue);  
-// //   };
-
-// //   return (
-// //     <Box
-// //       sx={{
-// //         width: 680,
-// //         mx: "auto",
-// //         mt: 2,
-// //         background: "#fff",
-// //         borderRadius: "12px",
-// //         p: 3,
-// //         boxShadow: "0 4px 25px rgba(0,0,0,0.15)",
-// //       }}
-// //     >
-// //       {/* HEADER */}
-// //       <Box sx={{ display: "flex", alignItems: "center", gap: 2, mb: 2 }}>
-// //         <Avatar src={agent.avatar} sx={{ width: 50, height: 50 }} />
-// //         <Box>
-// //           <Typography fontWeight={700}>
-// //             {agent.name || "Rajesh Kumar"}
-// //           </Typography>
-// //           <Typography variant="body2" color="text.secondary">
-// //             {agent.code || "AGT-10456"} • Joined{" "}
-// //             {agent.joinDate || "15/02/2024"}
-// //           </Typography>
-// //         </Box>
-// //       </Box>
-
-// //       {/* ✅ WORKING TABS */}
-// //       <Tabs
-// //         value={tab}
-// //         onChange={handleTabChange}
-// //         centered
-// //         TabIndicatorProps={{ style: { display: "none" } }}
-// //         sx={{
-// //           mb: 3,
-// //           "& .MuiTab-root": {
-// //             textTransform: "none",
-// //             fontWeight: 600,
-// //             px: 3,
-// //             mx: 0.5,
-// //             borderRadius: "8px",
-// //             background: "#f4f6f8",
-// //             color: "#475467",
-// //             border: "1px solid #e5e7eb",
-// //           },
-// //           "& .Mui-selected": {
-// //             background: "#1976d2",
-// //             color: "#fff",
-// //             borderColor: "#1976d2",
-// //           },
-// //         }}
-// //       >
-// //         <Tab label="Overview" />
-// //         <Tab label="KYC & Bank" />
-// //         <Tab label="Team" />
-// //         <Tab label="Earnings" />
-// //         <Tab label="History" />
-// //       </Tabs>
-
-// //       {/* CONTENT */}
-// //       <Box
-// //         sx={{
-// //           border: "2px solid #1A73E8",
-// //           borderRadius: "12px",
-// //           p: 3,
-// //           background: "#fff",
-// //         }}
-// //       >
-// //         <Typography fontWeight={700} color="#1A73E8" mb={2}>
-// //           Earnings Summary
-// //         </Typography>
-
-// //         <Box display="grid" gridTemplateColumns="repeat(2,1fr)" gap={2}>
-// //           {[
-// //             ["Total Earnings", "₹1,45,600"],
-// //             ["Current Month", "₹23,400"],
-// //             ["Last Payout", "₹12,450"],
-// //             ["Pending Payout", "₹8,300"],
-// //           ].map(([label, value]) => (
-// //             <Box key={label} p={2} borderRadius={2} bgcolor="#f5f5f5">
-// //               <Typography variant="body2">{label}</Typography>
-// //               <Typography fontWeight="bold">{value}</Typography>
-// //             </Box>
-// //           ))}
-// //         </Box>
-// //       </Box>
-
-// //       {/* FOOTER */}
-// //       <Box sx={{ display: "flex", justifyContent: "center", gap: 2, mt: 3 }}>
-// //         <Button variant="outlined" onClick={onClose}>
-// //           Close
-// //         </Button>
-// //         <Button variant="contained" color="error" onClick={onSuspend}>
-// //           Suspend
-// //         </Button>
-// //         <Button variant="contained" onClick={onEdit}>
-// //           Edit
-// //         </Button>
-// //       </Box>
-// //     </Box>
-// //   );
-// // };
-
-// // export default EarningPage;
-
-// import React from "react";
-// import {
-//   Box,
-//   Avatar,
-//   Typography,
-//   Tabs,
-//   Tab,
-//   Button
-// } from "@mui/material";
-
-// import type { Agent } from "./types";
-
-// /* ================= TAB TYPE ================= */
-
-// type AgentTab =
-//   | "overview"
-//   | "kyc"
-//   | "team"
-//   | "earnings"
-//   | "history";
-
-// /* ================= PROPS ================= */
-
-// interface EarningPageProps {
-//   agent?: Agent;
-//   onTabChange: (tab: AgentTab) => void;
-//   onClose?: () => void;
-//   onSuspend?: () => void;
-//   onEdit?: () => void;
-// }
-
-// /* ================= COMPONENT ================= */
-
-// const EarningPage: React.FC<EarningPageProps> = ({
-//   agent,
-//   onTabChange,
-//   onClose = () => {},
-//   onSuspend = () => {},
-//   onEdit = () => {}
-// }) => {
-//   const [tab, setTab] = React.useState<AgentTab>("earnings");
-
-//   /* ✅ MUI-safe tab handler */
-//   const handleTabChange = (
-//     _event: React.SyntheticEvent,
-//     value: AgentTab
-//   ) => {
-//     setTab(value);
-//     onTabChange(value);
-//   };
-
-//   return (
-//     <Box
-//       sx={{
-//         width: 680,
-//         mx: "auto",
-//         mt: 2,
-//         background: "#fff",
-//         borderRadius: "12px",
-//         p: 3,
-//         boxShadow: "0 4px 25px rgba(0,0,0,0.15)"
-//       }}
-//     >
-//       {/* ================= HEADER ================= */}
-//       <Box sx={{ display: "flex", alignItems: "center", gap: 2, mb: 2 }}>
-//         <Avatar src={agent?.avatar} sx={{ width: 50, height: 50 }} />
-//         <Box>
-//           <Typography fontWeight={700}>
-//             {agent?.name ?? "Rajesh Kumar"}
-//           </Typography>
-//           <Typography variant="body2" color="text.secondary">
-//             {agent?.code ?? "AGT-10456"} • Joined{" "}
-//             {agent?.joinDate ?? "15/02/2024"}
-//           </Typography>
-//         </Box>
-//       </Box>
-
-//       {/* ================= TABS ================= */}
-//       <Tabs
-//         value={tab}
-//         onChange={handleTabChange}
-//         centered
-//         TabIndicatorProps={{ style: { display: "none" } }}
-//         sx={{
-//           mb: 3,
-//           "& .MuiTab-root": {
-//             textTransform: "none",
-//             fontWeight: 600,
-//             px: 3,
-//             mx: 0.5,
-//             borderRadius: "8px",
-//             background: "#f4f6f8",
-//             color: "#475467",
-//             border: "1px solid #e5e7eb"
-//           },
-//           "& .Mui-selected": {
-//             background: "#1976d2",
-//             color: "#fff",
-//             borderColor: "#1976d2"
-//           }
-//         }}
-//       >
-//         <Tab label="Overview" value="overview" />
-//         <Tab label="KYC & Bank" value="kyc" />
-//         <Tab label="Team" value="team" />
-//         <Tab label="Earnings" value="earnings" />
-//         <Tab label="History" value="history" />
-//       </Tabs>
-
-//       {/* ================= CONTENT ================= */}
-//       <Box
-//         sx={{
-//           border: "2px solid #1A73E8",
-//           borderRadius: "12px",
-//           p: 3,
-//           background: "#fff"
-//         }}
-//       >
-//         <Typography fontWeight={700} color="#1A73E8" mb={2}>
-//           Earnings Summary
-//         </Typography>
-
-//         <Box display="grid" gridTemplateColumns="repeat(2,1fr)" gap={2}>
-//           {[
-//             ["Total Earnings", "₹1,45,600"],
-//             ["Current Month", "₹23,400"],
-//             ["Last Payout", "₹12,450"],
-//             ["Pending Payout", "₹8,300"]
-//           ].map(([label, value]) => (
-//             <Box key={label} p={2} borderRadius={2} bgcolor="#f5f5f5">
-//               <Typography variant="body2">{label}</Typography>
-//               <Typography fontWeight="bold">{value}</Typography>
-//             </Box>
-//           ))}
-//         </Box>
-//       </Box>
-
-//       {/* ================= FOOTER ================= */}
-//       <Box sx={{ display: "flex", justifyContent: "center", gap: 2, mt: 3 }}>
-//         <Button variant="outlined" onClick={onClose}>
-//           Close
-//         </Button>
-//         <Button variant="contained" color="error" onClick={onSuspend}>
-//           Suspend
-//         </Button>
-//         <Button variant="contained" onClick={onEdit}>
-//           Edit
-//         </Button>
-//       </Box>
-//     </Box>
-//   );
-// };
-
-// export default EarningPage;
-// // import React from "react";
-// // import {
-// //   Box,
-// //   Avatar,
-// //   Typography,
-// //   Tabs,
-// //   Tab,
-// //   Button
-// // } from "@mui/material";
-
-// // import type { Agent } from "./types";
-
-// // /* ================= TAB TYPE ================= */
-
-// // type AgentTab =
-// //   | "overview"
-// //   | "kyc"
-// //   | "team"
-// //   | "earnings"
-// //   | "history";
-
-// // /* ================= PROPS ================= */
-
-// // interface EarningPageProps {
-// //   agent?: Agent;
-// //   onTabChange: (tab: AgentTab) => void;
-// //   onClose?: () => void;
-// //   onSuspend?: () => void;
-// //   onEdit?: () => void;
-// // }
-
-// // /* ================= COMPONENT ================= */
-
-// // const EarningPage: React.FC<EarningPageProps> = ({
-// //   agent,
-// //   onTabChange,
-// //   onClose = () => {},
-// //   onSuspend = () => {},
-// //   onEdit = () => {}
-// // }) => {
-// //   const [tab, setTab] = React.useState<AgentTab>("earnings");
-
-// //   /* ✅ MUI-safe tab handler */
-// //   const handleTabChange = (
-// //     _event: React.SyntheticEvent,
-// //     value: AgentTab
-// //   ) => {
-// //     setTab(value);
-// //     onTabChange(value);
-// //   };
-
-// //   return (
-// //     <Box
-// //       sx={{
-// //         width: 680,
-// //         mx: "auto",
-// //         mt: 2,
-// //         background: "#fff",
-// //         borderRadius: "12px",
-// //         p: 3,
-// //         boxShadow: "0 4px 25px rgba(0,0,0,0.15)"
-// //       }}
-// //     >
-// //       {/* ================= HEADER ================= */}
-// //       <Box sx={{ display: "flex", alignItems: "center", gap: 2, mb: 2 }}>
-// //         <Avatar src={agent?.avatar} sx={{ width: 50, height: 50 }} />
-// //         <Box>
-// //           <Typography fontWeight={700}>
-// //             {agent?.name ?? "Rajesh Kumar"}
-// //           </Typography>
-// //           <Typography variant="body2" color="text.secondary">
-// //             {agent?.code ?? "AGT-10456"} • Joined{" "}
-// //             {agent?.joinDate ?? "15/02/2024"}
-// //           </Typography>
-// //         </Box>
-// //       </Box>
-
-// //       {/* ================= TABS ================= */}
-// //       <Tabs
-// //         value={tab}
-// //         onChange={handleTabChange}
-// //         centered
-// //         TabIndicatorProps={{ style: { display: "none" } }}
-// //         sx={{
-// //           mb: 3,
-// //           "& .MuiTab-root": {
-// //             textTransform: "none",
-// //             fontWeight: 600,
-// //             px: 3,
-// //             mx: 0.5,
-// //             borderRadius: "8px",
-// //             background: "#f4f6f8",
-// //             color: "#475467",
-// //             border: "1px solid #e5e7eb"
-// //           },
-// //           "& .Mui-selected": {
-// //             background: "#1976d2",
-// //             color: "#fff",
-// //             borderColor: "#1976d2"
-// //           }
-// //         }}
-// //       >
-// //         <Tab label="Overview" value="overview" />
-// //         <Tab label="KYC & Bank" value="kyc" />
-// //         <Tab label="Team" value="team" />
-// //         <Tab label="Earnings" value="earnings" />
-// //         <Tab label="History" value="history" />
-// //       </Tabs>
-
-// //       {/* ================= CONTENT ================= */}
-// //       <Box
-// //         sx={{
-// //           border: "2px solid #1A73E8",
-// //           borderRadius: "12px",
-// //           p: 3,
-// //           background: "#fff"
-// //         }}
-// //       >
-// //         <Typography fontWeight={700} color="#1A73E8" mb={2}>
-// //           Earnings Summary
-// //         </Typography>
-
-// //         <Box display="grid" gridTemplateColumns="repeat(2,1fr)" gap={2}>
-// //           {[
-// //             ["Total Earnings", "₹1,45,600"],
-// //             ["Current Month", "₹23,400"],
-// //             ["Last Payout", "₹12,450"],
-// //             ["Pending Payout", "₹8,300"]
-// //           ].map(([label, value]) => (
-// //             <Box key={label} p={2} borderRadius={2} bgcolor="#f5f5f5">
-// //               <Typography variant="body2">{label}</Typography>
-// //               <Typography fontWeight="bold">{value}</Typography>
-// //             </Box>
-// //           ))}
-// //         </Box>
-// //       </Box>
-
-// //       {/* ================= FOOTER ================= */}
-// //       <Box sx={{ display: "flex", justifyContent: "center", gap: 2, mt: 3 }}>
-// //         <Button variant="outlined" onClick={onClose}>
-// //           Close
-// //         </Button>
-// //         <Button variant="contained" color="error" onClick={onSuspend}>
-// //           Suspend
-// //         </Button>
-// //         <Button variant="contained" onClick={onEdit}>
-// //           Edit
-// //         </Button>
-// //       </Box>
-// //     </Box>
-// //   );
-// // };
-
-// // export default EarningPage;
-
-import React from "react";
-import {
-  Box,
-  Avatar,
-  Typography,
-  Tabs,
-  Tab,
-  Button
-} from "@mui/material";
-
+import React, { useState } from "react";
+import { Box, Avatar, Typography, Button, Paper } from "@mui/material";
 import type { Agent } from "./types";
 
-/* ================= TAB TYPE ================= */
-
-export type AgentTab =
-  | "overview"
-  | "kyc"
-  | "team"
-  | "earnings"
-  | "history";
-
-/* ================= PROPS ================= */
+export type AgentTab = "overview" | "kyc" | "team" | "earnings" | "history";
 
 interface EarningPageProps {
-  agent?: Agent;
+  agent: Agent;
   onTabChange: (tab: AgentTab) => void;
   onClose?: () => void;
   onSuspend?: () => void;
   onEdit?: () => void;
 }
 
-/* ================= COMPONENT ================= */
+const BLUE = "#26619A";
+const GRAY = "#A3AED0";
 
 const EarningPage: React.FC<EarningPageProps> = ({
   agent,
   onTabChange,
   onClose = () => {},
   onSuspend = () => {},
-  onEdit = () => {}
+  onEdit = () => {},
 }) => {
-  const [tab, setTab] = React.useState<AgentTab>("earnings");
+  const tabs: { label: string; value: AgentTab }[] = [
+    { label: "Overview", value: "overview" },
+    { label: "KYC & Bank", value: "kyc" },
+    { label: "Team", value: "team" },
+    { label: "Earnings", value: "earnings" },
+    { label: "History", value: "history" },
+  ];
 
-  const handleTabChange = (
-    _event: React.SyntheticEvent,
-    value: AgentTab
-  ) => {
-    setTab(value);
-    onTabChange(value);
+  const [activeTab, setActiveTab] = useState<AgentTab>("earnings");
+
+  const handleTabClick = (tab: AgentTab) => {
+    setActiveTab(tab);
+    onTabChange(tab);
   };
 
   return (
     <Box
       sx={{
-        width: 680,
-        mx: "auto",
-        mt: 2,
-        background: "#fff",
-        borderRadius: "12px",
-        p: 3,
-        boxShadow: "0 4px 25px rgba(0,0,0,0.15)"
+        width: "100%",
+        mt: 1,
+        background: "transparent",
+        borderRadius: 2,
+        p: 1.5,
+        boxShadow: "none",
       }}
     >
       {/* HEADER */}
       <Box sx={{ display: "flex", alignItems: "center", gap: 2, mb: 2 }}>
-        <Avatar src={agent?.avatar} sx={{ width: 50, height: 50 }} />
+        <Avatar src={agent.avatar} sx={{ width: 50, height: 50 }} />
         <Box>
-          <Typography fontWeight={700}>
-            {agent?.name ?? "Rajesh Kumar"}
-          </Typography>
+          <Typography fontWeight={700}>{agent.name}</Typography>
           <Typography variant="body2" color="text.secondary">
-            {agent?.code ?? "AGT-10456"} • Joined{" "}
-            {agent?.joinDate ?? "15/02/2024"}
+            {agent.code} • Joined {agent.joinDate}
           </Typography>
         </Box>
       </Box>
 
       {/* TABS */}
-      <Tabs
-        value={tab}
-        onChange={handleTabChange}
-        centered
-        TabIndicatorProps={{ style: { display: "none" } }}
-        sx={{
-          mb: 3,
-          "& .MuiTab-root": {
-            textTransform: "none",
-            fontWeight: 600,
-            px: 3,
-            mx: 0.5,
-            borderRadius: "8px",
-            background: "#f4f6f8",
-            color: "#475467",
-            border: "1px solid #e5e7eb"
-          },
-          "& .Mui-selected": {
-            background: "#1976d2",
-            color: "#fff",
-            borderColor: "#1976d2"
-          }
-        }}
-      >
-        <Tab label="Overview" value="overview" />
-        <Tab label="KYC & Bank" value="kyc" />
-        <Tab label="Team" value="team" />
-        <Tab label="Earnings" value="earnings" />
-        <Tab label="History" value="history" />
-      </Tabs>
+      <Paper sx={{ p: 1, mb: 3, borderRadius: "12px", background: "#F9FAFC" }}>
+        <Box sx={{ display: "flex", width: "100%" }}>
+          {tabs.map((tab) => (
+            <Button
+              key={tab.value}
+              onClick={() => handleTabClick(tab.value)}
+              sx={{
+                flex: 1,
+                minWidth: 0,
+                textTransform: "none",
+                fontWeight: 500,
+                color: activeTab === tab.value ? "#fff" : "#000",
+                bgcolor: activeTab === tab.value ? BLUE : "transparent",
+                "&:hover": {
+                  bgcolor: activeTab === tab.value ? BLUE : "transparent",
+                },
+                borderRadius: activeTab === tab.value ? "4px" : "0px",
+                py: 0.5,                minHeight: "38px",                fontSize: "13px",
+                textAlign: "center",
+              }}
+            >
+              {tab.label}
+            </Button>
+          ))}
+        </Box>
+      </Paper>
 
       {/* CONTENT */}
       <Box
         sx={{
-          border: "2px solid #1A73E8",
+          border: `2px solid ${BLUE}`,
           borderRadius: "12px",
-          p: 3
+          p: 3,
+          background: "#fff",
         }}
       >
-        <Typography fontWeight={700} color="#1A73E8" mb={2}>
+        <Typography fontWeight={700} color={BLUE} mb={2}>
           Earnings Summary
         </Typography>
 
-        <Box display="grid" gridTemplateColumns="repeat(2,1fr)" gap={2}>
+        <Box display="grid" gridTemplateColumns={{ xs: "1fr", sm: "repeat(2,1fr)" }} gap={1}>
           {[
             ["Total Earnings", "₹1,45,600"],
             ["Current Month", "₹23,400"],
             ["Last Payout", "₹12,450"],
-            ["Pending Payout", "₹8,300"]
+            ["Pending Payout", "₹8,300"],
           ].map(([label, value]) => (
             <Box key={label} p={2} borderRadius={2} bgcolor="#f5f5f5">
               <Typography variant="body2">{label}</Typography>
@@ -579,14 +116,42 @@ const EarningPage: React.FC<EarningPageProps> = ({
       </Box>
 
       {/* FOOTER */}
-      <Box sx={{ display: "flex", justifyContent: "center", gap: 2, mt: 3 }}>
-        <Button variant="outlined" onClick={onClose}>
+      <Box sx={{ borderTop: "1px solid #A3AED0", pt: 2, display: "flex", justifyContent: "center", gap: 1, mt: 2 }}>
+        {/* UPDATED CLOSE BUTTON */}
+        <Button
+          variant="contained"
+          size="small"
+          onClick={onClose}
+          sx={{
+            textTransform: "none",
+            bgcolor: GRAY,
+            color: "#fff",
+            minWidth: 80,
+            py: 0.6,
+            "&:hover": { bgcolor: GRAY },
+          }}
+        >
           Close
         </Button>
-        <Button variant="contained" color="error" onClick={onSuspend}>
+
+        <Button variant="contained" color="error" size="small" onClick={onSuspend} sx={{ minWidth: 100, py: 0.6,  
+         textTransform: "none",
+            }}>
           Suspend
         </Button>
-        <Button variant="contained" onClick={onEdit}>
+
+        <Button
+          variant="contained"
+          size="small"
+          onClick={onEdit}
+          sx={{
+            textTransform: "none",
+            bgcolor: BLUE,
+            minWidth: 80,
+            py: 0.6,
+            "&:hover": { bgcolor: BLUE },
+          }}
+        >
           Edit
         </Button>
       </Box>
@@ -595,4 +160,3 @@ const EarningPage: React.FC<EarningPageProps> = ({
 };
 
 export default EarningPage;
-

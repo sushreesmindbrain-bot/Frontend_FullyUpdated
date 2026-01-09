@@ -1,15 +1,6 @@
-import React from "react";
-import {
-  Box,
-  Avatar,
-  Typography,
-  Tabs,
-  Tab,
-  Paper,
-  Button,
-} from "@mui/material";
-
-import type { Agent } from "./types";
+import React, { useState } from "react";
+import { Box, Avatar, Typography, Paper, Button } from "@mui/material";
+import type { Agent, AgentTab } from "./types";
 import EarningPage from "./EarningPage";
 import HistoryPage from "./HistoryPage";
 
@@ -24,6 +15,9 @@ interface Props {
   onUpgrade: () => void;
 }
 
+const BLUE = "#26619A"; // Primary color
+// const GRAY = "#A3AED0"; // Close/Cancel color (updated per request)
+
 const AgentDetailsPage: React.FC<Props> = ({
   agent,
   onClose,
@@ -34,22 +28,14 @@ const AgentDetailsPage: React.FC<Props> = ({
   onEditProfile,
   onUpgrade,
 }) => {
-  const [tab, setTab] = React.useState<string>("overview");
+  const [activeTab, setActiveTab] = useState<AgentTab>("overview");
 
-  const handleTabChange = (_: any, value: string) => {
-    if (value === "kyc") return onKYCView();
-    if (value === "team") return onTeamView();
-    if (value === "earnings") return onEarningsView();
-    if (value === "history") return onHistoryView();
-    setTab(value);
-  };
-
-  const handleHistoryTabChange = (nextTab: string) => {
-    if (nextTab === "kyc") return onKYCView();
-    if (nextTab === "team") return onTeamView();
-    if (nextTab === "earnings") return onEarningsView();
-    if (nextTab === "history") return onHistoryView();
-    setTab(nextTab);
+  const handleTabClick = (tab: AgentTab) => {
+    setActiveTab(tab);
+    if (tab === "kyc") return onKYCView();
+    if (tab === "team") return onTeamView();
+    if (tab === "earnings") return onEarningsView();
+    if (tab === "history") return onHistoryView();
   };
 
   return (
@@ -59,30 +45,29 @@ const AgentDetailsPage: React.FC<Props> = ({
         width: "90%",
         maxWidth: "1100px",
         maxHeight: "92vh",
-        borderRadius: "16px",
+        borderRadius: "12px",
         overflow: "hidden",
         mx: "auto",
         display: "flex",
         flexDirection: "column",
-        background: "white",
+        background: "#F9FAFC",
       }}
     >
-      {/* SCROLL AREA */}
       <Box
         sx={{
           flex: 1,
           overflowY: "auto",
           p: 3,
-          "&::-webkit-scrollbar": { display: "none" },
+          "::-webkit-scrollbar": { display: "none" },
           scrollbarWidth: "none",
-          msOverflowStyle: "none",
+          "-ms-overflow-style": "none",
         }}
       >
         {/* HEADER */}
-        <Box sx={{ display: "flex", alignItems: "center", gap: 2, mb: 2 }}>
+        <Box sx={{ display: "flex", alignItems: "center", gap: 2, mb: 3 }}>
           <Avatar src={agent.avatar} sx={{ width: 56, height: 56 }} />
           <Box>
-            <Typography sx={{ fontWeight: 700 }}>{agent.name}</Typography>
+            <Typography fontWeight={700}>{agent.name}</Typography>
             <Typography variant="body2" color="text.secondary">
               {agent.code} • Joined {agent.joinDate}
             </Typography>
@@ -90,346 +75,222 @@ const AgentDetailsPage: React.FC<Props> = ({
         </Box>
 
         {/* TABS */}
-        <Tabs
-          value={tab}
-          onChange={handleTabChange}
-          centered
-          TabIndicatorProps={{ style: { display: "none" } }}
-          sx={{
-            mb: 2,
-            "& .MuiTab-root": {
-              textTransform: "none",
-              borderRadius: 2,
-              px: 3,
-              mx: 0.5,
-              fontWeight: 600,
-              background: "#f4f6f8",
-              border: "1px solid #e5e7eb",
-              color: "#475467",
-            },
-            "& .Mui-selected": {
-              background: "#1976d2",
-              color: "#fff",
-              borderColor: "#1976d2",
-            },
-          }}
-        >
-          <Tab label="Overview" value="overview" />
-          <Tab label="KYC & Bank" value="kyc" />
-          <Tab label="Team" value="team" />
-          <Tab label="Earnings" value="earnings" />
-          <Tab label="History" value="history" />
-        </Tabs>
-
-        {/* OVERVIEW */}
-        {tab === "overview" && (
-          <Box sx={{ maxWidth: "1100px", width: "100%", mx: "auto" }}>
-            {/* STATS CARDS */}
-            <Box
-              sx={{
-                width: "100%",
-                px: 2,
-                display: "flex",
-                justifyContent: "space-between",
-                gap: 2,
-                mb: 3,
-              }}
-            >
-              {[
-                {
-                  title: "Team Members",
-                  value: "45",
-                  border: "#6a9eff",
-                  labelColor: "#2b67d3",
-                },
-                {
-                  title: "Total BV",
-                  value: "12450",
-                  border: "#b37bff",
-                  labelColor: "#8b42e9",
-                },
-                {
-                  title: "Total Earnings",
-                  value: "₹1,45,600",
-                  border: "#6ac27b",
-                  labelColor: "#2b8e42",
-                },
-                {
-                  title: "Current Month BV",
-                  value: "2340",
-                  border: "#ffad7a",
-                  labelColor: "#e66c2b",
-                },
-              ].map((s) => (
-                <Paper
-                  key={s.title}
+        <Paper sx={{ p: 1, mb: 3, borderRadius: "12px", background: "#F9FAFC" }}>
+          <Box sx={{ display: "flex", width: "100%" }}>
+            {(["overview", "kyc", "team", "earnings", "history"] as AgentTab[]).map(
+              (tab) => (
+                <Button
+                  key={tab}
+                  onClick={() => handleTabClick(tab)}
                   sx={{
                     flex: 1,
-                    p: 2,
-                    borderRadius: 2,
-                    background: "#ffffff",
-                    border: `2px solid ${s.border}`,
-                    boxShadow: "0px 2px 6px rgba(0,0,0,0.08)",
+                    minWidth: 0,
+                    textTransform: "none",
+                    fontWeight: 500,
+                    color: activeTab === tab ? "#fff" : "#000",
+                    bgcolor: activeTab === tab ? BLUE : "transparent",
+                    "&:hover": {
+                      bgcolor: activeTab === tab ? BLUE : "transparent",
+                    },
+                    py: 0.6,
+                    minHeight: "38px",
+                    fontSize: "14px",
+                    textAlign: "center",
                   }}
                 >
-                  <Typography sx={{ fontSize: "22px", fontWeight: 700 }}>
-                    {s.value}
-                  </Typography>
-                  <Typography
-                    sx={{
-                      fontSize: "14px",
-                      fontWeight: 600,
-                      color: s.labelColor,
-                    }}
-                  >
-                    {s.title}
-                  </Typography>
-                </Paper>
+                  {tab === "overview"
+                    ? "Overview"
+                    : tab === "kyc"
+                    ? "KYC & Bank"
+                    : tab === "team"
+                    ? "Team"
+                    : tab === "earnings"
+                    ? "Earnings"
+                    : "History"}
+                </Button>
+              )
+            )}
+          </Box>
+        </Paper>
+
+        {/* OVERVIEW */}
+        {activeTab === "overview" && (
+          <Box>
+            {/* STATS */}
+            {/* STATS */}
+<Box sx={{ display: "flex", gap: 2, mb: 3 }}>
+  {[
+    {
+      title: "Team Members",
+      value: "45",
+      border: "#6a9eff",
+      titleColor: "#3f51b5",
+      bg: "#3D42DF",
+    },
+    {
+      title: "Total BV",
+      value: "12450",
+      border: "#b37bff",
+      titleColor: "#8e24aa",
+      bg: "#9121E0",
+    },
+    {
+      title: "Total Earnings",
+      value: "₹1,45,600",
+      border: "#6ac27b",
+      titleColor: "#388e3c",
+      bg: "#70BF45",
+    },
+    {
+      title: "Current Month BV",
+      value: "2340",
+      border: "#ffad7a",
+      titleColor: "#f57c00",
+      bg: "#DC7751",
+    },
+  ].map((s) => (
+    <Box
+      key={s.title}
+      sx={{
+        flex: 1,
+        p: 2,
+        borderRadius: 3,
+        border: `1.5px solid ${s.border}`,
+        textAlign: "center",
+        background: `linear-gradient(
+          135deg,
+          ${s.bg}1A 0%,
+          ${s.bg}33 100%
+        )`, // faded background
+      }}
+    >
+      <Typography fontSize={22} fontWeight={700} color="#000000">
+        {s.value}
+      </Typography>
+
+      <Typography fontSize={13} fontWeight={500} color={s.titleColor}>
+        {s.title}
+      </Typography>
+    </Box>
+  ))}
+</Box>
+
+            {/* CONTACT INFO */}
+            <Box sx={{ p: 2, mb: 2, borderRadius: "12px", border: `2px solid ${BLUE}`, background: "#ffffff" }}>
+              <Typography fontWeight={600} mb={2} color={BLUE}>
+                Contact Information
+              </Typography>
+
+              {[
+                ["Phone", agent.phone || "+91 98765 43210"],
+                ["Email", agent.email || "rajesh.kumar@email.com"],
+                ["Join Date", agent.joinDate],
+                ["Last Active", agent.lastActive || "2025-10-28 14:32"],
+              ].map(([label, value]) => (
+                <Box key={label} sx={{ display: "flex", justifyContent: "space-between", mb: 1 }}>
+                  <Typography fontWeight={500}>{label}</Typography>
+                  <Typography>{value}</Typography>
+                </Box>
               ))}
             </Box>
 
-            {/* WRAPPER */}
-            <Box sx={{ width: "100%", maxWidth: "1100px", mx: "auto" }}>
-              {/* CONTACT INFORMATION */}
-              <Paper
-                sx={{
-                  width: "100%",
-                  p: 2,
-                  mb: 2,
-                  border: "1px solid #d0d7de",
-                  borderRadius: "8px",
-                  background: "#fff",
-                }}
-              >
-                <Typography
-                  sx={{
-                    fontSize: "15px",
-                    fontWeight: 600,
-                    color: "#1a73e8",
-                    mb: 1.5,
-                  }}
-                >
-                  Contact Information
+            {/* PACKAGE INFO */}
+            <Box sx={{ p: 3, mb: 2, borderRadius: "12px", border: `2px solid ${BLUE}`, background: "#ffffff" }}>
+              <Box display="flex" justifyContent="space-between" alignItems="center">
+                <Typography fontWeight={600} color={BLUE}>
+                  Package Information
                 </Typography>
-
-                <Box
+                <Button
+                  variant="contained"
+                  onClick={onUpgrade}
                   sx={{
-                    display: "grid",
-                    gridTemplateColumns: "1fr 1fr",
-                    rowGap: "12px",
-                    columnGap: "60px",
+                    borderRadius: 2,
+                    textTransform: "none",
+                    bgcolor: "#4caf50",
+                    "&:hover": { bgcolor: "#4caf50" },
                   }}
                 >
-                  <Box>
-                    <Typography sx={{ fontWeight: 500 }}>Phone</Typography>
-                    <Typography sx={{ fontSize: "13px" }}>
-                      {agent.phone}
-                    </Typography>
-                  </Box>
-
-                  <Box>
-                    <Typography sx={{ fontWeight: 500 }}>Join Date</Typography>
-                    <Typography sx={{ fontSize: "13px" }}>
-                      {agent.joinDate}
-                    </Typography>
-                  </Box>
-
-                  <Box>
-                    <Typography sx={{ fontWeight: 500 }}>Email</Typography>
-                    <Typography sx={{ fontSize: "13px" }}>
-                      {agent.email}
-                    </Typography>
-                  </Box>
-
-                  <Box>
-                    <Typography sx={{ fontWeight: 500 }}>
-                      Last Active
-                    </Typography>
-                    <Typography sx={{ fontSize: "13px" }}>
-                      2025-10-28 14:32
-                    </Typography>
-                  </Box>
-                </Box>
-              </Paper>
-
-              {/* PACKAGE INFORMATION */}
-              <Paper
-                sx={{
-                  p: 2,
-                  mb: 2,
-                  border: "1px solid #b4ccf8",
-                  borderRadius: "10px",
-                  background: "#fff",
-                  width: "100%",
-                }}
-              >
-                {/* HEADER */}
-                <Box
-                  sx={{
-                    display: "flex",
-                    justifyContent: "space-between",
-                    alignItems: "center",
-                    mb: 1,
-                  }}
-                >
-                  <Typography
-                    sx={{
-                      fontWeight: 600,
-                      color: "#1a73e8",
-                      fontSize: "15px",
-                    }}
-                  >
-                    Package Information
+                  Upgrade
+                </Button>
+              </Box>
+              <Box sx={{ mt: 1, display: "flex", justifyContent: "space-between" }}>
+                <Box>
+                  <Typography fontWeight={500}>Silver Package</Typography>
+                  <Typography fontSize={13} color="text.secondary">
+                    Package Value: ₹5,000
                   </Typography>
+                </Box>
+                <Typography fontWeight={500}>Purchased on 15/8/2024</Typography>
+              </Box>
+            </Box>
 
-                  <Button
-                    variant="contained"
-                    onClick={onUpgrade}
+            {/* NETWORK POSITION */}
+            <Box
+              sx={{
+                p: 2,
+                mb: 2,
+                borderRadius: "12px",
+                border: `2px solid ${BLUE}`,
+              }}
+            >
+              <Typography fontWeight={600} mb={2} color={BLUE}>
+                Network Position
+              </Typography>
+
+              {/* Sponsor + Left Leg side-by-side */}
+              <Box sx={{ display: "flex", gap: 2, justifyContent: "center" }}>
+                <Box sx={{ flex: 1, maxWidth: 320, p: 2, borderRadius: 2, background: "#ffffff", border: "1px solid #e0e0e0", textAlign: "center" }}>
+                  <Typography fontSize={12} color="text.secondary" mb={1}>
+                    Sponsor
+                  </Typography>
+                  <Box
                     sx={{
-                      backgroundColor: "#6ccf5f",
-                      "&:hover": { backgroundColor: "#55b84a" },
-                      borderRadius: "6px",
-                      padding: "4px 14px",
-                      minHeight: "28px",
-                      textTransform: "none",
-                      fontSize: "13px",
-                      boxShadow: "none",
+                      border: "1px solid #d5dae3",
+                      borderRadius: 2,
+                      py: 0.6,
+                      px: 1,
+                      fontSize: 13,
+                      textAlign: "center",
+                      maxWidth: 140,
+                      mx: "auto",
                     }}
                   >
-                    Upgrade
-                  </Button>
-                </Box>
-
-                {/* CONTENT */}
-                <Box
-                  sx={{
-                    display: "flex",
-                    justifyContent: "space-between",
-                    mt: 1,
-                    px: 1,
-                  }}
-                >
-                  <Box>
-                    <Typography sx={{ fontWeight: 600 }}>
-                      Silver Package
-                    </Typography>
-                    <Typography sx={{ fontSize: "12px", color: "#555" }}>
-                      Package Value: ₹5,000
-                    </Typography>
-                  </Box>
-
-                  <Box sx={{ textAlign: "right" }}>
-                    <Typography sx={{ fontWeight: 600 }}>
-                      Purchased on
-                    </Typography>
-                    <Typography sx={{ fontSize: "13px", color: "#555" }}>
-                      15/8/2024
-                    </Typography>
+                    AGT-0023
                   </Box>
                 </Box>
-              </Paper>
 
-              {/* NETWORK POSITION */}
-              <Paper
-                sx={{
-                  p: 2,
-                  border: "1px solid #d0d7de",
-                  borderRadius: "10px",
-                  background: "#fff",
-                  mt: 2,
-                }}
-              >
-                <Typography
-                  sx={{
-                    fontWeight: 600,
-                    fontSize: "15px",
-                    color: "#1a73e8",
-                    mb: 1.5,
-                  }}
-                >
-                  Network Position
-                </Typography>
-
-                <Box
-                  sx={{
-                    display: "flex",
-                    gap: 2,
-                    flexWrap: "wrap",
-                  }}
-                >
-                  {/* SPONSOR BOX */}
-                  <Paper
+                <Box sx={{ flex: 1, maxWidth: 320, p: 2, borderRadius: 2, background: "#ffffff", border: "1px solid #e0e0e0", textAlign: "center" }}>
+                  <Typography fontSize={12} color="text.secondary" mb={1}>
+                  
+                    AGT-0023
+                  </Typography>
+                  <Box
                     sx={{
-                      p: 2,
-                      flex: "1",
-                      minWidth: "200px",
-                      borderRadius: "10px",
-                      background: "#f9fafb",
-                      boxShadow: "0px 1px 3px rgba(0,0,0,0.06)",
+                      border: "1px solid #d5dae3",
+                      borderRadius: 2,
+                      py: 0.6,
+                      px: 1,
+                      fontSize: 13,
+                      textAlign: "center",
+                      maxWidth: 140,
+                      mx: "auto",
                     }}
                   >
-                    <Typography sx={{ fontWeight: 600, mb: 1 }}>
-                      Sponsor
-                    </Typography>
-
-                    <Box
-                      sx={{
-                        display: "inline-block",
-                        border: "1px solid #c4cdda",
-                        borderRadius: "6px",
-                        px: 1.5,
-                        py: 0.2,
-                        fontSize: "12px",
-                        background: "#fff",
-                      }}
-                    >
-                      AGT-0023
-                    </Box>
-                  </Paper>
-
-                  {/* LEFT LEG BOX */}
-                  <Paper
-                    sx={{
-                      p: 2,
-                      flex: "1",
-                      minWidth: "200px",
-                      borderRadius: "10px",
-                      background: "#f9fafb",
-                      boxShadow: "0px 1px 3px rgba(0,0,0,0.06)",
-                    }}
-                  >
-                    <Typography sx={{ fontWeight: 600, mb: 1 }}>
-                      AGT-0023
-                    </Typography>
-
-                    <Box
-                      sx={{
-                        display: "inline-block",
-                        border: "1px solid #c4cdda",
-                        borderRadius: "6px",
-                        px: 1.5,
-                        py: 0.2,
-                        fontSize: "12px",
-                        background: "#fff",
-                      }}
-                    >
-                      Left Leg
-                    </Box>
-                  </Paper>
+                    Left Leg
+                  </Box>
                 </Box>
-              </Paper>
+              </Box>
             </Box>
           </Box>
         )}
 
-        {tab === "earnings" && (
-          <EarningPage agent={agent} onTabChange={() => onEarningsView()} />
-        )}
-        {tab === "history" && (
+        {activeTab === "earnings" && <EarningPage agent={agent} onTabChange={handleTabClick} />}
+
+        {activeTab === "history" && (
           <HistoryPage
             agent={agent}
             onBack={onClose}
-            onTabChange={handleHistoryTabChange}
+            onTabChange={handleTabClick}
             onEditProfile={onEditProfile}
           />
         )}
@@ -439,19 +300,41 @@ const AgentDetailsPage: React.FC<Props> = ({
       <Box
         sx={{
           p: 2,
-          borderTop: "1px solid #eee",
+          borderTop: "1px solid #A3AED0",
           display: "flex",
           justifyContent: "center",
           gap: 2,
         }}
       >
-        <Button variant="outlined" onClick={onClose}>
+        <Button
+          variant="contained"
+          onClick={onClose}
+          sx={{
+            background: "#A3AED0",
+            color: "white",
+            px: 3,
+            textTransform: "none",
+            fontSize: "13px",
+            "&:hover": { background: "#CACFE1" },
+          }}
+        >
           Close
         </Button>
-        <Button variant="contained" color="error">
+
+        <Button variant="contained" color="error" sx={{ borderRadius: 2 , textTransform: "none",}}>
           Suspend
         </Button>
-        <Button variant="contained" onClick={onEditProfile}>
+
+        <Button
+          variant="contained"
+          onClick={onEditProfile}
+          sx={{
+            textTransform: "none",
+            borderRadius: 2,
+            bgcolor: BLUE,
+            "&:hover": { bgcolor: BLUE },
+          }}
+        >
           Edit
         </Button>
       </Box>
@@ -460,3 +343,7 @@ const AgentDetailsPage: React.FC<Props> = ({
 };
 
 export default AgentDetailsPage;
+
+
+
+ 

@@ -6,12 +6,20 @@ import {
   Paper,
   RadioGroup,
 } from "@mui/material";
+import type { Agent } from "./types";
 
 interface UpgradePackagePageProps {
-  agent?: any;
+  agent?: Agent;
+  packageName?: string;
+  selectedPkg?: string;
   onCancel: () => void;
   onConfirm: (pkg: string) => void;
 }
+
+const PACKAGE_DATA: Record<string, { name: string; price: number; bv: number }> = {
+  gold: { name: "Gold Partner", price: 10000, bv: 3000 },
+  platinum: { name: "Platinum", price: 15000, bv: 5000 },
+};
 
 const TickItem = ({ text }: { text: string }) => (
   <Box sx={{ display: "flex", alignItems: "center", mb: 0.5 }}>
@@ -37,25 +45,22 @@ const TickItem = ({ text }: { text: string }) => (
 
 const UpgradeSummaryPage: React.FC<UpgradePackagePageProps> = ({
   agent,
+  packageName,
+  selectedPkg,
   onCancel,
   onConfirm,
 }) => {
-  const [selected, setSelected] = useState("");
+  const [selected, setSelected] = useState(selectedPkg || packageName || "");
 
   const currentPackage = agent?.currentPackageName || "Silver";
   const currentAmount = currentPackage === "Silver" ? 5000 : 0;
   const currentBV = agent?.currentBV || 500;
 
-  const packageData = {
-    gold: { name: "Gold Partner", price: 10000, bv: 3000 },
-    platinum: { name: "Platinum", price: 15000, bv: 5000 },
-  };
-
   const { newPackage, newAmount, upgradeCost, additionalBV } = useMemo(() => {
     if (!selected)
       return { newPackage: "-", newAmount: 0, upgradeCost: 0, additionalBV: 0 };
 
-    const pkg = packageData[selected];
+    const pkg = PACKAGE_DATA[selected];
     return {
       newPackage: pkg.name,
       newAmount: pkg.price,
@@ -113,7 +118,6 @@ const UpgradeSummaryPage: React.FC<UpgradePackagePageProps> = ({
             overflowY: "auto",
             px: 3,
             pb: 2,
-
             /* INVISIBLE SCROLLBAR */
             scrollbarWidth: "none",
             "&::-webkit-scrollbar": {
@@ -126,9 +130,9 @@ const UpgradeSummaryPage: React.FC<UpgradePackagePageProps> = ({
             sx={{
               p: 1.5,
               mt: 1,
-              borderRadius: "8px",
-              border: "1px solid #cddaff",
-              background: "#f4f8ff",
+              borderRadius: "12px",
+              border: `2px solid #26619A`,
+              background: "#ffffff",
             }}
           >
             <Box sx={{ display: "flex", justifyContent: "space-between" }}>
@@ -193,7 +197,7 @@ const UpgradeSummaryPage: React.FC<UpgradePackagePageProps> = ({
           {/* SUMMARY BOX */}
           <Box
             sx={{
-              background: "#FFFFFF",
+              background: "#F9FAFC",
               borderRadius: "10px",
               p: 2,
               border: "1px solid #E5E5E5",
@@ -223,7 +227,7 @@ const UpgradeSummaryPage: React.FC<UpgradePackagePageProps> = ({
           sx={{
             p: 2,
             px: 3,
-            borderTop: "1px solid #e6e6e6",
+            borderTop: "1px solid #A3AED0",
             display: "flex",
             justifyContent: "flex-end",
             gap: 2,
@@ -231,7 +235,16 @@ const UpgradeSummaryPage: React.FC<UpgradePackagePageProps> = ({
             background: "white",
           }}
         >
-          <Button variant="outlined" onClick={onCancel}>
+          <Button
+            variant="contained"
+            onClick={onCancel}
+            sx={{
+              width: 120,
+              backgroundColor: "#979797", // updated background color
+              color: "#fff",               // white text
+              "&:hover": { backgroundColor: "#979797" },
+            }}
+          >
             Cancel
           </Button>
 
@@ -248,7 +261,16 @@ const UpgradeSummaryPage: React.FC<UpgradePackagePageProps> = ({
   );
 };
 
-const PackageCard = ({ selected, title, price, bv, onSelect, items }: any) => (
+type PackageCardProps = {
+  selected: boolean;
+  title: string;
+  price: string;
+  bv: string;
+  onSelect: () => void;
+  items: string[];
+};
+
+const PackageCard: React.FC<PackageCardProps> = ({ selected, title, price, bv, onSelect, items }) => (
   <Paper
     onClick={onSelect}
     sx={{
@@ -286,7 +308,14 @@ const PackageCard = ({ selected, title, price, bv, onSelect, items }: any) => (
   </Paper>
 );
 
-const Row = ({ label, value, bold, green }: any) => (
+type RowProps = {
+  label: string;
+  value: string | number;
+  bold?: boolean;
+  green?: boolean;
+};
+
+const Row: React.FC<RowProps> = ({ label, value, bold, green }) => (
   <Box sx={{ display: "flex", justifyContent: "space-between", mb: 1 }}>
     <Typography>{label}</Typography>
     <Typography
@@ -301,5 +330,4 @@ const Row = ({ label, value, bold, green }: any) => (
 );
 
 export default UpgradeSummaryPage;
-
 

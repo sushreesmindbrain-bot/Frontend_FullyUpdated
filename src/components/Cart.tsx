@@ -5,7 +5,7 @@ export default function CartButton() {
   const totalQty = items.reduce((acc, item) => acc + item.qty, 0);
 
   return (
-    <button className="bg-blue-600 px-4 py-2 rounded text-white">
+    <button className="px-4 py-2 rounded text-white" style={{ backgroundColor: "#26619A" }}>
       Cart ({totalQty})
     </button>
   );

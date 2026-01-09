@@ -10,24 +10,30 @@ import {
   Divider,
 } from "@mui/material";
 
+import type { Agent } from "./types";
+
 interface SuspendPageProps {
-  agentName: string;
-  agentCode: string;
+  agent?: Agent;
+  agentName?: string;
+  agentCode?: string;
   onCancel: () => void;
-  onConfirm: (reason: string, notes: string) => void;
+  onConfirm?: (reason: string, notes: string) => void;
 }
 
 const SuspendPage: React.FC<SuspendPageProps> = ({
+  agent,
   agentName,
   agentCode,
   onCancel,
   onConfirm,
 }) => {
+  const name = agentName || agent?.name || "";
+  const code = agentCode || agent?.code || agent?.id || "";
   const [reason, setReason] = useState("");
   const [notes, setNotes] = useState("");
 
   return (
-    <Box sx={{ width: 500, p: 3 }}>
+    <Box sx={{ width: "100%", p: 3 }}>
       {/* ------------ HEADER ------------- */}
       <Typography
         sx={{ fontSize: "20px", fontWeight: 700, display: "flex", gap: 1 }}
@@ -36,7 +42,7 @@ const SuspendPage: React.FC<SuspendPageProps> = ({
       </Typography>
 
       <Typography sx={{ color: "#666", mt: 0.5 }}>
-        Suspend {agentName} ({agentCode})
+        Suspend {name} ({code})
       </Typography>
 
       <Divider sx={{ my: 2 }} />
@@ -96,20 +102,35 @@ const SuspendPage: React.FC<SuspendPageProps> = ({
       {/* ------------ FOOTER BUTTONS ------------- */}
       <Box
         sx={{
+          borderTop: "1px solid #A3AED0",
+          pt: 2,
           display: "flex",
           justifyContent: "flex-end",
           mt: 3,
           gap: 2,
         }}
       >
-        <Button variant="outlined" onClick={onCancel}>
+        <Button
+          variant="contained"
+          sx={{
+            textTransform: "none",
+            width: 120,
+            bgcolor: "#979797",
+            color: "#ffffff",
+            "&:hover": { bgcolor: "#979797" },
+          }}
+          onClick={onCancel}
+        >
           Cancel
         </Button>
 
         <Button
           variant="contained"
           color="error"
-          onClick={() => onConfirm(reason, notes)}
+          sx={{
+            textTransform: "none",
+          }}
+          onClick={() => onConfirm?.(reason, notes)}
         >
           Confirm Suspension
         </Button>

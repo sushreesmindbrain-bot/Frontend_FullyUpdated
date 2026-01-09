@@ -1,15 +1,6 @@
-import React, { useState } from "react";
-import {
-  Dialog,
-  DialogTitle,
-  DialogContent,
-  DialogActions,
-  Box,
-  Typography,
-  Button,
-  TextField,
-  Paper,
-} from "@mui/material";
+
+ import React, { useState } from "react";
+import { Dialog, DialogTitle, DialogContent, DialogActions, Box, Typography, Button, TextField, Paper } from "@mui/material";
 
 interface ReviewKycProps {
   open: boolean;
@@ -33,8 +24,8 @@ const ReviewKyc: React.FC<ReviewKycProps> = ({
   const checkerBg = {
     mt: 1,
     height: 130,
-    borderRadius: 2,
-    border: "1px solid #d0d7de",
+    borderRadius: "12px",
+    border: `2px solid #26619A`,
     backgroundColor: "#f8f8f8",
     backgroundImage:
       "linear-gradient(45deg, #d0d0d0 25%, transparent 25%), \
@@ -51,25 +42,17 @@ const ReviewKyc: React.FC<ReviewKycProps> = ({
       onClose={onClose}
       fullWidth
       maxWidth="md"
-      scroll="body" 
+      scroll="body"
       PaperProps={{
         sx: {
           borderRadius: "16px",
-          overflow: "visible",  
+          overflow: "visible",
           p: 0,
         },
       }}
     >
       {/* Header */}
-      <DialogTitle
-        sx={{
-          px: 3,
-          pt: 3,
-          pb: 1,
-          fontSize: "20px",
-          fontWeight: 700,
-        }}
-      >
+      <DialogTitle sx={{ px: 3, pt: 3, pb: 1, fontSize: "20px", fontWeight: 700 }}>
         KYC Document Review
       </DialogTitle>
 
@@ -78,39 +61,15 @@ const ReviewKyc: React.FC<ReviewKycProps> = ({
       </Typography>
 
       {/* Content */}
-      <DialogContent
-        sx={{
-          px: 3,
-          pb: 1,
-          overflow: "visible",
-        }}
-      >
-
+      <DialogContent sx={{ px: 3, pb: 1, overflow: "visible" }}>
         {/* Aadhaar Card Section */}
-        <Paper
-          sx={{
-            border: "1px solid #cfd8e3",
-            borderRadius: 2,
-            p: 2,
-            mb: 3,
-          }}
-        >
+        <Paper sx={{ border: `2px solid #26619A`, borderRadius: "12px", p: 2, mb: 3, background: "#ffffff" }}>
           <Box sx={{ display: "flex", justifyContent: "space-between" }}>
-            <Typography
-              sx={{ fontSize: "18px", fontWeight: 700, color: "#0066cc" }}
-            >
+            <Typography sx={{ fontSize: "18px", fontWeight: 700, color: "#0066cc" }}>
               Aadhaar Card
             </Typography>
 
-            <Box
-              sx={{
-                background: "#f1f1f1",
-                borderRadius: "6px",
-                px: 1.5,
-                py: 0.5,
-                fontSize: "14px",
-              }}
-            >
+            <Box sx={{ background: "#f1f1f1", borderRadius: "6px", px: 1.5, py: 0.5, fontSize: "14px" }}>
               XXXX XXXX 4521
             </Box>
           </Box>
@@ -129,30 +88,13 @@ const ReviewKyc: React.FC<ReviewKycProps> = ({
         </Paper>
 
         {/* PAN Card Section */}
-        <Paper
-          sx={{
-            border: "1px solid #cfd8e3",
-            borderRadius: 2,
-            p: 2,
-            mb: 3,
-          }}
-        >
+        <Paper sx={{ border: `2px solid #26619A`, borderRadius: "12px", p: 2, mb: 3, background: "#ffffff" }}>
           <Box sx={{ display: "flex", justifyContent: "space-between" }}>
-            <Typography
-              sx={{ fontSize: "18px", fontWeight: 700, color: "#0066cc" }}
-            >
+            <Typography sx={{ fontSize: "18px", fontWeight: 700, color: "#0066cc" }}>
               PAN Card
             </Typography>
 
-            <Box
-              sx={{
-                background: "#f1f1f1",
-                borderRadius: "6px",
-                px: 1.5,
-                py: 0.5,
-                fontSize: "14px",
-              }}
-            >
+            <Box sx={{ background: "#f1f1f1", borderRadius: "6px", px: 1.5, py: 0.5, fontSize: "14px" }}>
               ABCDE1234F
             </Box>
           </Box>
@@ -182,33 +124,45 @@ const ReviewKyc: React.FC<ReviewKycProps> = ({
           placeholder="Provide detailed reason for rejection..."
           value={reason}
           onChange={(e) => setReason(e.target.value)}
-          sx={{
-            borderRadius: 2,
-            background: "#fafafa",
-          }}
+          sx={{ borderRadius: 2, background: "#fafafa" }}
         />
       </DialogContent>
 
       {/* Action Buttons */}
       <DialogActions sx={{ px: 3, pb: 3, pt: 1 }}>
-        <Button variant="outlined" onClick={onClose} sx={{ width: 120 }}>
-          Cancel
-        </Button>
+     <Button
+  variant="contained"
+  onClick={onClose}
+  sx={{
+    textTransform: "none",
+    width: 120,
+    backgroundColor: "#979797",
+    color: "#fff",
+    "&:hover": { backgroundColor: "#979797" },
+  }}
+>
+  Cancel
+</Button>
+
 
         <Button
           variant="contained"
           color="error"
           onClick={() => onReject(reason)}
-          sx={{ width: 140 }}
+          sx={{ width: 140 ,textTransform: "none",}}
         >
           Reject KYC
         </Button>
 
         <Button
           variant="contained"
-          color="primary"
           onClick={onApprove}
-          sx={{ width: 150 }}
+          sx={{
+            textTransform: "none",
+            width: 150,
+            backgroundColor: "#26619A",
+            "&:hover": { backgroundColor: "#1f4f78" },
+          }}
         >
           Approve KYC
         </Button>
@@ -218,11 +172,3 @@ const ReviewKyc: React.FC<ReviewKycProps> = ({
 };
 
 export default ReviewKyc;
-
-
-
-
-
- 
- 
- 

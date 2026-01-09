@@ -1,8 +1,14 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import UpgradePackagePage from "./UpgradePackagePage";
 import UpgradeSummaryPage from "./UpgradeSummaryPage";
+import type { Agent } from "./types";
 
-const PopupContainer = ({ agent, onClose }) => {
+interface PopupContainerProps {
+  agent?: Agent;
+  onClose: () => void;
+}
+
+const PopupContainer: React.FC<PopupContainerProps> = ({ agent, onClose }) => {
   const [popupPage, setPopupPage] = useState("upgradePage");
   const [selectedPackage, setSelectedPackage] = useState("");
 
@@ -22,7 +28,9 @@ const PopupContainer = ({ agent, onClose }) => {
       {popupPage === "upgradeSummary" && (
         <UpgradeSummaryPage
           selectedPkg={selectedPackage}
-          onFinish={() => {
+          packageName={selectedPackage}
+          onCancel={onClose}
+          onConfirm={() => {
             console.log("Final package:", selectedPackage);
             onClose();         
           }}

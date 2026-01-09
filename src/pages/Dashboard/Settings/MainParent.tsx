@@ -6,8 +6,9 @@ import Shipping from "./Shipping";
 import Payment from "./Payment";
 import Payout from "./Payout";
 import LegalContent from "./LegalContent";
-import Localization from "./Localization";  
+import Localization from "./Localization";
 
+/* ---------- PAGE TYPE ---------- */
 export type Page =
   | "gst"
   | "shipping"
@@ -49,5 +50,3 @@ const MainParent: React.FC = () => {
 };
 
 export default MainParent;
-
-

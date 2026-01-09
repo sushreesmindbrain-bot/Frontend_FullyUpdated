@@ -1,15 +1,19 @@
 import React, { useState } from "react";
 import { Box, TextField, Button, Typography, Paper } from "@mui/material";
+import type { Agent } from "./types";
+
+ 
 
 interface EditAgentProfileProps {
   onBack: () => void;
+  agent?: Agent;
 }
 
-const EditAgentProfile: React.FC<EditAgentProfileProps> = ({ onBack }) => {
+const EditAgentProfile: React.FC<EditAgentProfileProps> = ({ onBack, agent }) => {
   const [formData, setFormData] = useState({
-    fullName: "Rajesh Kumar",
-    email: "rajesh.kumar@email.com",
-    phone: "+91 98765 43210",
+    fullName: agent?.name ?? "Rajesh Kumar",
+    email: agent?.email ?? "rajesh.kumar@email.com",
+    phone: agent?.phone ?? "+91 98765 43210",
     address: "123 Main Street, Mumbai",
     city: "Mumbai",
     state: "Maharashtra",
@@ -29,7 +33,7 @@ const EditAgentProfile: React.FC<EditAgentProfileProps> = ({ onBack }) => {
         mt: 2,
       }}
     >
-      <Paper elevation={3} sx={{ width: "70%", p: 4, borderRadius: 3 }}>
+      <Paper elevation={3} sx={{ width: "100%", p: 4, borderRadius: 3 }}>
         <Typography variant="h6" sx={{ fontWeight: 700, mb: 3 }}>
           Edit Agent Profile
         </Typography>
@@ -128,16 +132,24 @@ const EditAgentProfile: React.FC<EditAgentProfileProps> = ({ onBack }) => {
 
         {/* BUTTONS */}
         <Box sx={{ display: "flex", justifyContent: "flex-end", gap: 2, mt: 4 }}>
+             <Button
+                   variant="contained"
+                   onClick={onBack}
+                   sx={{
+                    
+                    textTransform: "none",
+                     bgcolor: "#A3AED0",
+                     color: "#ffffff",
+                     "&:hover": { bgcolor: "#A3AED0" },
+                   }}
+                 >
+                   Back
+                 </Button>
           <Button
-            variant="outlined"
-            color="inherit"
-            sx={{ width: 120 }}
-            onClick={onBack}
+            variant="contained"
+            color="primary"
+            sx={{ width: 150 ,textTransform: "none",}}
           >
-            Back
-          </Button>
-
-          <Button variant="contained" sx={{ width: 150, background: "#0d47a1" }}>
             Save Changes
           </Button>
         </Box>

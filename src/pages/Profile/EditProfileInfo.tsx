@@ -8,7 +8,7 @@ import {
   Button,
   Box,
   Divider,
-  Typography
+  Typography,
 } from "@mui/material";
 
 interface EditProfileInfoProps {
@@ -20,13 +20,8 @@ interface EditProfileInfoProps {
 const EditProfileInfo: React.FC<EditProfileInfoProps> = ({
   open,
   onClose,
-  onSave
+  onSave,
 }) => {
-  const fieldStyle = {
-    "& .MuiOutlinedInput-root": { borderRadius: "10px" },
-    "& .MuiInputBase-input": { color: "#667085" }
-  };
-
   return (
     <Dialog
       open={open}
@@ -34,7 +29,9 @@ const EditProfileInfo: React.FC<EditProfileInfoProps> = ({
       maxWidth="sm"
       fullWidth
       PaperProps={{
-        sx: { borderRadius: "10px" }
+        sx: {
+          borderRadius: "10px",
+        },
       }}
     >
       <DialogTitle>Edit Personal Information</DialogTitle>
@@ -42,50 +39,113 @@ const EditProfileInfo: React.FC<EditProfileInfoProps> = ({
       <Divider />
 
       <DialogContent>
-        <Box mt={2} display="flex" flexWrap="wrap" gap={2}>
-          {/* First Name */}
-          <Box flex={{ xs: "1 1 100%", md: "1 1 calc(50% - 8px)" }}>
-            <Typography fontSize={12} color="text.secondary" mb={0.5}>
-              First Name
-            </Typography>
-            <TextField fullWidth size="small" defaultValue="Moni" sx={fieldStyle} />
-          </Box>
+        <Box mt={2}>
+          <Box
+            sx={{
+              display: "grid",
+              gridTemplateColumns: { xs: "1fr", md: "repeat(2, 1fr)" },
+              gap: 2,
+            }}
+          >
+            {/* First Name */}
+            <Box>
+              <Typography fontSize={12} color="text.secondary" mb={0.5}>
+                First Name
+              </Typography>
+              <TextField
+                fullWidth
+                size="small"
+                defaultValue="Moni"
+                sx={{
+                  "& .MuiOutlinedInput-root": {
+                    borderRadius: "10px",
+                  },
+                  "& .MuiInputBase-input": {
+                    color: "#667085",
+                  },
+                }}
+              />
+            </Box>
 
-          {/* Last Name */}
-          <Box flex={{ xs: "1 1 100%", md: "1 1 calc(50% - 8px)" }}>
-            <Typography fontSize={12} color="text.secondary" mb={0.5}>
-              Last Name
-            </Typography>
-            <TextField fullWidth size="small" defaultValue="Roy" sx={fieldStyle} />
-          </Box>
+            {/* Last Name */}
+            <Box>
+              <Typography fontSize={12} color="text.secondary" mb={0.5}>
+                Last Name
+              </Typography>
+              <TextField
+                fullWidth
+                size="small"
+                defaultValue="Roy"
+                sx={{
+                  "& .MuiOutlinedInput-root": {
+                    borderRadius: "10px",
+                  },
+                  "& .MuiInputBase-input": {
+                    color: "#667085",
+                  },
+                }}
+              />
+            </Box>
 
-          {/* Email */}
-          <Box flex={{ xs: "1 1 100%", md: "1 1 calc(50% - 8px)" }}>
-            <Typography fontSize={12} color="text.secondary" mb={0.5}>
-              Email Address
-            </Typography>
-            <TextField
-              fullWidth
-              size="small"
-              defaultValue="moniroy123@gmail.com"
-              sx={fieldStyle}
-            />
-          </Box>
+            {/* Email */}
+            <Box>
+              <Typography fontSize={12} color="text.secondary" mb={0.5}>
+                Email Address
+              </Typography>
+              <TextField
+                fullWidth
+                size="small"
+                defaultValue="moniroy123@gmail.com"
+                sx={{
+                  "& .MuiOutlinedInput-root": {
+                    borderRadius: "10px",
+                  },
+                  "& .MuiInputBase-input": {
+                    color: "#667085",
+                  },
+                }}
+              />
+            </Box>
 
-          {/* Phone */}
-          <Box flex={{ xs: "1 1 100%", md: "1 1 calc(50% - 8px)" }}>
-            <Typography fontSize={12} color="text.secondary" mb={0.5}>
-              Phone
-            </Typography>
-            <TextField fullWidth size="small" defaultValue="+0936339846" sx={fieldStyle} />
-          </Box>
+            {/* Phone */}
+            <Box>
+              <Typography fontSize={12} color="text.secondary" mb={0.5}>
+                Phone
+              </Typography>
+              <TextField
+                fullWidth
+                size="small"
+                defaultValue="+09 363 398 46"
+                sx={{
+                  "& .MuiOutlinedInput-root": {
+                    borderRadius: "10px",
+                  },
+                  "& .MuiInputBase-input": {
+                    color: "#667085",
+                  },
+                }}
+              />
+            </Box>
 
-          {/* Bio — full width */}
-          <Box flex="1 1 100%">
-            <Typography fontSize={12} color="text.secondary" mb={0.5}>
-              Bio
-            </Typography>
-            <TextField fullWidth size="small" defaultValue="Admin" sx={fieldStyle} />
+            {/* BIO — FULL WIDTH BELOW */}
+            <Box sx={{ gridColumn: { xs: "1", md: "1 / -1" } }}>
+              <Typography fontSize={12} color="text.secondary" mb={0.5}>
+                Bio
+              </Typography>
+              <TextField
+                fullWidth
+                size="small"
+                defaultValue="Admin"
+                sx={{
+                  "& .MuiOutlinedInput-root": {
+                    borderRadius: "10px",
+                  },
+                  "& .MuiInputBase-input": {
+                    color: "#667085",
+                  },
+                }}
+              />
+            </Box>
           </Box>
         </Box>
       </DialogContent>
@@ -95,9 +155,8 @@ const EditProfileInfo: React.FC<EditProfileInfoProps> = ({
       <DialogActions sx={{ px: 3, pb: 2 }}>
         <Button
           onClick={onClose}
-          variant="contained"
-          color="inherit"
-          sx={{ borderRadius: "10px", textTransform: "none", px: 3 }}
+          variant="outlined"
+          sx={{ color: "#979797", borderColor: "#979797", borderRadius: "10px", textTransform: "none", px: 3, "&:hover": { borderColor: "#979797" } }}
         >
           Close
         </Button>
@@ -105,7 +164,11 @@ const EditProfileInfo: React.FC<EditProfileInfoProps> = ({
         <Button
           onClick={onSave}
           variant="contained"
-          sx={{ borderRadius: "10px", textTransform: "none", px: 3 }}
+          sx={{
+            borderRadius: "10px",
+            textTransform: "none",
+            px: 3,
+          }}
         >
           Save Changes
         </Button>
