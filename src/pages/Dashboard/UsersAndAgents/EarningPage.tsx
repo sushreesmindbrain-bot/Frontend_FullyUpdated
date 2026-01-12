@@ -135,7 +135,7 @@ const EarningPage: React.FC<EarningPageProps> = ({
         </Button>
 
         <Button variant="contained" color="error" size="small" onClick={onSuspend} sx={{ minWidth: 100, py: 0.6,  
-         textTransform: "none",
+         textTransform: "none",  bgcolor: "#FF0000",
             }}>
           Suspend
         </Button>

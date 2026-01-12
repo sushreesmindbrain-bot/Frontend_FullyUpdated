@@ -75,7 +75,7 @@ const TeamViewPage: React.FC<Props> = ({
         <Typography sx={{ fontWeight: 600, mb: 1 }}>Team Structure</Typography>
 
         <Box sx={{ border: `2px solid ${BLUE}`, p: 2, borderRadius: "12px" }}>
-          <Paper sx={{ p: 2, mb: 2, background: "#f7f9ff" }}>
+          <Paper sx={{ p: 2, mb: 2, background: "#EFF6FF" }}>
             <Box sx={{ display: "flex", justifyContent: "space-between" }}>
               <Box>
                 <Typography fontWeight={600}>Left Leg</Typography>
@@ -90,7 +90,7 @@ const TeamViewPage: React.FC<Props> = ({
             </Box>
           </Paper>
 
-          <Paper sx={{ p: 2, background: "#f7f9ff" }}>
+          <Paper sx={{ p: 2, background: "#EFF6FF" }}>
             <Box sx={{ display: "flex", justifyContent: "space-between" }}>
               <Box>
                 <Typography fontWeight={600}>Right Leg</Typography>
@@ -125,6 +125,7 @@ const TeamViewPage: React.FC<Props> = ({
         <Button variant="contained" color="error"
         sx={{
                    textTransform: "none",
+                   bgcolor: "#FF0000",
                  }}
                  >
           Suspend
@@ -133,6 +134,7 @@ const TeamViewPage: React.FC<Props> = ({
         <Button variant="contained"
         sx={{
          textTransform: "none",
+          bgcolor: "#26619A",
           }}
         >Edit</Button>
       </Box>

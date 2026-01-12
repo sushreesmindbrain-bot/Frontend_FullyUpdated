@@ -136,9 +136,9 @@ const ReviewKyc: React.FC<ReviewKycProps> = ({
   sx={{
     textTransform: "none",
     width: 120,
-    backgroundColor: "#979797",
+    backgroundColor: "#A3AED0",
     color: "#fff",
-    "&:hover": { backgroundColor: "#979797" },
+    "&:hover": { backgroundColor: "#A3AED0" },
   }}
 >
   Cancel
@@ -149,7 +149,7 @@ const ReviewKyc: React.FC<ReviewKycProps> = ({
           variant="contained"
           color="error"
           onClick={() => onReject(reason)}
-          sx={{ width: 140 ,textTransform: "none",}}
+          sx={{ width: 140 ,textTransform: "none",backgroundColor: "#FF0000",}}
         >
           Reject KYC
         </Button>
@@ -161,7 +161,7 @@ const ReviewKyc: React.FC<ReviewKycProps> = ({
             textTransform: "none",
             width: 150,
             backgroundColor: "#26619A",
-            "&:hover": { backgroundColor: "#1f4f78" },
+            "&:hover": { backgroundColor: "#26619A" },
           }}
         >
           Approve KYC

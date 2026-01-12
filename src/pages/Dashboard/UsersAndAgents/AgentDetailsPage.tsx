@@ -123,29 +123,29 @@ const AgentDetailsPage: React.FC<Props> = ({
     {
       title: "Team Members",
       value: "45",
-      border: "#6a9eff",
-      titleColor: "#3f51b5",
+      border: "#3D42DF",
+      titleColor: "#3D42DF",
       bg: "#3D42DF",
     },
     {
       title: "Total BV",
       value: "12450",
-      border: "#b37bff",
-      titleColor: "#8e24aa",
+      border: "#9121E0",
+      titleColor: "#9121E0",
       bg: "#9121E0",
     },
     {
       title: "Total Earnings",
       value: "₹1,45,600",
-      border: "#6ac27b",
-      titleColor: "#388e3c",
+      border: "#70BF45",
+      titleColor: "#70BF45",
       bg: "#70BF45",
     },
     {
       title: "Current Month BV",
       value: "2340",
-      border: "#ffad7a",
-      titleColor: "#f57c00",
+      border: "#DC7751",
+      titleColor: "#DC7751",
       bg: "#DC7751",
     },
   ].map((s) => (
@@ -206,8 +206,8 @@ const AgentDetailsPage: React.FC<Props> = ({
                   sx={{
                     borderRadius: 2,
                     textTransform: "none",
-                    bgcolor: "#4caf50",
-                    "&:hover": { bgcolor: "#4caf50" },
+                    bgcolor: "#70BF45",
+                    "&:hover": { bgcolor: "#70BF45" },
                   }}
                 >
                   Upgrade
@@ -239,7 +239,7 @@ const AgentDetailsPage: React.FC<Props> = ({
 
               {/* Sponsor + Left Leg side-by-side */}
               <Box sx={{ display: "flex", gap: 2, justifyContent: "center" }}>
-                <Box sx={{ flex: 1, maxWidth: 320, p: 2, borderRadius: 2, background: "#ffffff", border: "1px solid #e0e0e0", textAlign: "center" }}>
+                <Box sx={{ flex: 1, maxWidth: 320, p: 2, borderRadius: 2, background: "#F9FAFB", border: "1px solid #e0e0e0", textAlign: "center" }}>
                   <Typography fontSize={12} color="text.secondary" mb={1}>
                     Sponsor
                   </Typography>
@@ -259,7 +259,7 @@ const AgentDetailsPage: React.FC<Props> = ({
                   </Box>
                 </Box>
 
-                <Box sx={{ flex: 1, maxWidth: 320, p: 2, borderRadius: 2, background: "#ffffff", border: "1px solid #e0e0e0", textAlign: "center" }}>
+                <Box sx={{ flex: 1, maxWidth: 320, p: 2, borderRadius: 2, background: "#F9FAFB", border: "1px solid #e0e0e0", textAlign: "center" }}>
                   <Typography fontSize={12} color="text.secondary" mb={1}>
                   
                     AGT-0023
@@ -321,8 +321,8 @@ const AgentDetailsPage: React.FC<Props> = ({
           Close
         </Button>
 
-        <Button variant="contained" color="error" sx={{ borderRadius: 2 , textTransform: "none",}}>
-          Suspend
+        <Button variant="contained" color="error" sx={{ borderRadius: 2 , textTransform: "none",bgcolor: "#FF0000"}}>
+           Suspend
         </Button>
 
         <Button

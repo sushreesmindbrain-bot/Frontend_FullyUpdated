@@ -115,9 +115,9 @@ const SuspendPage: React.FC<SuspendPageProps> = ({
           sx={{
             textTransform: "none",
             width: 120,
-            bgcolor: "#979797",
+            bgcolor: "#A3AED0",
             color: "#ffffff",
-            "&:hover": { bgcolor: "#979797" },
+            "&:hover": { bgcolor: "#A3AED0" },
           }}
           onClick={onCancel}
         >
@@ -129,6 +129,7 @@ const SuspendPage: React.FC<SuspendPageProps> = ({
           color="error"
           sx={{
             textTransform: "none",
+            bgcolor: "#FF0000" 
           }}
           onClick={() => onConfirm?.(reason, notes)}
         >

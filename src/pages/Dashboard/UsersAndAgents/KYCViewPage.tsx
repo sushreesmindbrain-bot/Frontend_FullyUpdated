@@ -124,10 +124,10 @@ const KYCViewPage: React.FC<Props> = ({
 
               <Button
                 variant="outlined"
-                startIcon={<VerifiedOutlinedIcon  sx={{ color: "#2ECC71" }} />}
+                startIcon={<VerifiedOutlinedIcon  sx={{ color: "#70BF45" }} />}
                 sx={{
-                  borderColor: "#2ECC71",
-                  color: "#2ECC71",
+                  borderColor: "#70BF45",
+                  color: "#70BF45",
                   fontWeight: 600,
                   borderRadius: "8px",
                   px: 2,
@@ -172,10 +172,10 @@ const KYCViewPage: React.FC<Props> = ({
 
               <Button
                 variant="outlined"
-                startIcon={<VerifiedOutlinedIcon sx={{ color: "#2ECC71" }} />}
+                startIcon={<VerifiedOutlinedIcon sx={{ color: "#70BF45" }} />}
                 sx={{
-                  borderColor: "#2ECC71",
-                  color: "#2ECC71",
+                  borderColor: "#70BF45",
+                  color: "#70BF45",
                   fontWeight: 600,
                   borderRadius: "8px",
                   px: 2,
@@ -231,6 +231,7 @@ const KYCViewPage: React.FC<Props> = ({
         <Button variant="contained" color="error"
          sx={{
             textTransform: "none",
+            bgcolor: "#FF0000"
           }}
         >
           Suspend
@@ -241,7 +242,7 @@ const KYCViewPage: React.FC<Props> = ({
           sx={{
             textTransform: "none",
             backgroundColor: BLUE,
-            "&:hover": { backgroundColor: "#1f4f78" },
+            "&:hover": { backgroundColor: "#26619A" },
           }}
         >
           Edit

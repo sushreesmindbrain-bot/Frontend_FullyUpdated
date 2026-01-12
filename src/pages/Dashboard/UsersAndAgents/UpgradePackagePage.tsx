@@ -349,7 +349,7 @@ const UpgradePackagePage: React.FC<UpgradePackagePageProps> = ({
       </Box>
 
       {/* SELECT PACKAGE */}
-      <Typography sx={{ fontWeight: 700, fontSize: "15px", mb: 1.5 }}>
+      <Typography sx={{ fontWeight: 700, fontSize: "15px", mb: 1.5 ,color:"#26619A"}}>
         Select Upgrade Package
       </Typography>
 
@@ -359,7 +359,7 @@ const UpgradePackagePage: React.FC<UpgradePackagePageProps> = ({
         <Paper
           onClick={() => setSelected("gold")}
           sx={{
-            border: selected === "gold" ? "2px solid #1976d2" : "1px solid #e4e7ec",
+            border: selected === "gold" ? "2px solid #26619A" : "1px solid #e4e7ec",
             borderRadius: "8px",
             overflow: "hidden",
             mb: 1.5,
@@ -368,7 +368,7 @@ const UpgradePackagePage: React.FC<UpgradePackagePageProps> = ({
         >
           <Box
             sx={{
-              background: "#1E569C",      
+              background: "#26619A",      
               color: "white",
               py: 1.2,
               px: 1.5,
