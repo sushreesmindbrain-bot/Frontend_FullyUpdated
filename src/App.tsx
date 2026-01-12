@@ -56,9 +56,6 @@ function App() {
           <Route path="/reports" element={<MainContainer />} />
           <Route path="/settings"element={<MainParent/>} />
           <Route path="/profile"element={<ProfilePage/>} />
-
-
-            
         </Route>
       </Routes>
     </BrowserRouter>

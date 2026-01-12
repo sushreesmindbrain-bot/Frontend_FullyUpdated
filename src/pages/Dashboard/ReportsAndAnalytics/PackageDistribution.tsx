@@ -4,15 +4,25 @@
 //   Typography,
 //   Paper,
 //   Button,
-//   Divider
+//   Divider,
 // } from "@mui/material";
 // import {
 //   PieChart,
 //   Pie,
-//   Cell
+//   Cell,
+//   ResponsiveContainer
 // } from "recharts";
+// import type { Page } from "./PageType";
 
-// /* ---------------- DATA ---------------- */
+// /* ---------- PROPS ---------- */
+// interface Props {
+//   onTabChange: (page: Page) => void;
+// }
+
+// /* ---------- CONSTANTS ---------- */
+// const BLUE = "#26619A";
+
+// /* ---------- DATA ---------- */
 // const pieData = [
 //   { name: "Silver", value: 85, color: "#7C7CF4" },
 //   { name: "Gold", value: 35, color: "#00C49F" },
@@ -29,38 +39,41 @@
 
 // const total = pieData.reduce((s, d) => s + d.value, 0);
 
-// interface Props {
-//   onTabChange: (tab: string) => void;
-// }
-
+// /* ---------- COMPONENT ---------- */
 // const PackageDistribution: React.FC<Props> = ({ onTabChange }) => {
 //   return (
 //     <Box sx={{ p: 3, backgroundColor: "#f7f9fc", minHeight: "100vh" }}>
+      
 //       {/* ================= TOP TABS ================= */}
 //       <Paper sx={{ p: 1.5, mb: 3 }}>
 //         <Box display="flex" gap={1}>
-//           <Button variant="text" onClick={() => onTabChange("salesBv")}>
-//             Sales & BV
-//           </Button>
-
-//           <Button variant="text" onClick={() => onTabChange("teamGrowth")}>
-//             Team Growth
-//           </Button>
-
-//           <Button
-//             variant="contained"
-//             sx={{ bgcolor: "#26619A", fontWeight: 600 }}
-//           >
-//             Package Distribution
-//           </Button>
-
-//           <Button variant="text" onClick={() => onTabChange("coinsCoupons")}>
-//             Coins & Coupons
-//           </Button>
-
-//           <Button variant="text" onClick={() => onTabChange("taxGst")}>
-//             Tax / GST
-//           </Button>
+//           {([
+//             { key: "salesBv", label: "Sales & BV" },
+//             { key: "teamGrowth", label: "Team Growth" },
+//             { key: "packageDistribution", label: "Package Distribution" },
+//             { key: "coinsCoupons", label: "Coins & Coupons" },
+//             { key: "taxGst", label: "Tax / GST" },
+//           ] as { key: Page; label: string }[]).map((tab) => (
+//             <Button
+//               key={tab.key}
+//               onClick={() => onTabChange(tab.key)}
+//               sx={{
+//                 textTransform: "none",
+//                 fontWeight: 500,
+//                 fontSize: 14,
+//                 px: 2.5,
+//                 minHeight: 36,
+//                 borderRadius: "8px",
+//                 color: tab.key === "packageDistribution" ? "#fff" : "#000",
+//                 bgcolor: tab.key === "packageDistribution" ? BLUE : "transparent",
+//                 "&:hover": {
+//                   bgcolor: tab.key === "packageDistribution" ? BLUE : "#f1f1f1",
+//                 },
+//               }}
+//             >
+//               {tab.label}
+//             </Button>
+//           ))}
 //         </Box>
 //       </Paper>
 
@@ -75,26 +88,26 @@
 //         {/* LEFT: PIE CHART */}
 //         <Box sx={{ flex: 1 }}>
 //           <Paper sx={{ p: 3, borderRadius: 3, height: 480 }}>
-//             <Typography fontSize={20} fontWeight={600} color="#1f5fae" mb={1}>
+//             <Typography fontSize={20} fontWeight={600} color={BLUE} mb={1}>
 //               Package Distribution
 //             </Typography>
 //             <Divider sx={{ mb: 3 }} />
-
-//             {/* ✅ FIXED SIZE PIE CHART */}
-//             <Box sx={{ display: "flex", justifyContent: "center" }}>
-//               <PieChart width={320} height={320}>
-//                 <Pie
-//                   data={pieData}
-//                   dataKey="value"
-//                   cx="50%"
-//                   cy="50%"
-//                   outerRadius={120}
-//                 >
-//                   {pieData.map((item, index) => (
-//                     <Cell key={index} fill={item.color} />
-//                   ))}
-//                 </Pie>
-//               </PieChart>
+//             <Box sx={{ width: "100%", height: 330 }}>
+//               <ResponsiveContainer>
+//                 <PieChart>
+//                   <Pie
+//                     data={pieData}
+//                     dataKey="value"
+//                     cx="50%"
+//                     cy="50%"
+//                     outerRadius={165}
+//                   >
+//                     {pieData.map((item, index) => (
+//                       <Cell key={index} fill={item.color} />
+//                     ))}
+//                   </Pie>
+//                 </PieChart>
+//               </ResponsiveContainer>
 //             </Box>
 
 //             {/* LEGEND */}
@@ -129,10 +142,10 @@
 //           </Paper>
 //         </Box>
 
-//         {/* RIGHT: STATISTICS */}
+//         {/* RIGHT: STATS */}
 //         <Box sx={{ flex: 1 }}>
 //           <Paper sx={{ p: 3, borderRadius: 3, height: 480 }}>
-//             <Typography fontSize={20} fontWeight={600} color="#1f5fae" mb={1}>
+//             <Typography fontSize={20} fontWeight={600} color={BLUE} mb={1}>
 //               Package Statistics
 //             </Typography>
 //             <Divider sx={{ mb: 4 }} />
@@ -160,15 +173,13 @@
 //                         backgroundColor: d.color
 //                       }}
 //                     />
-//                     <Typography fontSize={17} color="#1f5fae">
+//                     <Typography fontSize={17} color={BLUE}>
 //                       {d.name}
 //                     </Typography>
 //                   </Box>
 
 //                   <Box sx={{ display: "flex", alignItems: "center", gap: 3 }}>
-//                     <Typography fontSize={16}>
-//                       {d.value} agents
-//                     </Typography>
+//                     <Typography fontSize={16}>{d.value} agents</Typography>
 //                     <Typography fontSize={15} color="#7a8194">
 //                       {((d.value / total) * 100).toFixed(1)}%
 //                     </Typography>
@@ -184,9 +195,6 @@
 // };
 
 // export default PackageDistribution;
-
-
-
 
 import React from "react";
 import {
@@ -233,9 +241,19 @@ const total = pieData.reduce((s, d) => s + d.value, 0);
 const PackageDistribution: React.FC<Props> = ({ onTabChange }) => {
   return (
     <Box sx={{ p: 3, backgroundColor: "#f7f9fc", minHeight: "100vh" }}>
-      
+
       {/* ================= TOP TABS ================= */}
-      <Paper sx={{ p: 1.5, mb: 3 }}>
+      <Paper
+        sx={{
+          px: 1,
+          py: 1,
+          mt: 2,
+          mb: 3,
+          width: "fit-content",
+          display: "inline-flex",
+          borderRadius: "12px"
+        }}
+      >
         <Box display="flex" gap={1}>
           {([
             { key: "salesBv", label: "Sales & BV" },
@@ -385,4 +403,3 @@ const PackageDistribution: React.FC<Props> = ({ onTabChange }) => {
 };
 
 export default PackageDistribution;
-

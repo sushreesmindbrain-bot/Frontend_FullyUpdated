@@ -1,6 +1,193 @@
-// // File: TaxGst.tsx
+// // // File: TaxGst.tsx
 
-// import React from "react";
+// // import React from "react";
+// // import {
+// //   Box,
+// //   Typography,
+// //   Paper,
+// //   Button,
+// //   Select,
+// //   MenuItem,
+// //   Table,
+// //   TableBody,
+// //   TableCell,
+// //   TableContainer,
+// //   TableHead,
+// //   TableRow,
+// //   Pagination
+// // } from "@mui/material";
+// // import DownloadIcon from "@mui/icons-material/Download";
+// // import type { Page } from "./PageType";
+
+// // /* ---------- PROPS ---------- */
+// // interface Props {
+// //   onTabChange: (page: Page) => void;
+// // }
+
+// // /* ---------- SAME ARROW STYLE AS TEAM GROWTH ---------- */
+// // const SimpleArrows = ({ label }: { label: string }) => (
+// //   <Box sx={{ display: "flex", alignItems: "center", gap: 0.6 }}>
+// //     <Typography sx={{ fontWeight: 600 }}>{label}</Typography>
+// //     <Box sx={{ display: "flex", gap: 0.3 }}>
+// //       <Typography sx={{ color: "#fff", fontSize: "12px" }}>↑</Typography>
+// //       <Typography sx={{ color: "#fff", fontSize: "12px" }}>↓</Typography>
+// //     </Box>
+// //   </Box>
+// // );
+
+// // /* ---------- TABLE DATA ---------- */
+// // const rows = [
+// //   {
+// //     month: "June 2024",
+// //     sales: "₹12,45,890",
+// //     taxable: "₹10,58,007",
+// //     gst: "₹52,900",
+// //     tds: "₹12,289"
+// //   },
+// //   {
+// //     month: "July 2024",
+// //     sales: "₹11,23,450",
+// //     taxable: "₹9,54,932",
+// //     gst: "₹47,747",
+// //     tds: "₹11,090"
+// //   },
+// //   {
+// //     month: "August 2024",
+// //     sales: "₹10,87,650",
+// //     taxable: "₹9,24,502",
+// //     gst: "₹46,225",
+// //     tds: "₹10,725"
+// //   }
+// // ];
+
+// // const TaxGst: React.FC<Props> = ({ onTabChange }) => {
+// //   return (
+// //     <Box sx={{ p: 3, backgroundColor: "#f7f9fc", minHeight: "100vh" }}>
+// //       {/* ================= TOP TABS (GST STYLE) ================= */}
+// //       <Paper sx={{ p: 1.5, mb: 3 }}>
+// //         <Box display="flex" gap={1}>
+// //           <Button
+// //             variant="text"
+// //             sx={{ textTransform: "none", fontWeight: 500 }}
+// //             onClick={() => onTabChange("salesBv")}
+// //           >
+// //             Sales & BV
+// //           </Button>
+
+// //           <Button
+// //             variant="text"
+// //             sx={{ textTransform: "none", fontWeight: 500 }}
+// //             onClick={() => onTabChange("teamGrowth")}
+// //           >
+// //             Team Growth
+// //           </Button>
+
+// //           <Button
+// //             variant="text"
+// //             sx={{ textTransform: "none", fontWeight: 500 }}
+// //             onClick={() => onTabChange("packageDistribution")}
+// //           >
+// //             Package Distribution
+// //           </Button>
+
+// //           <Button
+// //             variant="text"
+// //             sx={{ textTransform: "none", fontWeight: 500 }}
+// //             onClick={() => onTabChange("coinsCoupons")}
+// //           >
+// //             Coins & Coupons
+// //           </Button>
+
+// //           <Button
+// //             variant="contained"
+// //             sx={{
+// //               bgcolor: "#26619A",
+// //               textTransform: "none",
+// //               fontWeight: 600
+// //             }}
+// //           >
+// //             Tax / GST
+// //           </Button>
+// //         </Box>
+// //       </Paper>
+
+// //       {/* ================= MAIN CARD ================= */}
+// //       <Paper sx={{ borderRadius: 2, p: 3 }}>
+// //         <Typography fontWeight={600} mb={2}>
+// //           Tax/GST Report
+// //         </Typography>
+
+// //         <Box sx={{ display: "flex", justifyContent: "space-between", mb: 2 }}>
+// //           <Select size="small" defaultValue="6">
+// //             <MenuItem value="6">Last 6 Months</MenuItem>
+// //             <MenuItem value="12">Last 12 Months</MenuItem>
+// //           </Select>
+
+// //           <Button
+// //             variant="contained"
+// //             startIcon={<DownloadIcon />}
+// //             sx={{ textTransform: "none" }}
+// //           >
+// //             Export
+// //           </Button>
+// //         </Box>
+
+// //         <TableContainer>
+// //           <Table>
+// //             <TableHead>
+// //               <TableRow sx={{ backgroundColor: "#245c91" }}>
+// //                 <TableCell sx={{ color: "#fff" }}>
+// //                   <SimpleArrows label="Month" />
+// //                 </TableCell>
+// //                 <TableCell sx={{ color: "#fff" }}>
+// //                   <SimpleArrows label="Total Sales" />
+// //                 </TableCell>
+// //                 <TableCell sx={{ color: "#fff" }}>
+// //                   <SimpleArrows label="Taxable Amount" />
+// //                 </TableCell>
+// //                 <TableCell sx={{ color: "#fff" }}>
+// //                   <SimpleArrows label="GST (5%)" />
+// //                 </TableCell>
+// //                 <TableCell sx={{ color: "#fff" }}>
+// //                   <SimpleArrows label="TDS (5%)" />
+// //                 </TableCell>
+// //                 <TableCell sx={{ color: "#fff", fontWeight: 600 }}>
+// //                   Actions
+// //                 </TableCell>
+// //               </TableRow>
+// //             </TableHead>
+
+// //             <TableBody>
+// //               {rows.map((r) => (
+// //                 <TableRow key={r.month}>
+// //                   <TableCell>{r.month}</TableCell>
+// //                   <TableCell>{r.sales}</TableCell>
+// //                   <TableCell>{r.taxable}</TableCell>
+// //                   <TableCell>{r.gst}</TableCell>
+// //                   <TableCell>{r.tds}</TableCell>
+// //                   <TableCell>
+// //                     <Button size="small" variant="contained">
+// //                       Export
+// //                     </Button>
+// //                   </TableCell>
+// //                 </TableRow>
+// //               ))}
+// //             </TableBody>
+// //           </Table>
+// //         </TableContainer>
+
+// //         <Box sx={{ display: "flex", justifyContent: "center", mt: 3 }}>
+// //           <Pagination count={10} shape="rounded" />
+// //         </Box>
+// //       </Paper>
+// //     </Box>
+// //   );
+// // };
+
+// // export default TaxGst;
+
+
+// import React, { useState } from "react";
 // import {
 //   Box,
 //   Typography,
@@ -14,7 +201,9 @@
 //   TableContainer,
 //   TableHead,
 //   TableRow,
-//   Pagination
+//   Pagination,
+//   PaginationItem,
+//   Divider
 // } from "@mui/material";
 // import DownloadIcon from "@mui/icons-material/Download";
 // import type { Page } from "./PageType";
@@ -24,10 +213,10 @@
 //   onTabChange: (page: Page) => void;
 // }
 
-// /* ---------- SAME ARROW STYLE AS TEAM GROWTH ---------- */
+// /* ---------- ARROWS ---------- */
 // const SimpleArrows = ({ label }: { label: string }) => (
 //   <Box sx={{ display: "flex", alignItems: "center", gap: 0.6 }}>
-//     <Typography sx={{ fontWeight: 600 }}>{label}</Typography>
+//     <Typography sx={{ fontWeight: 600, color: "#fff" }}>{label}</Typography>
 //     <Box sx={{ display: "flex", gap: 0.3 }}>
 //       <Typography sx={{ color: "#fff", fontSize: "12px" }}>↑</Typography>
 //       <Typography sx={{ color: "#fff", fontSize: "12px" }}>↓</Typography>
@@ -37,85 +226,61 @@
 
 // /* ---------- TABLE DATA ---------- */
 // const rows = [
-//   {
-//     month: "June 2024",
-//     sales: "₹12,45,890",
-//     taxable: "₹10,58,007",
-//     gst: "₹52,900",
-//     tds: "₹12,289"
-//   },
-//   {
-//     month: "July 2024",
-//     sales: "₹11,23,450",
-//     taxable: "₹9,54,932",
-//     gst: "₹47,747",
-//     tds: "₹11,090"
-//   },
-//   {
-//     month: "August 2024",
-//     sales: "₹10,87,650",
-//     taxable: "₹9,24,502",
-//     gst: "₹46,225",
-//     tds: "₹10,725"
-//   }
+//   { month: "June 2024", sales: "₹12,45,890", taxable: "₹10,58,007", gst: "₹52,900", tds: "₹12,289" },
+//   { month: "July 2024", sales: "₹11,23,450", taxable: "₹9,54,932", gst: "₹47,747", tds: "₹11,090" },
+//   { month: "August 2024", sales: "₹10,87,650", taxable: "₹9,24,502", gst: "₹46,225", tds: "₹10,725" }
 // ];
 
 // const TaxGst: React.FC<Props> = ({ onTabChange }) => {
+//   const [activeTab, setActiveTab] = useState<Page>("taxGst");
+//   const [page, setPage] = useState(1);
+
+//   const handleTabClick = (tab: Page) => {
+//     setActiveTab(tab);
+//     onTabChange(tab);
+//   };
+
 //   return (
 //     <Box sx={{ p: 3, backgroundColor: "#f7f9fc", minHeight: "100vh" }}>
-//       {/* ================= TOP TABS (GST STYLE) ================= */}
+//       {/* ================= TOP TABS ================= */}
 //       <Paper sx={{ p: 1.5, mb: 3 }}>
 //         <Box display="flex" gap={1}>
-//           <Button
-//             variant="text"
-//             sx={{ textTransform: "none", fontWeight: 500 }}
-//             onClick={() => onTabChange("salesBv")}
-//           >
-//             Sales & BV
-//           </Button>
-
-//           <Button
-//             variant="text"
-//             sx={{ textTransform: "none", fontWeight: 500 }}
-//             onClick={() => onTabChange("teamGrowth")}
-//           >
-//             Team Growth
-//           </Button>
-
-//           <Button
-//             variant="text"
-//             sx={{ textTransform: "none", fontWeight: 500 }}
-//             onClick={() => onTabChange("packageDistribution")}
-//           >
-//             Package Distribution
-//           </Button>
-
-//           <Button
-//             variant="text"
-//             sx={{ textTransform: "none", fontWeight: 500 }}
-//             onClick={() => onTabChange("coinsCoupons")}
-//           >
-//             Coins & Coupons
-//           </Button>
-
-//           <Button
-//             variant="contained"
-//             sx={{
-//               bgcolor: "#26619A",
-//               textTransform: "none",
-//               fontWeight: 600
-//             }}
-//           >
-//             Tax / GST
-//           </Button>
+//           {(["salesBv", "teamGrowth", "packageDistribution", "coinsCoupons", "taxGst"] as Page[]).map(tab => (
+//             <Button
+//               key={tab}
+//               onClick={() => handleTabClick(tab)}
+//               sx={{
+//                 textTransform: "none",
+//                 fontWeight: 500,
+//                 color: activeTab === tab ? "#fff" : "#000",
+//                 bgcolor: activeTab === tab ? "#26619A" : "transparent",
+//                 "&:hover": {
+//                   bgcolor: activeTab === tab ? "#26619A" : "transparent"
+//                 }
+//               }}
+//             >
+//               {tab === "salesBv"
+//                 ? "Sales & BV"
+//                 : tab === "teamGrowth"
+//                 ? "Team Growth"
+//                 : tab === "packageDistribution"
+//                 ? "Package Distribution"
+//                 : tab === "coinsCoupons"
+//                 ? "Coins & Coupons"
+//                 : "Tax / GST"}
+//             </Button>
+//           ))}
 //         </Box>
 //       </Paper>
 
 //       {/* ================= MAIN CARD ================= */}
 //       <Paper sx={{ borderRadius: 2, p: 3 }}>
-//         <Typography fontWeight={600} mb={2}>
+//         {/* Heading */}
+//         <Typography fontSize="20px" fontWeight={400} mb={1}>
 //           Tax/GST Report
 //         </Typography>
+
+//         <Divider sx={{ mb: 2, backgroundColor: "#DCDCDC" }} />
 
 //         <Box sx={{ display: "flex", justifyContent: "space-between", mb: 2 }}>
 //           <Select size="small" defaultValue="6">
@@ -126,7 +291,11 @@
 //           <Button
 //             variant="contained"
 //             startIcon={<DownloadIcon />}
-//             sx={{ textTransform: "none" }}
+//             sx={{
+//               textTransform: "none",
+//               bgcolor: "#26619A",
+//               "&:hover": { bgcolor: "#26619A" }
+//             }}
 //           >
 //             Export
 //           </Button>
@@ -135,30 +304,18 @@
 //         <TableContainer>
 //           <Table>
 //             <TableHead>
-//               <TableRow sx={{ backgroundColor: "#245c91" }}>
-//                 <TableCell sx={{ color: "#fff" }}>
-//                   <SimpleArrows label="Month" />
-//                 </TableCell>
-//                 <TableCell sx={{ color: "#fff" }}>
-//                   <SimpleArrows label="Total Sales" />
-//                 </TableCell>
-//                 <TableCell sx={{ color: "#fff" }}>
-//                   <SimpleArrows label="Taxable Amount" />
-//                 </TableCell>
-//                 <TableCell sx={{ color: "#fff" }}>
-//                   <SimpleArrows label="GST (5%)" />
-//                 </TableCell>
-//                 <TableCell sx={{ color: "#fff" }}>
-//                   <SimpleArrows label="TDS (5%)" />
-//                 </TableCell>
-//                 <TableCell sx={{ color: "#fff", fontWeight: 600 }}>
-//                   Actions
-//                 </TableCell>
+//               <TableRow sx={{ backgroundColor: "#26619A" }}>
+//                 <TableCell><SimpleArrows label="Month" /></TableCell>
+//                 <TableCell><SimpleArrows label="Total Sales" /></TableCell>
+//                 <TableCell><SimpleArrows label="Taxable Amount" /></TableCell>
+//                 <TableCell><SimpleArrows label="GST (5%)" /></TableCell>
+//                 <TableCell><SimpleArrows label="TDS (5%)" /></TableCell>
+//                 <TableCell sx={{ color: "#fff", fontWeight: 600 }}>Actions</TableCell>
 //               </TableRow>
 //             </TableHead>
 
 //             <TableBody>
-//               {rows.map((r) => (
+//               {rows.map(r => (
 //                 <TableRow key={r.month}>
 //                   <TableCell>{r.month}</TableCell>
 //                   <TableCell>{r.sales}</TableCell>
@@ -166,7 +323,16 @@
 //                   <TableCell>{r.gst}</TableCell>
 //                   <TableCell>{r.tds}</TableCell>
 //                   <TableCell>
-//                     <Button size="small" variant="contained">
+//                     <Button
+//                       size="small"
+//                       variant="contained"
+//                       startIcon={<DownloadIcon />}
+//                       sx={{
+//                         bgcolor: "#70BF45",
+//                         textTransform: "none",
+//                         "&:hover": { bgcolor: "#70BF45" }
+//                       }}
+//                     >
 //                       Export
 //                     </Button>
 //                   </TableCell>
@@ -176,8 +342,31 @@
 //           </Table>
 //         </TableContainer>
 
+//         {/* ================= PAGINATION ================= */}
 //         <Box sx={{ display: "flex", justifyContent: "center", mt: 3 }}>
-//           <Pagination count={10} shape="rounded" />
+//           <Pagination
+//             count={10}
+//             page={page}
+//             onChange={(_, v) => setPage(v)}
+//             renderItem={(item) => (
+//               <PaginationItem
+//                 {...item}
+//                 slots={{
+//                   previous: () => <span>&lt; Previous</span>,
+//                   next: () => <span>Next &gt;</span>
+//                 }}
+//                 sx={{
+//                   border: "1px solid #DCDCDC",
+//                   borderRadius: "6px",
+//                   color: "#000",
+//                   fontWeight: item.selected ? 600 : 400,
+//                   bgcolor: "transparent",
+//                   minWidth: 36,
+//                   mx: 0.5
+//                 }}
+//               />
+//             )}
+//           />
 //         </Box>
 //       </Paper>
 //     </Box>
@@ -242,8 +431,18 @@ const TaxGst: React.FC<Props> = ({ onTabChange }) => {
 
   return (
     <Box sx={{ p: 3, backgroundColor: "#f7f9fc", minHeight: "100vh" }}>
-      {/* ================= TOP TABS ================= */}
-      <Paper sx={{ p: 1.5, mb: 3 }}>
+
+      {/* ================= TOP TABS (PILL STYLE) ================= */}
+      <Paper
+        sx={{
+          px: 1,
+          py: 1,
+          mb: 3,
+          width: "fit-content",
+          display: "inline-flex",
+          borderRadius: "12px"
+        }}
+      >
         <Box display="flex" gap={1}>
           {(["salesBv", "teamGrowth", "packageDistribution", "coinsCoupons", "taxGst"] as Page[]).map(tab => (
             <Button
@@ -275,7 +474,6 @@ const TaxGst: React.FC<Props> = ({ onTabChange }) => {
 
       {/* ================= MAIN CARD ================= */}
       <Paper sx={{ borderRadius: 2, p: 3 }}>
-        {/* Heading */}
         <Typography fontSize="20px" fontWeight={400} mb={1}>
           Tax/GST Report
         </Typography>
@@ -291,11 +489,7 @@ const TaxGst: React.FC<Props> = ({ onTabChange }) => {
           <Button
             variant="contained"
             startIcon={<DownloadIcon />}
-            sx={{
-              textTransform: "none",
-              bgcolor: "#26619A",
-              "&:hover": { bgcolor: "#26619A" }
-            }}
+            sx={{ textTransform: "none", bgcolor: "#26619A" }}
           >
             Export
           </Button>
@@ -327,11 +521,7 @@ const TaxGst: React.FC<Props> = ({ onTabChange }) => {
                       size="small"
                       variant="contained"
                       startIcon={<DownloadIcon />}
-                      sx={{
-                        bgcolor: "#70BF45",
-                        textTransform: "none",
-                        "&:hover": { bgcolor: "#70BF45" }
-                      }}
+                      sx={{ bgcolor: "#70BF45", textTransform: "none" }}
                     >
                       Export
                     </Button>
@@ -351,18 +541,10 @@ const TaxGst: React.FC<Props> = ({ onTabChange }) => {
             renderItem={(item) => (
               <PaginationItem
                 {...item}
-                slots={{
-                  previous: () => <span>&lt; Previous</span>,
-                  next: () => <span>Next &gt;</span>
-                }}
                 sx={{
                   border: "1px solid #DCDCDC",
                   borderRadius: "6px",
-                  color: "#000",
-                  fontWeight: item.selected ? 600 : 400,
-                  bgcolor: "transparent",
-                  minWidth: 36,
-                  mx: 0.5
+                  fontWeight: item.selected ? 600 : 400
                 }}
               />
             )}
@@ -374,7 +556,5 @@ const TaxGst: React.FC<Props> = ({ onTabChange }) => {
 };
 
 export default TaxGst;
-
-
 
 

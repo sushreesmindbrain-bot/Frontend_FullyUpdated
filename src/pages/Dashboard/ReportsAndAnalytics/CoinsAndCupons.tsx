@@ -1,4 +1,4 @@
-// import React from "react";
+// import React, { useState } from "react";
 // import {
 //   Box,
 //   Paper,
@@ -17,13 +17,11 @@
 // import type { Page } from "./PageType";
 
 // /* ================= PROPS ================= */
-
 // interface Props {
 //   onTabChange: (page: Page) => void;
 // }
 
 // /* ================= DATA TYPES ================= */
-
 // interface ChartData {
 //   month: string;
 //   issued: number;
@@ -31,7 +29,6 @@
 // }
 
 // /* ================= DATA ================= */
-
 // const coinsData: ChartData[] = [
 //   { month: "Jan", issued: 12000, redeemed: 9000 },
 //   { month: "Feb", issued: 15000, redeemed: 11000 },
@@ -57,7 +54,6 @@
 // ];
 
 // /* ================= STYLES ================= */
-
 // const summaryCard = {
 //   height: 110,
 //   borderRadius: "12px",
@@ -77,34 +73,82 @@
 // };
 
 // /* ================= COMPONENT ================= */
-
 // const CoinsAndCoupons: React.FC<Props> = ({ onTabChange }) => {
+//   const [activeTab, setActiveTab] = useState<Page>("coinsCoupons");
+
+//   const handleTabClick = (tab: Page) => {
+//     setActiveTab(tab);
+//     onTabChange(tab);
+//   };
+
 //   return (
 //     <Box sx={{ width: "100%", minHeight: "100vh", backgroundColor: "#f6f8fc" }}>
 
 //       {/* ================= TOP TABS ================= */}
 //       <Paper sx={{ px: 2, py: 1.5, mx: 3, mt: 3, mb: 3 }}>
 //         <Box display="flex" gap={1}>
-//           <Button variant="text" onClick={() => onTabChange("salesBv")}>
+//           <Button
+//             onClick={() => handleTabClick("salesBv")}
+//             sx={{
+//               textTransform: "none",
+//               fontWeight: 500,
+//               color: activeTab === "salesBv" ? "#fff" : "#000",
+//               bgcolor: activeTab === "salesBv" ? "#26619A" : "transparent",
+//               "&:hover": { bgcolor: activeTab === "salesBv" ? "#26619A" : "transparent" }
+//             }}
+//           >
 //             Sales & BV
 //           </Button>
 
-//           <Button variant="text" onClick={() => onTabChange("teamGrowth")}>
+//           <Button
+//             onClick={() => handleTabClick("teamGrowth")}
+//             sx={{
+//               textTransform: "none",
+//               fontWeight: 500,
+//               color: activeTab === "teamGrowth" ? "#fff" : "#000",
+//               bgcolor: activeTab === "teamGrowth" ? "#26619A" : "transparent",
+//               "&:hover": { bgcolor: activeTab === "teamGrowth" ? "#26619A" : "transparent" }
+//             }}
+//           >
 //             Team Growth
 //           </Button>
 
-//           <Button variant="text" onClick={() => onTabChange("packageDistribution")}>
+//           <Button
+//             onClick={() => handleTabClick("packageDistribution")}
+//             sx={{
+//               textTransform: "none",
+//               fontWeight: 500,
+//               color: activeTab === "packageDistribution" ? "#fff" : "#000",
+//               bgcolor: activeTab === "packageDistribution" ? "#26619A" : "transparent",
+//               "&:hover": { bgcolor: activeTab === "packageDistribution" ? "#26619A" : "transparent" }
+//             }}
+//           >
 //             Package Distribution
 //           </Button>
 
 //           <Button
-//             variant="contained"
-//             sx={{ bgcolor: "#26619A", fontWeight: 600 }}
+//             onClick={() => handleTabClick("coinsCoupons")}
+//             sx={{
+//               textTransform: "none",
+//               fontWeight: 500,
+//               color: activeTab === "coinsCoupons" ? "#fff" : "#000",
+//               bgcolor: activeTab === "coinsCoupons" ? "#26619A" : "transparent",
+//               "&:hover": { bgcolor: activeTab === "coinsCoupons" ? "#26619A" : "transparent" }
+//             }}
 //           >
 //             Coins & Coupons
 //           </Button>
 
-//           <Button variant="text" onClick={() => onTabChange("taxGst")}>
+//           <Button
+//             onClick={() => handleTabClick("taxGst")}
+//             sx={{
+//               textTransform: "none",
+//               fontWeight: 500,
+//               color: activeTab === "taxGst" ? "#fff" : "#000",
+//               bgcolor: activeTab === "taxGst" ? "#26619A" : "transparent",
+//               "&:hover": { bgcolor: activeTab === "taxGst" ? "#26619A" : "transparent" }
+//             }}
+//           >
 //             Tax / GST
 //           </Button>
 //         </Box>
@@ -164,7 +208,6 @@
 // export default CoinsAndCoupons;
 
 // /* ================= HELPERS ================= */
-
 // const ChartHeader = ({ title }: { title: string }) => (
 //   <Box sx={{ display: "flex", justifyContent: "space-between", mb: 2 }}>
 //     <Typography fontWeight={600}>{title}</Typography>
@@ -192,7 +235,7 @@
 // );
 
 
-import React, { useState } from "react";
+ import React, { useState } from "react";
 import {
   Box,
   Paper,
@@ -279,72 +322,43 @@ const CoinsAndCoupons: React.FC<Props> = ({ onTabChange }) => {
     <Box sx={{ width: "100%", minHeight: "100vh", backgroundColor: "#f6f8fc" }}>
 
       {/* ================= TOP TABS ================= */}
-      <Paper sx={{ px: 2, py: 1.5, mx: 3, mt: 3, mb: 3 }}>
+      <Paper
+        sx={{
+          px: 1,
+          py: 1,
+          mt: 3,
+          mb: 3,
+          ml: 3,
+          width: "fit-content",
+          display: "inline-flex",
+          borderRadius: "12px"
+        }}
+      >
         <Box display="flex" gap={1}>
-          <Button
-            onClick={() => handleTabClick("salesBv")}
-            sx={{
-              textTransform: "none",
-              fontWeight: 500,
-              color: activeTab === "salesBv" ? "#fff" : "#000",
-              bgcolor: activeTab === "salesBv" ? "#26619A" : "transparent",
-              "&:hover": { bgcolor: activeTab === "salesBv" ? "#26619A" : "transparent" }
-            }}
-          >
-            Sales & BV
-          </Button>
-
-          <Button
-            onClick={() => handleTabClick("teamGrowth")}
-            sx={{
-              textTransform: "none",
-              fontWeight: 500,
-              color: activeTab === "teamGrowth" ? "#fff" : "#000",
-              bgcolor: activeTab === "teamGrowth" ? "#26619A" : "transparent",
-              "&:hover": { bgcolor: activeTab === "teamGrowth" ? "#26619A" : "transparent" }
-            }}
-          >
-            Team Growth
-          </Button>
-
-          <Button
-            onClick={() => handleTabClick("packageDistribution")}
-            sx={{
-              textTransform: "none",
-              fontWeight: 500,
-              color: activeTab === "packageDistribution" ? "#fff" : "#000",
-              bgcolor: activeTab === "packageDistribution" ? "#26619A" : "transparent",
-              "&:hover": { bgcolor: activeTab === "packageDistribution" ? "#26619A" : "transparent" }
-            }}
-          >
-            Package Distribution
-          </Button>
-
-          <Button
-            onClick={() => handleTabClick("coinsCoupons")}
-            sx={{
-              textTransform: "none",
-              fontWeight: 500,
-              color: activeTab === "coinsCoupons" ? "#fff" : "#000",
-              bgcolor: activeTab === "coinsCoupons" ? "#26619A" : "transparent",
-              "&:hover": { bgcolor: activeTab === "coinsCoupons" ? "#26619A" : "transparent" }
-            }}
-          >
-            Coins & Coupons
-          </Button>
-
-          <Button
-            onClick={() => handleTabClick("taxGst")}
-            sx={{
-              textTransform: "none",
-              fontWeight: 500,
-              color: activeTab === "taxGst" ? "#fff" : "#000",
-              bgcolor: activeTab === "taxGst" ? "#26619A" : "transparent",
-              "&:hover": { bgcolor: activeTab === "taxGst" ? "#26619A" : "transparent" }
-            }}
-          >
-            Tax / GST
-          </Button>
+          {[
+            { key: "salesBv", label: "Sales & BV" },
+            { key: "teamGrowth", label: "Team Growth" },
+            { key: "packageDistribution", label: "Package Distribution" },
+            { key: "coinsCoupons", label: "Coins & Coupons" },
+            { key: "taxGst", label: "Tax / GST" }
+          ].map((tab) => (
+            <Button
+              key={tab.key}
+              onClick={() => handleTabClick(tab.key as Page)}
+              sx={{
+                textTransform: "none",
+                fontWeight: 500,
+                color: activeTab === tab.key ? "#fff" : "#000",
+                bgcolor: activeTab === tab.key ? "#26619A" : "transparent",
+                borderRadius: "8px",
+                "&:hover": {
+                  bgcolor: activeTab === tab.key ? "#26619A" : "#f1f1f1"
+                }
+              }}
+            >
+              {tab.label}
+            </Button>
+          ))}
         </Box>
       </Paper>
 
@@ -413,12 +427,7 @@ const ChartHeader = ({ title }: { title: string }) => (
 
 const BarGraph = ({ data }: { data: ChartData[] }) => (
   <Box sx={{ width: "100%", overflowX: "auto" }}>
-    <BarChart
-      width={900}
-      height={260}
-      data={data}
-      barGap={6}
-    >
+    <BarChart width={900} height={260} data={data} barGap={6}>
       <XAxis dataKey="month" tick={{ fontSize: 12 }} />
       <YAxis tick={{ fontSize: 12 }} />
       <Tooltip />
